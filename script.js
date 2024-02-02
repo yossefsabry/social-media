@@ -32,20 +32,15 @@ axios
                 </div>
                 <div class="card-body">
                     <img src=${item.image} alt="image post"
-                        style="width: 100%;height: 500px;padding-bottom: 3px;">
+                    style="width: 100%;height: 500px;padding-bottom: 3px;">
                     <h6 style="color: #777;">${item.created_at}</h6>
                     <h4>${title}</h4>
                     <p>${item.body}</p>
                     <hr />
                     <div class="d-flex gap-3 justify-content-start align-items-center">
-                        <a href="#">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pen-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
-                                </svg>
-                            </span>
+                        <a href="#"> <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16"> <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                        </svg> </span>
                             (${item.comments_count})Commits
                         </a>
                         <span style="display: flex; gap: 5px;" class="category">
@@ -54,7 +49,7 @@ axios
                     </div>
                 </div>
             </div>
-            `;
+`;
         });
     })
     .catch((error) => {
@@ -86,11 +81,11 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
                 JSON.stringify(response.data.user)
             );
             // createAlertLogin();
-            alert("login sucess");
+            createAlertLogin( "Login successful! Welcome back!" , "success");
             setupUi();
         })
         .catch((e) => {
-            alert("error happend ", e);
+            createAlertLogin( `error happend: ${e}` , "danger");
         });
 });
 
@@ -101,7 +96,7 @@ document.getElementById("logout-button").addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setupUi();
-    alert("logout sucess");
+    createAlertLogin( "Logout successful! Goodbye, and have a great day!" , "info");
 });
 
 /**
@@ -111,11 +106,26 @@ const setLocalStorageInfo = (token, user) => {
     localStorage.setItem("token", token);
     localStorage.setItem("user", user);
 };
+
+/**
+ * Create user component to add the info to nav for login
+ * @param {Object} user - The user object containing information like name and image_profile.
+ */
+const createUserLoginInfoNavBar = (user) => {
+    const infoUserNav = `
+        <img src="${user.image_profile}" alt="avatar" />
+        <strong>${user.name}</strong>
+    `;
+    // Assuming you have an HTML element with the id "info-user-nav"
+    document.querySelector(".info-user-nav").innerHTML = infoUserNav;
+};
+
 /**
  * for set the nav bar buttons
  */
 const setupUi = () => {
     const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
     const login = document.getElementById("login-wrapper");
     const logout = document.getElementById("logout-wrapper");
 
@@ -123,11 +133,13 @@ const setupUi = () => {
         login.style.cssText = "display:flex !important";
         logout.style.cssText = "display:none !important";
     } else {
+        createUserLoginInfoNavBar(user); 
         login.style.cssText = "display:none !important";
         logout.style.cssText = "display:flex !important";
     }
 };
 setupUi();
+
 
 /**
  * handle register
@@ -148,39 +160,36 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
         .post(`${url}/register`, data)
         .then((response) => {
             console.log(response);
-            alert("sucess register");
+            createAlertLogin("Registration successful! Welcome to our platform.", "info");
+            createAlertLogin("you are loged in now ...", "success");
 
             const modal = document.getElementById("register-modal");
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
-            setLocalStorageInfo(
-                response.data.token,
-                JSON.stringify(response.data.user)
-            );
+            setLocalStorageInfo( response.data.token, JSON.stringify(response.data.user));
             setupUi();
         })
         .catch((e) => {
-            alert("error: " + e.response.data.message);
+            // old ecma script
+            createAlertLogin("error: " + (e.response?.data?.message || "An unknown error occurred"), "danger");
             console.log(e);
         });
 });
 
-// const createAlertLogin = () => {
-//     const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-//     const appendAlert = (message, type) => {
-//         const wrapper = document.createElement("div");
-//         wrapper.innerHTML = [
-//             `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-//             `   <div>${message}</div>`,
-//             "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
-//             "</div>"
-//         ].join("");
-//         alertPlaceholder.append(wrapper);
-//     };
-//     const alertTrigger = document.getElementById("liveAlertBtn");
-//     if (alertTrigger) {
-//         alertTrigger.addEventListener("click", () => {
-//             appendAlert("Nice, you triggered this alert message!", "success");
-//         });
-//     }
-// };
+// todo: alert fix hidden
+const createAlertLogin = (message, type) => {
+    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+    const appendAlert = (message, type) => {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+            "</div>",
+        ].join("");
+
+        // console.log(alertPlaceholder);
+        alertPlaceholder.append(wrapper);
+    };
+    appendAlert(message, type);
+};
