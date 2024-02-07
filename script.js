@@ -4,27 +4,29 @@ let postArray = [];
 /**
  * request for the api for data posts
  */
-axios
+getRequest();
+function getRequest() {
+  axios
     .get(`${url}/posts`)
     .then((response) => {
-        postArray = response.data.data;
+      postArray = response.data.data;
     })
     .then(() => {
-        let posts = document.querySelector(".posts");
-        postArray.map((item) => {
-            // console.log(item);
-            // loop for the tags for every post
-            const tags = item.tags.map((tg) => {
-                return `<div> ${tg}</div>`;
-            });
-            let title = "";
-            // check if the title is null then  remove the title else add the title
-            if (item.title == null) {
-                title = "";
-            } else {
-                title = item.title;
-            }
-            posts.innerHTML += `
+      let posts = document.querySelector(".posts");
+      postArray.map((item) => {
+        // console.log(item);
+        // loop for the tags for every post
+        const tags = item.tags.map((tg) => {
+          return `<div> ${tg}</div>`;
+        });
+        let title = "";
+        // check if the title is null then  remove the title else add the title
+        if (item.title == null) {
+          title = "";
+        } else {
+          title = item.title;
+        }
+        posts.innerHTML += `
             <div class="card">
                 <div class="card-header">
                     <img src=${item.author.profile_image} alt="profile image user" style="width: 40px; border-radius: 100%">
@@ -50,61 +52,62 @@ axios
                 </div>
             </div>
 `;
-        });
+      });
     })
     .catch((error) => {
-        console.log("error happend", error);
+      console.log("error happend", error);
     })
     .finally(() => {
-        console.log("request finsh...");
+      console.log("request finsh...");
     });
+}
 
 /**
  * for loginBtn handler and send the data
  */
 document.querySelector("#LoginBtn").addEventListener("click", () => {
-    let username = document.querySelector("#username-input-login").value;
-    let password = document.querySelector("#password-input-login").value;
-    let data = {
-        username: username,
-        password: password,
-    };
-    axios
-        .post(`${url}/login`, data)
-        .then((response) => {
-            // hide modal
-            const modal = document.getElementById("login-modal");
-            const modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.hide();
-            setLocalStorageInfo(
-                response.data.token,
-                JSON.stringify(response.data.user)
-            );
-            // createAlertLogin();
-            createAlertLogin( "Login successful! Welcome back!" , "success");
-            setupUi();
-        })
-        .catch((e) => {
-            createAlertLogin( `error happend: ${e}` , "danger");
-        });
+  let username = document.querySelector("#username-input-login").value;
+  let password = document.querySelector("#password-input-login").value;
+  let data = {
+    username: username,
+    password: password,
+  };
+  axios
+    .post(`${url}/login`, data)
+    .then((response) => {
+      // hide modal
+      const modal = document.getElementById("login-modal");
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      setLocalStorageInfo(
+        response.data.token,
+        JSON.stringify(response.data.user)
+      );
+      // createAlertLogin();
+      createAlertLogin("Login successful! Welcome back!", "success");
+      setupUi();
+    })
+    .catch((e) => {
+      createAlertLogin(`error happend: ${e}`, "danger");
+    });
 });
 
 /**
  * handle the logout
  */
 document.getElementById("logout-button").addEventListener("click", () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setupUi();
-    createAlertLogin( "Logout successful! Goodbye, and have a great day!" , "info");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  setupUi();
+  createAlertLogin("Logout successful! Goodbye, and have a great day!", "info");
 });
 
 /**
  * this function for localStorage set the data
  */
 const setLocalStorageInfo = (token, user) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", user);
+  localStorage.setItem("token", token);
+  localStorage.setItem("user", user);
 };
 
 /**
@@ -112,84 +115,100 @@ const setLocalStorageInfo = (token, user) => {
  * @param {Object} user - The user object containing information like name and image_profile.
  */
 const createUserLoginInfoNavBar = (user) => {
-    const infoUserNav = `
+  const infoUserNav = `
         <img src="${user.image_profile}" alt="avatar" />
         <strong>${user.name}</strong>
     `;
-    // Assuming you have an HTML element with the id "info-user-nav"
+
+  const userInfo = `
+        <img src="images/user.webp" alt="avatar" />
+        <strong>${user.name}</strong>
+    `;
+
+  // Assuming you have an HTML element with the id "info-user-nav"
+  if (user.image_profile != null) {
     document.querySelector(".info-user-nav").innerHTML = infoUserNav;
+  } else {
+    document.querySelector(".info-user-nav").innerHTML = userInfo;
+  }
 };
 
 /**
  * for set the nav bar buttons
  */
 const setupUi = () => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    const login = document.getElementById("login-wrapper");
-    const logout = document.getElementById("logout-wrapper");
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  const login = document.getElementById("login-wrapper");
+  const logout = document.getElementById("logout-wrapper");
 
-    if (token == null) {
-        login.style.cssText = "display:flex !important";
-        logout.style.cssText = "display:none !important";
-    } else {
-        createUserLoginInfoNavBar(user); 
-        login.style.cssText = "display:none !important";
-        logout.style.cssText = "display:flex !important";
-    }
+  if (token == null) {
+    login.style.cssText = "display:flex !important";
+    logout.style.cssText = "display:none !important";
+  } else {
+    createUserLoginInfoNavBar(user);
+    login.style.cssText = "display:none !important";
+    logout.style.cssText = "display:flex !important";
+  }
 };
 setupUi();
-
 
 /**
  * handle register
  */
 document.getElementById("RegisterBtn").addEventListener("click", () => {
-    console.log("------- register ----------");
-    const user = document.getElementById("user-register").value;
-    const username = document.getElementById("username-register").value;
-    const email = document.getElementById("email-register").value;
-    const password = document.getElementById("password-register").value;
-    const data = {
-        name: user,
-        username: username,
-        email: email,
-        password: password,
-    };
-    axios
-        .post(`${url}/register`, data)
-        .then((response) => {
-            console.log(response);
-            createAlertLogin("Registration successful! Welcome to our platform.", "info");
-            createAlertLogin("you are loged in now ...", "success");
+  console.log("------- register ----------");
+  const user = document.getElementById("user-register").value;
+  const username = document.getElementById("username-register").value;
+  const email = document.getElementById("email-register").value;
+  const password = document.getElementById("password-register").value;
+  const data = {
+    name: user,
+    username: username,
+    email: email,
+    password: password,
+  };
+  axios
+    .post(`${url}/register`, data)
+    .then((response) => {
+      console.log(response);
+      createAlertLogin(
+        "Registration successful! Welcome to our platform.",
+        "info"
+      );
+      createAlertLogin("you are loged in now ...", "success");
 
-            const modal = document.getElementById("register-modal");
-            const modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.hide();
-            setLocalStorageInfo( response.data.token, JSON.stringify(response.data.user));
-            setupUi();
-        })
-        .catch((e) => {
-            // old ecma script
-            createAlertLogin("error: " + (e.response?.data?.message || "An unknown error occurred"), "danger");
-            console.log(e);
-        });
+      const modal = document.getElementById("register-modal");
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      setLocalStorageInfo(
+        response.data.token,
+        JSON.stringify(response.data.user)
+      );
+      setupUi();
+    })
+    .catch((e) => {
+      // old ecma script
+      createAlertLogin(
+        "error: " + (e.response?.data?.message || "An unknown error occurred"), "danger",);
+      console.log(e);
+    });
 });
 
 // todo: alert fix hidden
 const createAlertLogin = (message, type) => {
-    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-    const appendAlert = (message, type) => {
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
-            "</div>",
-        ].join("");
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+      "</div>",
+    ].join("");
 
-        // console.log(alertPlaceholder);
-        alertPlaceholder.append(wrapper);
-    };
-    appendAlert(message, type);
+    // console.log(alertPlaceholder);
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert(message, type);
 };
