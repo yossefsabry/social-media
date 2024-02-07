@@ -1,33 +1,36 @@
 // global veribal ....
 const url = "https://tarmeezacademy.com/api/v1";
 let postArray = [];
+let currentPage = 1;
+let lastPage;
 
 /**
  * request for the api for data posts
  */
-getRequest();
-function getRequest() {
-  axios
-    .get(`${url}/posts`)
-    .then((response) => {
-      postArray = response.data.data;
-    })
-    .then(() => {
-      let posts = document.querySelector(".posts");
-      postArray.map((item) => {
-        // console.log(item);
-        // loop for the tags for every post
-        const tags = item.tags.map((tg) => {
-          return `<div> ${tg}</div>`;
-        });
-        let title = "";
-        // check if the title is null then  remove the title else add the title
-        if (item.title == null) {
-          title = "";
-        } else {
-          title = item.title;
-        }
-        posts.innerHTML += `
+getRequest(currentPage);
+async function getRequest(current) {
+	const response = await axios.get(`${url}/posts?limit=5&page=${current}`)
+		.then((response) => {
+			postArray = response.data.data;
+			// console.log(response);
+			lastPage = response.data.meta.last_page;
+		})
+		.then(() => {
+			let posts = document.querySelector(".posts");
+			postArray.map((item) => {
+				// console.log(item);
+				// loop for the tags for every post
+				const tags = item.tags.map((tg) => {
+					return `<div> ${tg}</div>`;
+				});
+				let title = "";
+				// check if the title is null then  remove the title else add the title
+				if (item.title == null) {
+					title = "";
+				} else {
+					title = item.title;
+				}
+				posts.innerHTML += `
             <div class="card">
                 <div class="card-header">
                     <img src=${item.author.profile_image} alt="profile image user" style="width: 40px; border-radius: 100%">
@@ -53,60 +56,77 @@ function getRequest() {
                 </div>
             </div>
 `;
-      });
-    })
-    .catch((error) => {
-      console.log("error happend", error);
-    })
-    .finally(() => {
-      console.log("request finsh...");
-    });
+			});
+		})
+		.catch((error) => {
+			console.log("error happend", error);
+		})
+		.finally(() => {
+			console.log("request finsh...");
+		});
+  return response;
 }
+
+/**
+ * adding pagintion for the website
+ */
+//  fix
+let isFetching = false;
+window.addEventListener("scroll", async() => {
+	if ( !isFetching && window.pageYOffset + 3000 >= document.body.offsetHeight && currentPage < lastPage) {
+		isFetching = true; // Set flag to true when a request is initiated
+		currentPage = currentPage + 1;
+		await getRequest(currentPage);
+		isFetching = false;
+	}
+});
 
 /**
  * for loginBtn handler and send the data
  */
 document.querySelector("#LoginBtn").addEventListener("click", () => {
-  let username = document.querySelector("#username-input-login").value;
-  let password = document.querySelector("#password-input-login").value;
-  let data = {
-    username: username,
-    password: password,
-  };
-  axios
-    .post(`${url}/login`, data)
-    .then((response) => {
-      // hide modal
-      const modal = document.getElementById("login-modal");
-      const modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      setLocalStorageInfo(
-        response.data.token, JSON.stringify(response.data.user));
-      // createAlert();
-      createAlert("Login successful! Welcome back!", "success");
-      setupUi();
-    })
-    .catch((e) => {
-      createAlert(`error happend: ${e}`, "danger");
-    });
+	let username = document.querySelector("#username-input-login").value;
+	let password = document.querySelector("#password-input-login").value;
+	let data = {
+		username: username,
+		password: password,
+	};
+	axios
+		.post(`${url}/login`, data)
+		.then((response) => {
+			// hide modal
+			const modal = document.getElementById("login-modal");
+			const modalInstance = bootstrap.Modal.getInstance(modal);
+			modalInstance.hide();
+			setLocalStorageInfo(
+				response.data.token,
+				JSON.stringify(response.data.user),
+			);
+			// createAlert();
+			createAlert("Login successful! Welcome back!", "success");
+			setupUi();
+		})
+		.catch((e) => {
+			createAlert(`error happend: ${e}`, "danger");
+		});
 });
 
 /**
  * handle the logout
  */
 document.getElementById("logout-button").addEventListener("click", () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  setupUi();
-  createAlert("Logout successful! Goodbye, and have a great day!", "info");
+	localStorage.removeItem("token");
+	localStorage.removeItem("user");
+	setupUi();
+	createAlert("Logout successful! Goodbye, and have a great day!", "info");
 });
 
 /**
  * this function for localStorage set the data
  */
 const setLocalStorageInfo = (token, user) => {
-  localStorage.setItem("token", token);
-  localStorage.setItem("user", user);
+	localStorage.setItem("token", token);
+	localStorage.setItem("user", user);
 };
 
 /**
@@ -114,44 +134,44 @@ const setLocalStorageInfo = (token, user) => {
  * @param {Object} user - The user object containing information like name and image_profile.
  */
 const createUserLoginInfoNavBar = (user) => {
-  const infoUserNav = `
+	const infoUserNav = `
         <img src=${user.profile_image} alt="avatar" />
         <strong>${user.name}</strong>
     `;
 
-  const userInfo = `
+	const userInfo = `
         <img src="images/user.webp" alt="avatar" />
         <strong>${user.name}</strong>
     `;
 
-  // Assuming you have an HTML element with the id "info-user-nav"
-  if (typeof user.profile_image == "string") {
-    document.querySelector(".info-user-nav").innerHTML = infoUserNav;
-  } else {
-    document.querySelector(".info-user-nav").innerHTML = userInfo;
-  }
+	// Assuming you have an HTML element with the id "info-user-nav"
+	if (typeof user.profile_image == "string") {
+		document.querySelector(".info-user-nav").innerHTML = infoUserNav;
+	} else {
+		document.querySelector(".info-user-nav").innerHTML = userInfo;
+	}
 };
 
 /**
  * for setup the ui fo the website
  */
 const setupUi = () => {
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
-  const login = document.getElementById("login-wrapper");
-  const logout = document.getElementById("logout-wrapper");
-  const icon = document.getElementById("icon__adding");
+	const token = localStorage.getItem("token");
+	const user = JSON.parse(localStorage.getItem("user"));
+	const login = document.getElementById("login-wrapper");
+	const logout = document.getElementById("logout-wrapper");
+	const icon = document.getElementById("icon__adding");
 
-  if (token == null) {
-    login.style.cssText = "display:flex !important";
-    logout.style.cssText = "display:none !important";
-    icon.style.cssText = "display: none !important";
-  } else {
-    createUserLoginInfoNavBar(user);
-    login.style.cssText = "display:none !important";
-    logout.style.cssText = "display:flex !important";
-    icon.style.cssText = "display: block !important";
-  }
+	if (token == null) {
+		login.style.cssText = "display:flex !important";
+		logout.style.cssText = "display:none !important";
+		icon.style.cssText = "display: none !important";
+	} else {
+		createUserLoginInfoNavBar(user);
+		login.style.cssText = "display:none !important";
+		logout.style.cssText = "display:flex !important";
+		icon.style.cssText = "display: block !important";
+	}
 };
 setupUi();
 
@@ -159,98 +179,99 @@ setupUi();
  * handle register
  */
 document.getElementById("RegisterBtn").addEventListener("click", () => {
-  console.log("------- register ----------");
-  const user = document.getElementById("user-register").value;
-  const username = document.getElementById("username-register").value;
-  const email = document.getElementById("email-register").value;
-  const password = document.getElementById("password-register").value;
-  const image = document.getElementById("image-register").files[0];
+	console.log("------- register ----------");
+	const user = document.getElementById("user-register").value;
+	const username = document.getElementById("username-register").value;
+	const email = document.getElementById("email-register").value;
+	const password = document.getElementById("password-register").value;
+	const image = document.getElementById("image-register").files[0];
 
-  const dataForm = new FormData();
-  dataForm.append("name", user);
-  dataForm.append("username", username);
-  dataForm.append("email", email);
-  dataForm.append("password", password);
-  dataForm.append("image" , image);
+	const dataForm = new FormData();
+	dataForm.append("name", user);
+	dataForm.append("username", username);
+	dataForm.append("email", email);
+	dataForm.append("password", password);
+	dataForm.append("image", image);
 
-  // old way for post the data in register 
-  // const data = {
-  //   name: user,
-  //   username: username,
-  //   email: email,
-  //   password: password,
-  // };
+	// old way for post the data in register
+	// const data = {
+	//   name: user,
+	//   username: username,
+	//   email: email,
+	//   password: password,
+	// };
 
-  axios
-    .post(`${url}/register`, dataForm)
-    .then((response) => {
-      console.log(response);
-      createAlert( "Registration successful! Welcome to our platform.", "info");
-      createAlert("you are loged in now ...", "success");
+	axios
+		.post(`${url}/register`, dataForm)
+		.then((response) => {
+			console.log(response);
+			createAlert("Registration successful! Welcome to our platform.", "info");
+			createAlert("you are loged in now ...", "success");
 
-      const modal = document.getElementById("register-modal");
-      const modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      setLocalStorageInfo(
-        response.data.token,
-        JSON.parse(response.data.user)); 
-      setupUi();
-    })
-    .catch((e) => {
-      // old ecma script
-      createAlert(
-        "error: " + (e.response?.data?.message || "An unknown error occurred") ,"danger");
-      console.log(e);
-    });
+			const modal = document.getElementById("register-modal");
+			const modalInstance = bootstrap.Modal.getInstance(modal);
+			modalInstance.hide();
+			setLocalStorageInfo(response.data.token, JSON.parse(response.data.user));
+			setupUi();
+		})
+		.catch((e) => {
+			// old ecma script
+			createAlert(
+				"error: " + (e.response?.data?.message || "An unknown error occurred"),
+				"danger",
+			);
+			console.log(e);
+		});
 });
 
 // todo: alert fix hidden
 const createAlert = (message, type) => {
-  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-  const appendAlert = (message, type) => {
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = [
-      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-      `   <div>${message}</div>`,
-      "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
-      "</div>",
-    ].join("");
+	const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+	const appendAlert = (message, type) => {
+		const wrapper = document.createElement("div");
+		wrapper.innerHTML = [
+			`<div class="alert alert-${type} alert-dismissible" role="alert">`,
+			`   <div>${message}</div>`,
+			"   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+			"</div>",
+		].join("");
 
-    // console.log(alertPlaceholder);
-    alertPlaceholder.append(wrapper);
-  };
-  appendAlert(message, type);
+		// console.log(alertPlaceholder);
+		alertPlaceholder.append(wrapper);
+	};
+	appendAlert(message, type);
 };
 
 /**
-* create post for user that authorization
-*/
+ * create post for user that authorization
+ */
 document.querySelector("#create-post-button").addEventListener("click", () => {
-  const title = document.querySelector("#title-create-post").value;
-  const body = document.querySelector("#body-create-post").value;
-  const image = document.querySelector("#image-create-post").files[0];
-  const token = localStorage.getItem("token");
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("body", body);
-  formData.append("image", image);
+	const title = document.querySelector("#title-create-post").value;
+	const body = document.querySelector("#body-create-post").value;
+	const image = document.querySelector("#image-create-post").files[0];
+	const token = localStorage.getItem("token");
+	const formData = new FormData();
+	formData.append("title", title);
+	formData.append("body", body);
+	formData.append("image", image);
 
-  const headers = {
-    "authorization": `Bearer ${token}`,
-  };
+	const headers = {
+		authorization: `Bearer ${token}`,
+	};
 
-  axios
-    .post(`${url}/posts`, formData, { headers: headers })
-    .then((response) => {
-      console.log(response);
-      createAlert("success create a new post ... " , "success");
-      const modal = document.getElementById("create-post-modal");
-      const modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      getRequest();
-      window.location.reload(true);
-    }).catch((e) => {
-      createAlert("error happend: "+ e.request.responseText , "danger");
-      console.log(e)
-    });
+	axios
+		.post(`${url}/posts`, formData, { headers: headers })
+		.then((response) => {
+			console.log(response);
+			createAlert("success create a new post ... ", "success");
+			const modal = document.getElementById("create-post-modal");
+			const modalInstance = bootstrap.Modal.getInstance(modal);
+			modalInstance.hide();
+			getRequest();
+			window.location.reload(true);
+		})
+		.catch((e) => {
+			createAlert("error happend: " + e.request.responseText, "danger");
+			console.log(e);
+		});
 });
