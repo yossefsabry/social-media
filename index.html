@@ -75,9 +75,15 @@
         bottom: 130px;
         left: calc(7vw + 20px);
         z-index: 4;
-        font-size: 2.7rem;
+        font-size: 3.7rem;
         cursor: pointer;
         transition: all 0.3s;
+      }
+      @media (max-width: 800px) {
+        #icon__adding {
+          font-size: 3rem;
+          bottom: 100px;
+        }
       }
 
       #icon__adding:hover {
@@ -85,7 +91,7 @@
       }
 
       .info-user-nav img {
-        width: 60px;
+        width: 50px;
         height: 40px;
         border-radius: 50%;
       }
@@ -239,7 +245,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
             <button
               type="button"
               class="btn-close"
@@ -271,9 +277,10 @@
                   type="password"
                   class="form-control"
                   id="password-register"
-                  value="123456"
+                  value=""
                 />
               </div>
+            <input type="file" name="file" value="" id="image-register" class="form-control">
             </form>
           </div>
           <div class="modal-footer">

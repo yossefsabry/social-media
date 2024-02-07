@@ -1,3 +1,4 @@
+// global veribal ....
 const url = "https://tarmeezacademy.com/api/v1";
 let postArray = [];
 
@@ -80,9 +81,7 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
       const modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
       setLocalStorageInfo(
-        response.data.token,
-        JSON.stringify(response.data.user),
-      );
+        response.data.token, JSON.stringify(response.data.user));
       // createAlert();
       createAlert("Login successful! Welcome back!", "success");
       setupUi();
@@ -116,7 +115,7 @@ const setLocalStorageInfo = (token, user) => {
  */
 const createUserLoginInfoNavBar = (user) => {
   const infoUserNav = `
-        <img src="${user.image_profile}" alt="avatar" />
+        <img src=${user.profile_image} alt="avatar" />
         <strong>${user.name}</strong>
     `;
 
@@ -126,7 +125,7 @@ const createUserLoginInfoNavBar = (user) => {
     `;
 
   // Assuming you have an HTML element with the id "info-user-nav"
-  if (user.image_profile != null) {
+  if (typeof user.profile_image == "string") {
     document.querySelector(".info-user-nav").innerHTML = infoUserNav;
   } else {
     document.querySelector(".info-user-nav").innerHTML = userInfo;
@@ -134,7 +133,7 @@ const createUserLoginInfoNavBar = (user) => {
 };
 
 /**
- * for set the nav bar buttons
+ * for setup the ui fo the website
  */
 const setupUi = () => {
   const token = localStorage.getItem("token");
@@ -165,20 +164,28 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
   const username = document.getElementById("username-register").value;
   const email = document.getElementById("email-register").value;
   const password = document.getElementById("password-register").value;
-  const data = {
-    name: user,
-    username: username,
-    email: email,
-    password: password,
-  };
+  const image = document.getElementById("image-register").files[0];
+
+  const dataForm = new FormData();
+  dataForm.append("name", user);
+  dataForm.append("username", username);
+  dataForm.append("email", email);
+  dataForm.append("password", password);
+  dataForm.append("image" , image);
+
+  // old way for post the data in register 
+  // const data = {
+  //   name: user,
+  //   username: username,
+  //   email: email,
+  //   password: password,
+  // };
+
   axios
-    .post(`${url}/register`, data)
+    .post(`${url}/register`, dataForm)
     .then((response) => {
       console.log(response);
-      createAlert(
-        "Registration successful! Welcome to our platform.",
-        "info",
-      );
+      createAlert( "Registration successful! Welcome to our platform.", "info");
       createAlert("you are loged in now ...", "success");
 
       const modal = document.getElementById("register-modal");
@@ -186,16 +193,13 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
       modalInstance.hide();
       setLocalStorageInfo(
         response.data.token,
-        JSON.stringify(response.data.user),
-      );
+        JSON.parse(response.data.user)); 
       setupUi();
     })
     .catch((e) => {
       // old ecma script
       createAlert(
-        "error: " + (e.response?.data?.message || "An unknown error occurred"),
-        "danger",
-      );
+        "error: " + (e.response?.data?.message || "An unknown error occurred") ,"danger");
       console.log(e);
     });
 });
@@ -218,6 +222,9 @@ const createAlert = (message, type) => {
   appendAlert(message, type);
 };
 
+/**
+* create post for user that authorization
+*/
 document.querySelector("#create-post-button").addEventListener("click", () => {
   const title = document.querySelector("#title-create-post").value;
   const body = document.querySelector("#body-create-post").value;
