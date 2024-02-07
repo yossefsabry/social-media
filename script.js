@@ -81,14 +81,14 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
       modalInstance.hide();
       setLocalStorageInfo(
         response.data.token,
-        JSON.stringify(response.data.user)
+        JSON.stringify(response.data.user),
       );
-      // createAlertLogin();
-      createAlertLogin("Login successful! Welcome back!", "success");
+      // createAlert();
+      createAlert("Login successful! Welcome back!", "success");
       setupUi();
     })
     .catch((e) => {
-      createAlertLogin(`error happend: ${e}`, "danger");
+      createAlert(`error happend: ${e}`, "danger");
     });
 });
 
@@ -99,7 +99,7 @@ document.getElementById("logout-button").addEventListener("click", () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
   setupUi();
-  createAlertLogin("Logout successful! Goodbye, and have a great day!", "info");
+  createAlert("Logout successful! Goodbye, and have a great day!", "info");
 });
 
 /**
@@ -141,14 +141,17 @@ const setupUi = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const login = document.getElementById("login-wrapper");
   const logout = document.getElementById("logout-wrapper");
+  const icon = document.getElementById("icon__adding");
 
   if (token == null) {
     login.style.cssText = "display:flex !important";
     logout.style.cssText = "display:none !important";
+    icon.style.cssText = "display: none !important";
   } else {
     createUserLoginInfoNavBar(user);
     login.style.cssText = "display:none !important";
     logout.style.cssText = "display:flex !important";
+    icon.style.cssText = "display: block !important";
   }
 };
 setupUi();
@@ -172,31 +175,33 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
     .post(`${url}/register`, data)
     .then((response) => {
       console.log(response);
-      createAlertLogin(
+      createAlert(
         "Registration successful! Welcome to our platform.",
-        "info"
+        "info",
       );
-      createAlertLogin("you are loged in now ...", "success");
+      createAlert("you are loged in now ...", "success");
 
       const modal = document.getElementById("register-modal");
       const modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
       setLocalStorageInfo(
         response.data.token,
-        JSON.stringify(response.data.user)
+        JSON.stringify(response.data.user),
       );
       setupUi();
     })
     .catch((e) => {
       // old ecma script
-      createAlertLogin(
-        "error: " + (e.response?.data?.message || "An unknown error occurred"), "danger",);
+      createAlert(
+        "error: " + (e.response?.data?.message || "An unknown error occurred"),
+        "danger",
+      );
       console.log(e);
     });
 });
 
 // todo: alert fix hidden
-const createAlertLogin = (message, type) => {
+const createAlert = (message, type) => {
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   const appendAlert = (message, type) => {
     const wrapper = document.createElement("div");
@@ -212,3 +217,33 @@ const createAlertLogin = (message, type) => {
   };
   appendAlert(message, type);
 };
+
+document.querySelector("#create-post-button").addEventListener("click", () => {
+  const title = document.querySelector("#title-create-post").value;
+  const body = document.querySelector("#body-create-post").value;
+  const image = document.querySelector("#image-create-post").files[0];
+  const token = localStorage.getItem("token");
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("body", body);
+  formData.append("image", image);
+
+  const headers = {
+    "authorization": `Bearer ${token}`,
+  };
+
+  axios
+    .post(`${url}/posts`, formData, { headers: headers })
+    .then((response) => {
+      console.log(response);
+      createAlert("success create a new post ... " , "success");
+      const modal = document.getElementById("create-post-modal");
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      getRequest();
+      window.location.reload(true);
+    }).catch((e) => {
+      createAlert("error happend: "+ e.request.responseText , "danger");
+      console.log(e)
+    });
+});
