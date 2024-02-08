@@ -68,16 +68,19 @@ async function getRequest(current) {
 }
 
 /**
- * adding pagintion for the website
+ * adding pagination for the website
  */
 //  fix
 let isFetching = false;
-window.addEventListener("scroll", async() => {
+window.addEventListener("scroll", () => {
 	if ( !isFetching && window.pageYOffset + 3000 >= document.body.offsetHeight && currentPage < lastPage) {
 		isFetching = true; // Set flag to true when a request is initiated
 		currentPage = currentPage + 1;
-		await getRequest(currentPage);
-		isFetching = false;
+		getRequest(currentPage).then(() => {
+      isFetching = false;
+    }).catch(() => {
+      console.log("error happend pagination");
+      });
 	}
 });
 
