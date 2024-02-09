@@ -122,6 +122,10 @@
       transform: scale(0);
     }
     }
+    .card-body {
+      cursor: pointer;
+    }
+
   </style>
 </head>
 
@@ -199,8 +203,8 @@
       </div>
     </div>
   </div>
-  <!--// login modal //-->
-
+   <!--// login modal //-->
+ 
   <!-- register modal -->
   <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -253,11 +257,11 @@
           aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Social App</a>
+        <a class="navbar-brand" href="index.html">Social App</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Profile</a>
@@ -287,7 +291,7 @@
   <!-- // nav bar container //  -->
 
   <!-- start post -->
-  <div class="container">
+  <div class="container container__posts">
     <div class="posts py-3">
       <div class="card">
         <div class="card-header">
@@ -324,17 +328,16 @@
         </div>
       </div>
     </div>
+      <!--adding loading for the pagination-->
+      <div class="pagination__bottom">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <!--// adding loading for the pagination // -->
   </div>
-
   <!-- // start post //  -->
 
-  <!--adding loading for the pagination-->
-  <div class="pagination__bottom">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <!--// adding loading for the pagination // -->
 
   <script src="script.js"></script>
 </body>
