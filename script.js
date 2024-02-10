@@ -4,11 +4,34 @@ let postArray = [];
 let currentPage = 1;
 let lastPage;
 let postInfo = [];
+let user = {};
+let updatePost = false;
+let postIdUpdate = null;
+
+/**
+ * adding the loader__container change the visible when load
+ */
+window.addEventListener("load", () => {
+  document.querySelector(".loader__container").style.cssText = `
+    opacity: 0;
+    position: absolute;
+    transform: scale(0);
+    visibility: hidden;
+    transform: translate3d(10rem, 0 , 0);
+  `;
+  document.body.style.cssText = `overflow: scroll; overflow-x: hidden;`;
+
+  // document.querySelector(".web").style.cssText = `
+  //   visibility: visible;
+  //   opacity: 1;
+  //   position: relative;
+  //   transform:translate3d(0, 0, 0);
+  // `;
+});
 
 /**
  * request for the api for data posts
  */
-
 getRequest(currentPage);
 async function getRequest(current) {
   const response = await axios
@@ -17,6 +40,8 @@ async function getRequest(current) {
       postArray = response.data.data;
       // console.log(response);
       lastPage = response.data.meta.last_page;
+      user = JSON.parse(localStorage.getItem("user"));
+      console.log(" ---------------------", user);
     })
     .then(() => {
       let posts = document.querySelector(".posts");
@@ -37,11 +62,23 @@ async function getRequest(current) {
         }
 
         let id = item.id;
+        // for update method
+        postIdUpdate = id;
+        const authorIdPost = item.author.id;
+        // oldEcma script code
+        const idUser = user?.id;
+        let conditionEdit = idUser != null && authorIdPost == idUser;
         posts.innerHTML += `
             <div class="card" >
                 <div class="card-header">
                     <img src=${item.author.profile_image} alt="profile image user" style="width: 40px; border-radius: 100%">
                     <span><strong>${item.author.username}</strong></span>
+                    ${conditionEdit
+            ? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
+              JSON.stringify(item),
+            )}')}>edit</button>`
+            : ""
+          }
                 </div>
                 <div class="card-body" onclick="handleClickCard(${id})">
                     <img src=${item.image} alt="image post"
@@ -242,7 +279,6 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
     });
 });
 
-
 // todo: alert fix hidden
 const createAlert = (message, type) => {
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
@@ -278,25 +314,50 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
     authorization: `Bearer ${token}`,
   };
 
-  axios
-    .post(`${url}/posts`, formData, { headers: headers })
-    .then((response) => {
-      console.log(response);
-      createAlert("success create a new post ... ", "success");
-      const modal = document.getElementById("create-post-modal");
-      const modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      getRequest();
-      window.location.reload(true);
-    })
-    .catch((e) => {
-      createAlert("error happend: " + e.request.responseText, "danger");
-      console.log(e);
-    });
+  if (!updatePost) {
+    document.getElementById("create-post-button").innerHTML = "Create";
+    document.getElementById("title-create-post").value = ``;
+    document.getElementById("body-create-post").value = ``;
+
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
+
+    axios
+      .post(`${url}/posts`, formData, { headers: headers })
+      .then((response) => {
+        console.log(response);
+        createAlert("success create a new post ... ", "success");
+        const modal = document.getElementById("create-post-modal");
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+        getRequest();
+        window.location.reload(true);
+      })
+      .catch((e) => {
+        createAlert("error happend: " + e.request.responseText, "danger");
+        console.log(e);
+      });
+  } else {
+    formData.append("_method", "put");
+    axios
+      .put(`${url}/posts/${postIdUpdate}`, formData, { headers: headers })
+      .then((response) => {
+        console.log(response);
+        createAlert("success create a new post ... ", "success");
+        const modal = document.getElementById("create-post-modal");
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+        getRequest();
+        window.location.reload(true);
+      })
+      .catch((e) => {
+        createAlert("error happend: " + e.request.responseText, "danger");
+        console.log(e);
+      });
+    update = false;
+  }
 });
-
-
-
 
 /**
  * handle create an post page
@@ -358,30 +419,59 @@ const handleClickCard = (e) => {
             </div>
           <div class="input-group">
             <input id="comment__input" type="text" class="form-control py-2" placeholder="add comment..." aria-label="Enter something..." aria-describedby="button-addon">
-            <button class="btn btn-primary" type="button" id="button-addon" onclick="handleAddingComment()">Add Comment</button>
+            <button class="btn btn-primary" type="button" id="button-addon" onclick="handleAddingComment(${e})">Add Comment</button>
           </div>
           </div>
 		`;
       containerPost.innerHTML = post;
     })
-    .catch((e) => console.log("error happend", e));
+    .catch((e) => {
+      console.log("error happend", e);
+      createAlert("error happend " + e, "danger");
+    });
 };
 
 /**
-* handle create comment for  the user
-*/
-const handleAddingComment = () => {
+ * handle create comment for  the user
+ */
+const handleAddingComment = (e) => {
   console.log("adding comment");
   let commentValue = document.querySelector("#comment__input").value;
   let token = localStorage.getItem("token");
-  
+
   const data = {
-    body: commentValue
-  }
+    body: commentValue,
+  };
   const headers = {
     authorization: `Bearer ${token}`,
   };
-  axios.post(`${url}/posts/2/comments`, data, { headers: headers }).then((response) => {
-    console.log(response);
-  }).catch((e) => console.log("error happend" , e));
+
+  axios
+    .post(`${url}/posts/${e}/comments`, data, { headers: headers })
+    .then((response) => {
+      console.log(response);
+      createAlert("success adding commit to the post", "success");
+      handleClickCard(e);
+    })
+    .catch((e) => {
+      console.log("error happend", e);
+      createAlert("error happend " + e.request.response, "danger");
+    });
+};
+
+/**
+ * handle click on edit button for my post
+ */
+const handleClickEditButton = (e) => {
+  const element = JSON.parse(decodeURIComponent(e));
+  console.log("element: ", element);
+
+  document.getElementById("create-post-button").innerHTML = "Update";
+  document.getElementById("title-create-post").value = `${element.title}`;
+  document.getElementById("body-create-post").value = `${element.body}`;
+  const modal = document.querySelector("#create-post-modal");
+  const modalInstance = new bootstrap.Modal(modal, {});
+  modalInstance.toggle();
+  // set update for change the axios request
+  update = true;
 };
