@@ -79,7 +79,7 @@ async function getRequest(updatePost, current) {
 										}</strong></span>
                     ${
 											conditionEdit
-												? `<button class="btn btn-danger mx-2" style="float: right;" onclick={leClickDeleteButton('${postIdUpdate}')}>Delete</button>`
+												? `<button class="btn btn-danger mx-2" style="float: right;" onclick={handleClickDeleteButton('${postIdUpdate}')}>Delete</button>`
 												: ""
 										}
                     ${
