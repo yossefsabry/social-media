@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>social app || yossef</title>
+  <title>|| social media app ||</title>
   <!-- boostrap files -->
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <!--bootstrap icons  -->
@@ -15,63 +15,26 @@
   <script src="./node_modules/axios/dist/axios.min.js"></script>
   <style>
     body {
-      background-color: #e7d7dd;
+      background-color: #171516f2;
       width: 100%;
+      position: relative;
       /* height is broke the pagination for the website */
       /* height: 100vh; */
-      overflow: hidden;
       overflow-x: hidden;
     }
-
-    .loader__container {
-      width: 100%;
-      height: 100vh;
-      background-color: #e7d7dd;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.2s;
-      opacity: 1;
+    .navbar__container {
+      padding: 30px 0px 9px 0px;
+      background: #d2d2d226;
+    }
+    .navbar__container a{
+      color: white;
+    }
+    .card {
+      background: #2d242466;
+      color: white;
+      border: 1px solid #373737;
     }
 
-    .loader__container div {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-left: 10px;
-      background: #5388ceb8;
-      animation: 1s infinite linear animate;
-    }
-
-    /* fix the problem in loader */
-    /* .container { */
-    /*   visibility: hidden; */
-    /*   opacity: 0; */
-    /*   transform: translate3d(8rem, 0, 0); */
-    /*   transition: all .4s; */
-    /* } */
-
-    .loader__container div:nth-child(1) {
-      animation-delay: -0.32s;
-    }
-
-    .loader__container div:nth-child(2) {
-      animation-delay: -0.16s;
-    }
-
-    @keyframes animate {
-
-      0%,
-      80%,
-      100% {
-        transform: scale(0);
-      }
-
-      40% {
-        transform: scale(1);
-      }
-    }
 
     container {
       padding-inline: calc(7vw + 1rem);
@@ -111,6 +74,7 @@
     }
 
     #liveAlertPlaceholder {
+      max-width: 100%;
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -146,7 +110,6 @@
     }
 
     .pagination__bottom {
-      width: 100%;
       padding: 20px;
       display: flex;
       align-items: center;
@@ -168,6 +131,53 @@
 
     .pagination__bottom div:nth-child(2) {
       animation-delay: -0.16s;
+    }
+
+    .loader__container {
+      padding: 60px 40px;
+      top: 50vh;
+      right: 50%;
+      transform: translate(50%, -50%);
+      border-radius: 20px;
+      background: #b3c5cc87;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+      /* z-index: 60; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .loader__container div {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-left: 10px;
+      background: black;
+      animation: 1s infinite linear animate;
+    }
+    .loader__container div:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .loader__container div:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    @keyframes animate {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+      }
+
+      40% {
+        transform: scale(1);
+      }
     }
 
     @keyframes animate {
@@ -319,7 +329,7 @@
 
   <!-- nav bar container -->
   <div class="container">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary pt-4 rounded-bottom shadow">
+    <nav class="navbar navbar__container navbar-expand-lg rounded-bottom shadow">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
           aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -329,7 +339,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link" aria-current="page" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="profile-user" href="#">Profile</a>

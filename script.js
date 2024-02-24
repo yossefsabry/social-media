@@ -8,32 +8,28 @@ let user = {};
 let updatePost = false;
 let postIdUpdate = null;
 
-/**
- * adding the loader__container change the visible when load
- */
-window.addEventListener("load", () => {
-	document.querySelector(".loader__container").style.cssText = `
-    opacity: 0;
-    position: absolute;
-    transform: scale(0);
-    visibility: hidden;
-    transform: translate3d(10rem, 0 , 0);
-  `;
-	document.body.style.cssText = `overflow: scroll; overflow-x: hidden;`;
 
-	// document.querySelector(".web").style.cssText = `
-	//   visibility: visible;
-	//   opacity: 1;
-	//   position: relative;
-	//   transform:translate3d(0, 0, 0);
-	// `;
-});
+
+/*
+* for  setup the loader for the app
+*/
+const loaderHandler = (status) => {
+  if (status) {
+    document.body.style.height = "100vh";
+    document.querySelector(".loader__container").style.cssText = `z-index: 60; opacity: 1;`;
+  }else {
+    document.body.style.height = "";
+    document.querySelector(".loader__container").style.cssText = `z-index: 10000; opacity: 0;`;
+  }
+}
+
 
 /**
  * request for the api for data posts
  */
 getRequest(false, currentPage);
 async function getRequest(updatePost, current) {
+  loaderHandler(true);
 	const response = await axios
 		.get(`${url}/posts?limit=5&page=${current}`)
 		.then((response) => {
@@ -83,7 +79,7 @@ async function getRequest(updatePost, current) {
 										}</strong></span>
                     ${
 											conditionEdit
-												? `<button class="btn btn-danger mx-2" style="float: right;" onclick={handleClickDeleteButton('${postIdUpdate}')}>Delete</button>`
+												? `<button class="btn btn-danger mx-2" style="float: right;" onclick={leClickDeleteButton('${postIdUpdate}')}>Delete</button>`
 												: ""
 										}
                     ${
@@ -122,6 +118,7 @@ async function getRequest(updatePost, current) {
 		.finally(() => {
 			console.log("request finsh...");
 		});
+  loaderHandler(false);
 	return response;
 }
 
@@ -159,6 +156,7 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
 		username: username,
 		password: password,
 	};
+  loaderHandler(true);
 	axios
 		.post(`${url}/login`, data)
 		.then((response) => {
@@ -177,6 +175,7 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
 		.catch((e) => {
 			createAlert(`error happend: ${e}`, "danger");
 		});
+  loaderHandler(false);
 });
 
 /**
@@ -270,6 +269,7 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 	//   password: password,
 	// };
 
+  loaderHandler(true);
 	axios
 		.post(`${url}/register`, dataForm)
 		.then((response) => {
@@ -291,24 +291,29 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 			);
 			console.log(e);
 		});
+  loaderHandler(false);
 });
 
 // todo: alert fix hidden
 const createAlert = (message, type) => {
-	const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-	const appendAlert = (message, type) => {
-		const wrapper = document.createElement("div");
-		wrapper.innerHTML = [
-			`<div class="alert alert-${type} alert-dismissible" role="alert">`,
-			`   <div>${message}</div>`,
-			"   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
-			"</div>",
-		].join("");
+    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+    const appendAlert = (message, type) => {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+            "</div>",
+        ].join("");
 
-		// console.log(alertPlaceholder);
-		alertPlaceholder.append(wrapper);
-	};
-	appendAlert(message, type);
+        alertPlaceholder.append(wrapper);
+
+        // Hide the alert after 2 seconds
+        setTimeout(() => {
+            wrapper.remove();
+        }, 1500);
+    };
+    appendAlert(message, type);
 };
 
 /**
@@ -328,6 +333,7 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
 		authorization: `Bearer ${token}`,
 	};
 
+  loaderHandler(true);
 	if (!updatePost) {
 		document.getElementById("create-post-button").innerHTML = "Create";
 		document.getElementById("title-create-post").value = ``;
@@ -369,14 +375,15 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
 			});
 		update = false;
 	}
+    loaderHandler(false);
 });
 
 /**
  * handle create an post page
- * // FIX : problem in show the update  and delete button in card page
  */
 const handleClickCard = (e) => {
 	// console.log(e);
+  loaderHandler(true);
 	axios
 		.get(`${url}/posts/${e}`)
 		.then((response) => {
@@ -461,6 +468,7 @@ const handleClickCard = (e) => {
 			console.log("error happend", e);
 			createAlert("error happend " + e, "danger");
 		});
+    loaderHandler(false);
 };
 
 /**
@@ -476,6 +484,7 @@ const handleAddingComment = (e) => {
 	const headers = {
 		authorization: `Bearer ${token}`,
 	};
+  loaderHandler(true);
 	axios
 		.post(`${url}/posts/${e}/comments`, data, { headers: headers })
 		.then((response) => {
@@ -487,6 +496,7 @@ const handleAddingComment = (e) => {
 			console.log("error happend", e);
 			createAlert("error happend " + e.request.response, "danger");
 		});
+  loaderHandler(false);
 };
 
 /**
@@ -516,6 +526,7 @@ const handleClickDeleteButton = (e) => {
 	const headers = {
 		authorization: `Bearer ${token}`,
 	};
+  loaderHandler(true);
 	axios
 		.delete(`${url}/posts/${e}`, { headers: headers })
 		.then((response) => {
@@ -527,6 +538,7 @@ const handleClickDeleteButton = (e) => {
 			console.log(e);
 			createAlert("error happend in deleting", "danger");
 		});
+  loaderHandler(false);
 };
 
 /**
@@ -538,6 +550,7 @@ const showUserInfo = async (element) => {
 	let content = document.querySelector(".container__posts");
 	let user;
   let userProfile;
+  loaderHandler(true);
 	if (element == null) {
 		user = JSON.parse(localStorage.getItem("user"));
     userProfile = true;
@@ -558,6 +571,7 @@ const showUserInfo = async (element) => {
 	} else {
 		let postUser;
 		console.log(user.id);
+    loaderHandler(true);
 		const requestPost = await axios
 			.get(`${url}/users/${user.id}/posts`)
 			.then((response) => {
@@ -684,6 +698,7 @@ const showUserInfo = async (element) => {
     `;
 		content.innerHTML = userInfo;
 	}
+    loaderHandler(false);
 };
 
 document
