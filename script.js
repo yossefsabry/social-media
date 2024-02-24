@@ -8,28 +8,27 @@ let user = {};
 let updatePost = false;
 let postIdUpdate = null;
 
-
-
 /*
-* for  setup the loader for the app
-*/
+ * for  setup the loader for the app
+ */
 const loaderHandler = (status) => {
-  if (status) {
-    document.body.style.height = "100vh";
-    document.querySelector(".loader__container").style.cssText = `z-index: 100000; opacity: 1;`;
-  }else {
-    document.body.style.height = "";
-    document.querySelector(".loader__container").style.cssText = `z-index: -1; opacity: 0;`;
-  }
+	if (status) {
+		document.body.style.height = "100vh";
+		document.querySelector(".loader__container").style.cssText =
+			`z-index: 100000; opacity: 1;`;
+	} else {
+		document.body.style.height = "";
+		document.querySelector(".loader__container").style.cssText =
+			`z-index: -1; opacity: 0;`;
+	}
 };
-
 
 /**
  * request for the api for data posts
  */
 getRequest(false, currentPage);
 async function getRequest(updatePost, current) {
-  loaderHandler(true);
+	loaderHandler(true);
 	const response = await axios
 		.get(`${url}/posts?limit=5&page=${current}`)
 		.then((response) => {
@@ -66,7 +65,10 @@ async function getRequest(updatePost, current) {
 				postIdUpdate = id;
 				const authorIdPost = item.author.id;
 				// oldEcma script code
-				const idUser = user.id;
+				let idUser;
+				if (user !== null) {
+					idUser = user.id;
+				}
 				let conditionEdit = idUser != null && authorIdPost == idUser;
 				posts.innerHTML += `
             <div class="card" >
@@ -86,7 +88,7 @@ async function getRequest(updatePost, current) {
 											conditionEdit
 												? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 														JSON.stringify(item),
-                            )}')}>edit</button>`
+												  )}')}>edit</button>`
 												: ""
 										}
                 </div>
@@ -118,7 +120,7 @@ async function getRequest(updatePost, current) {
 		.finally(() => {
 			console.log("request finsh...");
 		});
-  loaderHandler(false);
+	loaderHandler(false);
 	return response;
 }
 
@@ -156,7 +158,7 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
 		username: username,
 		password: password,
 	};
-  loaderHandler(true);
+	loaderHandler(true);
 	axios
 		.post(`${url}/login`, data)
 		.then((response) => {
@@ -175,7 +177,7 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
 		.catch((e) => {
 			createAlert(`error happend: ${e}`, "danger");
 		});
-  loaderHandler(false);
+	loaderHandler(false);
 });
 
 /**
@@ -269,7 +271,7 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 	//   password: password,
 	// };
 
-  loaderHandler(true);
+	loaderHandler(true);
 	axios
 		.post(`${url}/register`, dataForm)
 		.then((response) => {
@@ -291,36 +293,36 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 			);
 			console.log(e);
 		});
-  loaderHandler(false);
+	loaderHandler(false);
 });
 
 // todo: alert fix hidden
 const createAlert = (message, type) => {
-    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-    const appendAlert = (message, type) => {
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            "   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
-            "</div>",
-        ].join("");
+	const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+	const appendAlert = (message, type) => {
+		const wrapper = document.createElement("div");
+		wrapper.innerHTML = [
+			`<div class="alert alert-${type} alert-dismissible" role="alert">`,
+			`   <div>${message}</div>`,
+			"   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+			"</div>",
+		].join("");
 
-        alertPlaceholder.append(wrapper);
+		alertPlaceholder.append(wrapper);
 
-        // Hide the alert after 2 seconds
-        setTimeout(() => {
-            wrapper.remove();
-        }, 1500);
-    };
-    appendAlert(message, type);
+		// Hide the alert after 2 seconds
+		setTimeout(() => {
+			wrapper.remove();
+		}, 1500);
+	};
+	appendAlert(message, type);
 };
 
 /**
  * create post for user that authorization
  */
 document.querySelector("#create-post-button").addEventListener("click", () => {
-  loaderHandler(true);
+	loaderHandler(true);
 	const title = document.querySelector("#title-create-post").value;
 	const body = document.querySelector("#body-create-post").value;
 	const image = document.querySelector("#image-create-post").files[0];
@@ -374,7 +376,7 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
 			});
 		update = false;
 	}
-    loaderHandler(false);
+	loaderHandler(false);
 });
 
 /**
@@ -382,7 +384,7 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
  */
 const handleClickCard = (e) => {
 	// console.log(e);
-  loaderHandler(true);
+	loaderHandler(true);
 	axios
 		.get(`${url}/posts/${e}`)
 		.then((response) => {
@@ -428,7 +430,7 @@ const handleClickCard = (e) => {
 									conditionEdit
 										? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 												JSON.stringify(item),
-                        )}')}>edit</button>`
+										  )}')}>edit</button>`
 										: ""
 								}
             </div>
@@ -467,7 +469,7 @@ const handleClickCard = (e) => {
 			console.log("error happend", e);
 			createAlert("error happend " + e, "danger");
 		});
-    loaderHandler(false);
+	loaderHandler(false);
 };
 
 /**
@@ -483,7 +485,7 @@ const handleAddingComment = (e) => {
 	const headers = {
 		authorization: `Bearer ${token}`,
 	};
-  loaderHandler(true);
+	loaderHandler(true);
 	axios
 		.post(`${url}/posts/${e}/comments`, data, { headers: headers })
 		.then((response) => {
@@ -495,7 +497,7 @@ const handleAddingComment = (e) => {
 			console.log("error happend", e);
 			createAlert("error happend " + e.request.response, "danger");
 		});
-  loaderHandler(false);
+	loaderHandler(false);
 };
 
 /**
@@ -525,7 +527,7 @@ const handleClickDeleteButton = (e) => {
 	const headers = {
 		authorization: `Bearer ${token}`,
 	};
-  loaderHandler(true);
+	loaderHandler(true);
 	axios
 		.delete(`${url}/posts/${e}`, { headers: headers })
 		.then((response) => {
@@ -537,7 +539,7 @@ const handleClickDeleteButton = (e) => {
 			console.log(e);
 			createAlert("error happend in deleting", "danger");
 		});
-  loaderHandler(false);
+	loaderHandler(false);
 };
 
 /**
@@ -548,15 +550,15 @@ const showUserInfo = async (element) => {
 	isFetching = true;
 	let content = document.querySelector(".container__posts");
 	let user;
-  let userProfile;
-  loaderHandler(true);
+	let userProfile;
+	loaderHandler(true);
 	if (element == null) {
 		user = JSON.parse(localStorage.getItem("user"));
-    userProfile = true;
+		userProfile = true;
 	} else {
 		user = JSON.parse(decodeURIComponent(element));
 		user_id = user.author.id;
-    userProfile = false;
+		userProfile = false;
 		const request = await axios
 			.get(`${url}/users/${user_id}`)
 			.then((response) => {
@@ -570,7 +572,7 @@ const showUserInfo = async (element) => {
 	} else {
 		let postUser;
 		console.log(user.id);
-    loaderHandler(true);
+		loaderHandler(true);
 		const requestPost = await axios
 			.get(`${url}/users/${user.id}/posts`)
 			.then((response) => {
@@ -618,7 +620,7 @@ const showUserInfo = async (element) => {
 											userProfile
 												? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 														JSON.stringify(item),
-                            )}')}>edit</button>`
+												  )}')}>edit</button>`
 												: ""
 										}
                 </div>
@@ -697,7 +699,7 @@ const showUserInfo = async (element) => {
     `;
 		content.innerHTML = userInfo;
 	}
-    loaderHandler(false);
+	loaderHandler(false);
 };
 
 document
