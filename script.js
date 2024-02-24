@@ -16,12 +16,12 @@ let postIdUpdate = null;
 const loaderHandler = (status) => {
   if (status) {
     document.body.style.height = "100vh";
-    document.querySelector(".loader__container").style.cssText = `z-index: 60; opacity: 1;`;
+    document.querySelector(".loader__container").style.cssText = `z-index: 100000; opacity: 1;`;
   }else {
     document.body.style.height = "";
-    document.querySelector(".loader__container").style.cssText = `z-index: 10000; opacity: 0;`;
+    document.querySelector(".loader__container").style.cssText = `z-index: -1; opacity: 0;`;
   }
-}
+};
 
 
 /**
@@ -66,7 +66,7 @@ async function getRequest(updatePost, current) {
 				postIdUpdate = id;
 				const authorIdPost = item.author.id;
 				// oldEcma script code
-				const idUser = user?.id;
+				const idUser = user.id;
 				let conditionEdit = idUser != null && authorIdPost == idUser;
 				posts.innerHTML += `
             <div class="card" >
@@ -86,7 +86,7 @@ async function getRequest(updatePost, current) {
 											conditionEdit
 												? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 														JSON.stringify(item),
-												  )}')}>edit</button>`
+                            )}')}>edit</button>`
 												: ""
 										}
                 </div>
@@ -203,12 +203,12 @@ const setLocalStorageInfo = (token, user) => {
 const createUserLoginInfoNavBar = (user) => {
 	const infoUserNav = `
         <img src=${user.profile_image} alt="avatar" />
-        <strong>${user.name}</strong>
+        <strong class="text-white">${user.name}</strong>
     `;
 
 	const userInfo = `
-        <img src="images/user.webp" alt="avatar" />
-        <strong>${user.name}</strong>
+        <img src="images/icons8-user-48.png" alt="avatar" />
+        <strong class="text-white">${user.name}</strong>
     `;
 
 	// Assuming you have an HTML element with the id "info-user-nav"
@@ -286,7 +286,7 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 		.catch((e) => {
 			// old ecma script
 			createAlert(
-				"error: " + (e.response?.data?.message || "An unknown error occurred"),
+				"error: " + (e.response.data.message || "An unknown error occurred"),
 				"danger",
 			);
 			console.log(e);
@@ -320,6 +320,7 @@ const createAlert = (message, type) => {
  * create post for user that authorization
  */
 document.querySelector("#create-post-button").addEventListener("click", () => {
+  loaderHandler(true);
 	const title = document.querySelector("#title-create-post").value;
 	const body = document.querySelector("#body-create-post").value;
 	const image = document.querySelector("#image-create-post").files[0];
@@ -332,8 +333,6 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
 	const headers = {
 		authorization: `Bearer ${token}`,
 	};
-
-  loaderHandler(true);
 	if (!updatePost) {
 		document.getElementById("create-post-button").innerHTML = "Create";
 		document.getElementById("title-create-post").value = ``;
@@ -429,7 +428,7 @@ const handleClickCard = (e) => {
 									conditionEdit
 										? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 												JSON.stringify(item),
-										  )}')}>edit</button>`
+                        )}')}>edit</button>`
 										: ""
 								}
             </div>
@@ -600,7 +599,7 @@ const showUserInfo = async (element) => {
 			postIdUpdate = id;
 			const authorIdPost = item.author.id;
 			// oldEcma script code
-			const idUser = user?.id;
+			const idUser = user.id;
 			return `
             <div class="card" >
                 <div class="card-header">
@@ -619,7 +618,7 @@ const showUserInfo = async (element) => {
 											userProfile
 												? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 														JSON.stringify(item),
-												  )}')}>edit</button>`
+                            )}')}>edit</button>`
 												: ""
 										}
                 </div>
@@ -646,8 +645,8 @@ const showUserInfo = async (element) => {
 		});
 
 		let userInfo = `
-        <section class="h-100" style="background-color: #f4f5f7; color: black;">
-          <div class="container py-2 h-100 w-100">
+        <section class="h-100 profile__user" style="background-color: #f4f5f7; color: black;">
+          <div class="container profile__user py-2 h-100 w-100">
             <div class="row d-flex justify-content-center align-items-center">
               <div class="col col-lg-9 mb-4 mb-lg-9">
                 <div class="card mb-3" style="border-radius: .5rem;">
