@@ -83,14 +83,14 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      z-index: 5;
+      z-index: 10000000;
     }
 
     #icon__adding {
       color: #3f51b5;
       position: fixed;
       bottom: 130px;
-      left: calc(7vw + 20px);
+      right: calc(7vw + 20px);
       z-index: 4;
       font-size: 3.7rem;
       cursor: pointer;
@@ -105,7 +105,7 @@
     }
 
     #icon__adding:hover {
-      color: #1e2d33;
+      color: #acacac;
     }
 
     .info-user-nav img {
@@ -125,7 +125,7 @@
     .pagination__bottom div {
       width: 10px;
       height: 10px;
-      background-color: #383c3778;
+      background-color: #acacac;
       border-radius: 50%;
       animation: 1s infinite linear animate;
     }
@@ -146,10 +146,9 @@
       border-radius: 20px;
       background: #b3c5cc87;
       overflow: hidden;
-      position: absolute;
+      position: fixed;
       z-index: -1;
       opacity: 0;
-      /* z-index: 60; */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -344,7 +343,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link " aria-current="page" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="profile-user" href="#">Profile</a>

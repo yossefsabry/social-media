@@ -7,6 +7,12 @@ let postInfo = [];
 let user = {};
 let updatePost = false;
 let postIdUpdate = null;
+let currentPostClick = null;
+
+
+function reloadWindow() {
+  window.location.reload(true);
+}
 
 /*
  * for  setup the loader for the app
@@ -46,6 +52,7 @@ async function getRequest(updatePost, current) {
 			}
 			postArray.map((item) => {
 				console.log(item);
+        currentPostClick = item;
 
 				// loop for the tags for every post
 				const tags = item.tags.map((tg) => {
@@ -73,7 +80,11 @@ async function getRequest(updatePost, current) {
 				posts.innerHTML += `
             <div class="card" >
                 <div class="card-header">
-                    <img src=${item.author.profile_image} alt="profile image user" style="width: 40px; border-radius: 100%">
+                  ${ typeof item.author.profile_image == "string" ? 
+                        `<img src="${item.author.profile_image}" alt="Avatar" class="img-fluid my-1" style="width: 40px; height: 40px; border-radius: 50% !important;" />`
+                        :
+                        `<img src="images/icons8-user-48.png" alt="Avatar" class="img-fluid my-1" style="width: 40px; border-radius: 50% !important;" />`
+                    }                     
                     <span onclick={showUserInfo('${encodeURIComponent(
 											JSON.stringify(item),
 										)}')} style="cursor: pointer;"><strong>${
@@ -88,7 +99,7 @@ async function getRequest(updatePost, current) {
 											conditionEdit
 												? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 														JSON.stringify(item),
-												  )}')}>edit</button>`
+                            )}')}>edit</button>`
 												: ""
 										}
                 </div>
@@ -187,6 +198,7 @@ document.getElementById("logout-button").addEventListener("click", () => {
 	localStorage.removeItem("token");
 	localStorage.removeItem("user");
 	setupUi();
+  reloadWindow();
 	createAlert("Logout successful! Goodbye, and have a great day!", "info");
 });
 
@@ -276,8 +288,7 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 		.post(`${url}/register`, dataForm)
 		.then((response) => {
 			console.log(response);
-			createAlert("Registration successful! Welcome to our platform.", "info");
-			createAlert("you are loged in now ...", "success");
+			createAlert("Registration successful! now login.", "info");
 
 			const modal = document.getElementById("register-modal");
 			const modalInstance = bootstrap.Modal.getInstance(modal);
@@ -313,7 +324,7 @@ const createAlert = (message, type) => {
 		// Hide the alert after 2 seconds
 		setTimeout(() => {
 			wrapper.remove();
-		}, 1500);
+		}, 3000);
 	};
 	appendAlert(message, type);
 };
@@ -404,8 +415,12 @@ const handleClickCard = (e) => {
 				const comm = `
             <div class="comment pb-1">
               <div class="pt-1 flex align-items-center justify-content-center gap-3 pb-1">
-                  <img src="${item.author.profile_image}" alt="Avatar" style="width: 40px; border-radius: 100%;" />
-                  <span><strong>@${item.author.username}</strong></span>
+              ${ typeof item.author.profile_image === "string" ? 
+              `<img src="${item.author.profile_image}" alt="Avatar1" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
+              :
+              `<img src="images/icons8-user-48.png" alt="Avatar2" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
+              }                     
+              <span><strong>@${item.author.username}</strong></span>
               </div>
               <h5>${item.body}</h5>
             </div>
@@ -414,7 +429,7 @@ const handleClickCard = (e) => {
 			});
 
 			const post = `
-          <h2 style="padding: 40px 0px 0px;">${postInfo.author.username} post</h2>
+          <h2 style="padding: 40px 0px 0px; color: white !important;">${postInfo.author.username} post</h2>
           <div class="card my-5">
             <div class="card-header">
               <img src="${postInfo.author.profile_image}" style="width: 40px; border-radius: 50%;" />
@@ -521,7 +536,7 @@ const handleClickEditButton = (e) => {
 /**
  * for handle the deleting button for the post that user made
  */
-const handleClickDeleteButton = (e) => {
+const handleClickDeleteButton = (e, refresh) => {
 	console.log(e);
 	const token = localStorage.getItem("token");
 	const headers = {
@@ -534,6 +549,10 @@ const handleClickDeleteButton = (e) => {
 			console.log(response);
 			getRequest(true);
 			createAlert("deleting the post successfuly ", "success");
+      // FIX handle the fix click
+      if(refresh) {
+        showUserInfo(currentPostClick);
+      }
 		})
 		.catch((e) => {
 			console.log(e);
@@ -620,8 +639,8 @@ const showUserInfo = async (element) => {
 											userProfile
 												? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
 														JSON.stringify(item),
-												  )}')}>edit</button>`
-												: ""
+                            )}' )}>edit</button>`
+                          : ""
 										}
                 </div>
                 <div class="card-body" onclick="handleClickCard(${id})">
@@ -655,23 +674,26 @@ const showUserInfo = async (element) => {
                   <div class="row g-0">
                     <div class="col-md-4 text-center text-white"
                       style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;  background-image: radial-gradient(circle, #051937, #09485f, #3f7a7d, #84ac98, #d2dcbc);">
-                      <img src="${user.profile_image}"
-                        alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                      <h5>${user.username}</h5>
+                ${ typeof user.profile_image === "string" ? 
+                        `<img src="${user.profile_image}" alt="Avatar1" class="img-fluid my-5" style="width: 80px; height: 80px; border-radius: 50% !important;" />`
+                        :
+                        `<img src="images/icons8-user-48.png" alt="Avatar2" class="img-fluid my-5" style="width: 80px; height: 80px; border-radius: 50% !important;" />`
+                    }                     
+                    <h5 class="text-white">${user.username}</h5>
                       <i class="far fa-edit mb-5"></i>
                     </div>
                     <div class="col-md-8">
                       <div class="card-body p-4">
                         <h6>Information</h6>
                         <hr class="mt-0 mb-4">
-                        <div class="row pt-1">
+                        <div class="row pt-1 text-white">
                           <div class="col-6 mb-3">
                             <h6>Email</h6>
-                            <p class="text-muted">${user.email}</p>
+                            <p class="text-muted text-white" style="color: white !important;">${user.email}</p>
                           </div>
                           <div class="col-6 mb-3">
                             <h6>Phone</h6>
-                            <p class="text-muted">123 456 789</p>
+                            <p style="color: white !important;" class="text-muted text-white">123 456 789</p>
                           </div>
                         </div>
                         <h6>Activites</h6>
@@ -679,11 +701,11 @@ const showUserInfo = async (element) => {
                         <div class="row pt-1">
                           <div class="col-6 mb-3">
                             <h6>Recent Posts</h6>
-                            <p class="text-muted">${user.posts_count}</p>
+                            <p  style="color: white !important;" class="text-muted">${user.posts_count}</p>
                           </div>
                           <div class="col-6 mb-3">
                             <h6>Comments Counts</h6>
-                            <p class="text-muted">${user.comments_count}</p>
+                            <p  style="color: white !important;" class="text-muted">${user.comments_count}</p>
                           </div>
                         </div>
                       </div>
