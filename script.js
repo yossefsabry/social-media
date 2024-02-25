@@ -24,12 +24,10 @@ function reloadWindow() {
 const loaderHandler = (status) => {
 	if (status) {
 		document.body.style.height = "100vh";
-		document.querySelector(".loader__container").style.cssText =
-			`z-index: 100000; opacity: 1;`;
+		document.querySelector(".loader__container").style.cssText = "z-index: 100000000; opacity: 1;";
 	} else {
 		document.body.style.height = "";
-		document.querySelector(".loader__container").style.cssText =
-			`z-index: -1; opacity: 0;`;
+		document.querySelector(".loader__container").style.cssText = "z-index: -1; opacity: 0;";
 	}
 };
 
@@ -188,11 +186,12 @@ document.querySelector("#LoginBtn").addEventListener("click", () => {
 			// createAlert();
 			createAlert("Login successful! Welcome back!", "success");
 			setupUi();
+      loaderHandler(false);
 		})
 		.catch((e) => {
 			createAlert(`error happend: ${e}`, "danger");
+      loaderHandler(false);
 		});
-	loaderHandler(false);
 });
 
 /**
@@ -293,22 +292,18 @@ document.getElementById("RegisterBtn").addEventListener("click", () => {
 		.then((response) => {
 			console.log(response);
 			createAlert("Registration successful! now login.", "info");
-
 			const modal = document.getElementById("register-modal");
 			const modalInstance = bootstrap.Modal.getInstance(modal);
 			modalInstance.hide();
 			setLocalStorageInfo(response.data.token, JSON.parse(response.data.user));
 			setupUi();
+      loaderHandler(false);
 		})
 		.catch((e) => {
-			// old ecma script
-			createAlert(
-				"error: " + (e.response.data.message || "An unknown error occurred"),
-				"danger",
-			);
-			console.log(e);
+      // old ecame script
+      createAlert( `error: ${e?.response?.data?.message}` , "danger");
+      loaderHandler(false);
 		});
-	loaderHandler(false);
 });
 
 // todo: alert fix hidden
@@ -368,10 +363,12 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
 				const modalInstance = bootstrap.Modal.getInstance(modal);
 				modalInstance.hide();
 				getRequest(true);
+        loaderHandler(false);
 			})
 			.catch((e) => {
 				createAlert("error happend: " + e.request.responseText, "danger");
 				console.log(e);
+        loaderHandler(false);
 			});
 	} else {
 		formData.append("_method", "put");
@@ -388,10 +385,10 @@ document.querySelector("#create-post-button").addEventListener("click", () => {
 			.catch((e) => {
 				createAlert("error happend: " + e.request.responseText, "danger");
 				console.log(e);
+        loaderHandler(false);
 			});
 		update = false;
 	}
-	loaderHandler(false);
 });
 
 /**
@@ -417,7 +414,7 @@ const handleClickCard = (e) => {
 			let item = postInfo;
 			const allComments = postInfo.comments.map((item) => {
 				const comm = `
-            <div class="comment pb-1">
+            <div class="comment pb-1" onclick={showUserInfo('${encodeURIComponent( JSON.stringify(postInfo),)}')} >
               <div class="pt-1 flex align-items-center justify-content-center gap-3 pb-1">
               ${ typeof item.author.profile_image === "string" ? 
               `<img src="${item.author.profile_image}" alt="Avatar1" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
@@ -483,12 +480,13 @@ const handleClickCard = (e) => {
           </div>
 		`;
 			containerPost.innerHTML = post;
+      loaderHandler(false);
 		})
 		.catch((e) => {
 			console.log("error happend", e);
 			createAlert("error happend " + e, "danger");
-		});
 	loaderHandler(false);
+		});
 };
 
 /**
@@ -511,12 +509,13 @@ const handleAddingComment = (e) => {
 			console.log(response);
 			createAlert("success adding commit to the post", "success");
 			handleClickCard(e);
+      loaderHandler(false);
 		})
 		.catch((e) => {
 			console.log("error happend", e);
 			createAlert("error happend " + e.request.response, "danger");
+      loaderHandler(false);
 		});
-	loaderHandler(false);
 };
 
 /**
@@ -541,12 +540,11 @@ const handleClickEditButton = (e) => {
  * for handle the deleting button for the post that user made
  */
 const handleClickDeleteButton = (e, refresh) => {
-	console.log(e);
+	loaderHandler(true);
 	const token = localStorage.getItem("token");
 	const headers = {
 		authorization: `Bearer ${token}`,
 	};
-	loaderHandler(true);
 	axios
 		.delete(`${url}/posts/${e}`, { headers: headers })
 		.then((response) => {
@@ -557,12 +555,13 @@ const handleClickDeleteButton = (e, refresh) => {
       if(refresh) {
         showUserInfo(currentPostClick);
       }
+      loaderHandler(false);
 		})
 		.catch((e) => {
 			console.log(e);
 			createAlert("error happend in deleting", "danger");
+      loaderHandler(false);
 		});
-	loaderHandler(false);
 };
 
 /**
@@ -602,10 +601,13 @@ const showUserInfo = async (element) => {
 				// console.log(response);
 				postUser = response.data.data;
 			})
-			.catch((e) => console.log("error happend", e));
+			.catch((e) => {
+        console.log("error happend", e)
+      });
+      loaderHandler(false);
 		// console.log(postUser);
 
-		const allPostUser = postUser.map((item, index) => {
+		const allPostUser = postUser.map((item ) => {
 			// loop for the tags for every post
 			const tags = item.tags.map((tg) => {
 				return `<div> ${tg}</div>`;
@@ -628,8 +630,12 @@ const showUserInfo = async (element) => {
 			return `
             <div class="card" >
                 <div class="card-header">
-                    <img src=${item.author.profile_image} alt="profile image user" style="width: 40px; border-radius: 100%">
-                    <span onclick={showUserInfo('${encodeURIComponent(
+                     ${ typeof item.author.profile_image === "string" ? 
+                      `<img src="${item.author.profile_image}" alt="Avatar1" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
+                      :
+                      `<img src="images/icons8-user-48.png" alt="Avatar2" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
+                    }                     
+       <span onclick={showUserInfo('${encodeURIComponent(
 											JSON.stringify(item),
 										)}')} style="cursor: pointer;"><strong>${
 											item.author.username
@@ -725,7 +731,7 @@ const showUserInfo = async (element) => {
     `;
 		content.innerHTML = userInfo;
 	}
-	loaderHandler(false);
+    loaderHandler(false);
 };
 
 document
