@@ -46,8 +46,14 @@
     }
 
     @media (max-width: 1000px) {
-      .container {
-        padding-inline: 0;
+      .container{
+        padding-inline: 1rem;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .nav__container {
+        padding-inline: 0rem !important;
       }
     }
 
@@ -339,7 +345,7 @@
   <!--// adding modal //-->
 
   <!-- nav bar container -->
-  <div class="container">
+  <div class="container nav__container">
     <nav class="navbar navbar__container navbar-expand-lg rounded-bottom shadow">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
