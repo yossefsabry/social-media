@@ -1,4 +1,4 @@
-import { reloadWindow, loaderHandler, setLocalStorageInfo, setupUi, createAlert ,createUserLoginInfoNavBar, templateCard} from "./src/js/index.mjs";
+import { reloadWindow, loaderHandler, setLocalStorageInfo, setupUi, createAlert , templateCard} from "./src/js/index.mjs";
 
 // const variable globel
 const url = "https://tarmeezacademy.com/api/v1";
