@@ -5,7 +5,7 @@ import { idPost } from "../../../script.mjs";
 /**
  * for show the user info
  */
-const showUserInfo = async (element) => {
+const showUserInfo = async (element, foundUserId) => {
   // to stop fetching data for pagination
   isFetching.value = true;
   let content = document.querySelector(".container__posts");
@@ -16,10 +16,14 @@ const showUserInfo = async (element) => {
     user = JSON.parse(localStorage.getItem("user"));
     userProfile = true;
   } else {
-    user = JSON.parse(decodeURIComponent(element));
-    console.log(user)
+    if(foundUserId == null) {
+      user = JSON.parse(decodeURIComponent(element));
+      console.log(user)
+      let user_id = user.author.id;
+    }else {
+      let user_id = foundUserId;
+    }
     userProfile = false;
-    let user_id = user.author.id;
     // console.log(user)
     const request = await axios
       .get(`${url}/users/${user_id}`)
