@@ -27,7 +27,7 @@ const handleClickCard = (e) => {
         console.log(item)
         // for the comment authrozation and userID 
         const conditionComment = item.author.id == userId;
-        const comm = templateComment(item, postInfo.value, conditionComment );
+        const comm = templateComment(item, postInfo.value, conditionComment, item.author.id );
         return comm;
       });
       const post = postTemplate(postInfo.value, idPost, conditionEdit, allComments, e); // is for the adding comment the id
