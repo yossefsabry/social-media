@@ -3,6 +3,6 @@
 - testing branch hosting
 
 ```
-https://jocular-cobbler-958146.netlify.app
+https://social-nation.netlify.app/
 ```
-- [testing branch hosting](https://jocular-cobbler-958146.netlify.app){:target="_blank"}
+- [testing branch hosting](https://social-nation.netlify.app/){:target="_blank"}
