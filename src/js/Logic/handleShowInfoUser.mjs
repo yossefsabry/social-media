@@ -16,13 +16,10 @@ const showUserInfo = async (element, foundUserId) => {
     user = JSON.parse(localStorage.getItem("user"));
     userProfile = true;
   } else {
-    if(foundUserId == null) {
-      user = JSON.parse(decodeURIComponent(element));
-      console.log(user)
-      let user_id = user.author.id;
-    }else {
-      let user_id = foundUserId;
-    }
+    // if(foundUserId == null) {
+    user = JSON.parse(decodeURIComponent(element));
+    console.log(user)
+    let user_id = user.author.id;
     userProfile = false;
     // console.log(user)
     const request = await axios
