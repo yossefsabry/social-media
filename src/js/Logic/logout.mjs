@@ -1,4 +1,5 @@
-import { createAlert, setupUi, reloadWindow } from "../index.mjs";
+import { createAlert, setupUi } from "../index.mjs";
+import { getRequest, currentPage } from "../../../script.mjs";
 
 /**
  * handle the logout
@@ -7,8 +8,9 @@ function handleLogout() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
   setupUi();
-  reloadWindow();
+  getRequest(true, currentPage.value)
   createAlert("Logout successful! Goodbye, and have a great day!", "info");
+  scrollTop();
 }
 
 export default handleLogout;

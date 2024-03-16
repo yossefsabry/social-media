@@ -1,10 +1,9 @@
 // imports
 import {
-  loaderHandler, setLocalStorageInfo, setupUi,
-  createAlert, templateCard, handleLogout, handleClickDeleteButton,
+  loaderHandler,  setupUi,
+   templateCard, handleLogout, 
   handlePagination, handleLogin, handleRegister, handleCreatePost,
-   handleAddingComment, showUserInfo, templateComment, postTemplate,
-   handleClickCard
+    showUserInfo, 
 } from "./src/js/index.mjs";
 
 // variable globel
@@ -31,7 +30,6 @@ export async function getRequest(updatePost, current) {
       // console.log(response);
       lastPage = response.data.meta.last_page;
       user = JSON.parse(localStorage.getItem("user"));
-      console.log(" ---------------------", user);
     })
     .then(() => {
       let posts = document.querySelector(".posts");
@@ -57,9 +55,6 @@ export async function getRequest(updatePost, current) {
     .catch((error) => {
       console.log("error happend", error);
     })
-    .finally(() => {
-      console.log("request finsh...");
-    });
   loaderHandler(false);
   return response;
 }
@@ -96,6 +91,9 @@ document.querySelector("#create-post-button").addEventListener("click", () => ha
 
 document.getElementById("profile-user").addEventListener("click", () => showUserInfo(null));
 
+// request for the first time
+getRequest(false, currentPage.value);
+
 /**
  * handle click on edit button for my post
  */
@@ -110,6 +108,3 @@ export const handleClickEditButton = (e) => {
   const modalInstance = new bootstrap.Modal(modal, {});
   modalInstance.toggle();
 };
-
-// request for the first time
-getRequest(false, currentPage.value);

@@ -16,7 +16,7 @@ const createAlert = (message, type) => {
     // Hide the alert after 2 seconds
     setTimeout(() => {
       wrapper.remove();
-    }, 3000);
+    }, 3500);
   };
   appendAlert(message, type);
 };

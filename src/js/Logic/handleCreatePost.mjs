@@ -26,6 +26,7 @@ function handleCreatePost() {
       modalInstance.hide();
       getRequest(true);
       loaderHandler(false);
+      scrollTop();
     })
     .catch((e) => {
       createAlert("error happend: " + e.request.responseText, "danger");

@@ -1,4 +1,4 @@
-import { createAlert, loaderHandler, userInfoPostTemplate, userProfilePage } from "../index.mjs";
+import { createAlert, loaderHandler, scrollTop, userInfoPostTemplate, userProfilePage } from "../index.mjs";
 import { url, isFetching } from "../../../script.mjs";
 import { idPost } from "../../../script.mjs";
 
@@ -56,8 +56,9 @@ const showUserInfo = async (element) => {
     });
     let userInfo = userProfilePage(user, allPostUser);
     content.innerHTML = userInfo;
+    scrollTop();
+    loaderHandler(false);
   }
-  loaderHandler(false);
 };
 
 export default showUserInfo;

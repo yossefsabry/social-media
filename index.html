@@ -4,223 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>|| social media app ||</title>
+  <title>Social Nation</title>
+  <link rel="icon" href="images/earth-png-25617.png" type="image/x-icon">
   <!-- boostrap files -->
-  <!-- Boostrap files -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Bootstrap icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <!-- Axios import -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <style>
-    body {
-      background-color: #171516f2;
-      width: 100%;
-      position: relative;
-      /* height is broke the pagination for the website */
-      /* height: 100vh; */
-      overflow-x: hidden;
-    }
-
-    .navbar__container {
-      padding: 30px 0px 9px 0px;
-      background: #d2d2d226;
-    }
-
-    .navbar__container a {
-      color: white;
-    }
-
-    .profile__user {
-      background-color: #171516f2;
-      color: white;
-      border: 1px solid #373737;
-    }
-
-    .card {
-      background: #2d242466;
-      color: white;
-      border: 1px solid #373737;
-    }
-
-    container {
-      padding-inline: calc(7vw + 1rem);
-    }
-
-    @media (max-width: 1000px) {
-      .container {
-        padding-inline: 1rem;
-      }
-    }
-
-    @media (max-width: 1000px) {
-      .nav__container {
-        padding-inline: 0rem !important;
-      }
-    }
-
-    image {
-      background-size: cover;
-      width: 100%;
-    }
-
-    html {
-      font-size: 15px;
-    }
-
-    .card {
-      margin-top: 30px;
-    }
-
-    #logout-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-    }
-
-    .category div {
-      background-color: #938a8a;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 30px;
-    }
-
-    #liveAlertPlaceholder {
-      max-width: 100%;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 10000000;
-    }
-
-    #icon__adding {
-      color: #3f51b5;
-      position: fixed;
-      bottom: 130px;
-      right: calc(7vw + 20px);
-      z-index: 4;
-      font-size: 3.7rem;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    @media (max-width: 800px) {
-      #icon__adding {
-        font-size: 3rem;
-        bottom: 100px;
-      }
-    }
-
-    #icon__adding:hover {
-      color: #acacac;
-    }
-
-    .info-user-nav img {
-      width: 50px;
-      height: 40px;
-      border-radius: 50%;
-    }
-
-    .pagination__bottom {
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      justify-content: center;
-    }
-
-    .pagination__bottom div {
-      width: 10px;
-      height: 10px;
-      background-color: #acacac;
-      border-radius: 50%;
-      animation: 1s infinite linear animate;
-    }
-
-    .pagination__bottom div:nth-child(1) {
-      animation-delay: -0.32s;
-    }
-
-    .pagination__bottom div:nth-child(2) {
-      animation-delay: -0.16s;
-    }
-
-    .loader__container {
-      padding: 60px 40px;
-      top: 50vh;
-      right: 50%;
-      transform: translate(50%, -50%);
-      border-radius: 20px;
-      background: #b3c5cc87;
-      overflow: hidden;
-      position: fixed;
-      z-index: -1;
-      opacity: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.2s;
-    }
-
-    .loader__container div {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-left: 10px;
-      background: black;
-      animation: 1s infinite linear animate;
-    }
-
-    .loader__container div:nth-child(1) {
-      animation-delay: -0.32s;
-    }
-
-    .loader__container div:nth-child(2) {
-      animation-delay: -0.16s;
-    }
-
-    @keyframes animate {
-
-      0%,
-      80%,
-      100% {
-        transform: scale(0);
-      }
-
-      40% {
-        transform: scale(1);
-      }
-    }
-
-    @keyframes animate {
-
-      0%,
-      80%,
-      100% {
-        transform: scale(1);
-      }
-
-      40% {
-        transform: scale(0);
-      }
-    }
-
-    .card-body {
-      cursor: pointer;
-    }
-
-    .comment {
-      transition: all 0.3s;
-      transform: scale(0.95);
-    }
-
-    .comment:hover {
-      transform: scale(1) translateX(20px);
-    }
-  </style>
+  <!-- main css file -->
+  <link rel="stylesheet" href="src/css/style.css">
 </head>
 
 <body>
@@ -237,7 +30,7 @@
   <!-- //alerts// -->
 
   <!-- icons for create icon -->
-  <i id="icon__adding" class="bi bi-plus-circle-fill" data-bs-toggle="modal" data-bs-target="#create-post-modal"></i>
+  <i id="icon__adding" class="bi bi-plus-circle-fill" data-bs-toggle="modal" data-bs-target="#create-post-modal" title="adding post"></i>
 
   <!-- adding modal -->
 
@@ -253,11 +46,11 @@
           <form>
             <div class="mb-3">
               <label class="col-form-label">title: </label>
-              <input type="text" class="form-control" id="title-create-post" value="yossef88" />
+              <input type="text" class="form-control" id="title-create-post" value="yossef88"  autocomplete="username"/>
             </div>
             <div class="mb-3">
               <label class="col-form-label">body: </label>
-              <input type="text" class="form-control" id="body-create-post" value="yossef88" />
+              <input type="text" class="form-control" id="body-create-post" value="yossef88"  autocomplete="username"/>
             </div>
             <input type="file" class="form-control" id="image-create-post" value="yossef88" />
           </form>
@@ -286,11 +79,11 @@
           <form>
             <div class="mb-3">
               <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="username-input-login" value="yossef88" />
+              <input type="text" class="form-control" id="username-input-login" value="yossef88"  autocomplete="username"/>
             </div>
             <div class="mb-3">
               <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-input-login" value="123456" />
+              <input type="password" class="form-control" id="password-input-login" value="123456" autocomplete="current-password"/>
             </div>
           </form>
         </div>
@@ -319,19 +112,19 @@
           <form>
             <div class="mb-3">
               <label class="col-form-label">user: </label>
-              <input type="text" class="form-control" id="user-register" />
+              <input type="text" class="form-control" id="user-register"  autocomplete="username"/>
             </div>
             <div class="mb-3">
               <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="username-register" />
+              <input type="text" class="form-control" id="username-register"  autocomplete="username"/>
             </div>
             <div class="mb-3">
               <label class="col-form-label">email: </label>
-              <input type="text" class="form-control" id="email-register" />
+              <input type="text" class="form-control" id="email-register"  autocomplete="username"/>
             </div>
             <div class="mb-3">
               <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-register" value="" />
+              <input type="password" class="form-control" id="password-register" value="" autocomplete="current-password"/>
             </div>
             <input type="file" name="file" value="" id="image-register" class="form-control" />
           </form>
@@ -359,30 +152,30 @@
           aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Social App</a>
+        <a class="navbar-brand" href="index.html" title="home page">socialNation</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link" aria-current="page" href="index.html" title="home page">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-user" href="#">Profile</a>
+              <a class="nav-link" id="profile-user" href="#" title="profile">Profile</a>
             </li>
           </ul>
           <form class="d-flex" role="search" id="login-wrapper">
             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal"
-              data-bs-whatever="@mdo">
+              data-bs-whatever="@mdo" title="login">
               Login
             </button>
             <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal"
-              data-bs-target="#register-modal">
+              data-bs-target="#register-modal" title="register">
               Register
             </button>
           </form>
 
           <form class="d-flex" role="search" id="logout-wrapper">
-            <div class="info-user-nav"></div>
-            <button class="btn btn-outline-danger mx-2" type="button" id="logout-button">
+            <div class="info-user-nav" title="user"></div>
+            <button class="btn btn-outline-danger mx-2" type="button" id="logout-button" title="logout">
               logout
             </button>
           </form>

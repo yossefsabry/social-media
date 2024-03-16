@@ -1,5 +1,5 @@
-import { loaderHandler, createAlert, postTemplate, templateComment } from "../index.mjs";
-import { url, postInfo } from "../../../script.mjs";
+import { loaderHandler, createAlert, postTemplate, templateComment, scrollTop } from "../index.mjs";
+import { url, postInfo, idPost } from "../../../script.mjs";
 
 /**
  * handle navgation an post page
@@ -11,27 +11,35 @@ const handleClickCard = (e) => {
     .get(`${url}/posts/${e}`)
     .then((response) => {
       postInfo.value = response.data.data;
+      console.log(postInfo.value)
 
     })
     .then(() => {
       let containerPost = document.querySelector(".container__posts");
       containerPost.innerHTML = "";
-      let idPost = postInfo.value.id;
+      idPost.value = postInfo.value.id;
       const authorIdPost = postInfo.value.author.id;
+      let user = JSON.parse(localStorage.getItem("user"));
+      let userId = user !== null ? user.id : " ";
+      // its for check if the post is the user post
       let conditionEdit = idPost.value != null && authorIdPost == idPost.value;
-      let item = postInfo.value;
       const allComments = postInfo.value.comments.map((item) => {
-        const comm = templateComment(item, postInfo.value);
+        console.log(item)
+        // for the comment authrozation and userID 
+        const conditionComment = item.author.id == userId;
+        const comm = templateComment(item, postInfo.value, conditionComment );
         return comm;
       });
       const post = postTemplate(postInfo.value, idPost, conditionEdit, allComments, e); // is for the adding comment the id
       containerPost.innerHTML = post;
+      loaderHandler(false);
+      scrollTop(); 
     })
     .catch((e) => {
       console.log("error happend", e);
       createAlert("error happend " + e, "danger");
+      loaderHandler(false);
     });
-  loaderHandler(false);
 };
 
 export default handleClickCard;

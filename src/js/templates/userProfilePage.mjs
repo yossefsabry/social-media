@@ -1,6 +1,6 @@
 function userProfilePage(user, allPostUser) {
-    let userProfile = `
-  < section class="h-100 profile__user" style = "background-color: #f4f5f7; color: black;" >
+  let userProfile = `
+  <section class="h-100 profile__user mt-2" style = "background-color: #f4f5f7; color: black;" >
           <div class="container profile__user py-2 h-100 w-100">
             <div class="row d-flex justify-content-center align-items-center">
               <div class="col col-lg-9 mb-4 mb-lg-9">
@@ -9,10 +9,10 @@ function userProfilePage(user, allPostUser) {
                     <div class="col-md-4 text-center text-white"
                       style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;  background-image: radial-gradient(circle, #051937, #09485f, #3f7a7d, #84ac98, #d2dcbc);">
                       ${typeof user.profile_image === "string" ?
-            `<img src="${user.profile_image}" alt="Avatar1" class="img-fluid my-5" style="width: 80px; height: 80px; border-radius: 50% !important;" />`
-            :
-            `<img src="images/icons8-user-48.png" alt="Avatar2" class="img-fluid my-5" style="width: 80px; height: 80px; border-radius: 50% !important;" />`
-        }
+      `<img src="${user.profile_image}" alt="Avatar1" class="img-fluid my-5" style="width: 80px; height: 80px; border-radius: 50% !important;" />`
+      :
+      `<img src="images/icons8-user-48.png" alt="Avatar2" class="img-fluid my-5" style="width: 80px; height: 80px; border-radius: 50% !important;" />`
+    }
                       <h5 class="text-white">${user.username}</h5>
                       <i class="far fa-edit mb-5"></i>
                     </div>
@@ -53,6 +53,6 @@ function userProfilePage(user, allPostUser) {
             </div>
           </section>
     `
-    return userProfile;
+  return userProfile;
 }
 export default userProfilePage;
