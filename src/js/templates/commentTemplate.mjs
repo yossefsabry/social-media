@@ -2,7 +2,7 @@
 function templateComment(item, postInfo, conditionComment) {
   console.log(conditionComment)
   const comm = `
-    <div class="comment pb-1" onclick=${!conditionComment ? `showUserInfo(${encodeURIComponent(JSON.stringify(postInfo))})` : 'showUserInfo(null)'}>
+    <div class="comment pb-1" onclick={howUserInfo(${encodeURIComponent(JSON.stringify(postInfo))}) >
           <div class="pt-1 flex align-items-center justify-content-center gap-3 pb-1">
           ${typeof item.author.profile_image === "string" ?
       `<img src="${item.author.profile_image}" alt="Avatar1" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
