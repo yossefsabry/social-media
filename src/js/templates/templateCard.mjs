@@ -1,5 +1,4 @@
-import { handleClickEditButton } from "../../../script.mjs";
-import { handleClickDeleteButton, handleAddingComment, showUserInfo, handleClickCard } from "../index.mjs";
+import { handleClickDeleteButton, handleAddingComment, showUserInfo, handleClickCard , handleClickEditButton} from "../index.mjs";
 
 function templateCard(item, condition, idUpdate, id, title, tags) {
   window.showUserInfo = showUserInfo;

@@ -1,5 +1,5 @@
-import { loaderHandler, createAlert, showUserInfo } from "../index.mjs";
-import { currentPostClick, getRequest, url } from "../../../script.mjs";
+import { loaderHandler, createAlert, showUserInfo , getRequest} from "../index.mjs";
+import { currentPostClick,  url } from "../../../script.mjs";
 
 /**
  * for handle the deleting button for the post that user made
@@ -18,7 +18,7 @@ const handleClickDeleteButton = (e, refresh) => {
       createAlert("deleting the post successfuly ", "success");
       // FIX handle the fix click
       if (refresh) {
-        showUserInfo(currentPostClick);
+        showUserInfo(currentPostClick.value);
       }
       loaderHandler(false);
     })

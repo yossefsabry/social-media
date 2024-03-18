@@ -5,7 +5,6 @@ import { url } from "../../../script.mjs";
  * handle register for the user
  */
   function handleRegister() {
-  console.log("------- register ----------");
   const user = document.getElementById("user-register").value;
   const username = document.getElementById("username-register").value;
   const email = document.getElementById("email-register").value;
@@ -23,7 +22,7 @@ import { url } from "../../../script.mjs";
   axios
     .post(`${url}/register`, dataForm)
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       createAlert("Registration successful! now login.", "info");
       const modal = document.getElementById("register-modal");
       const modalInstance = bootstrap.Modal.getInstance(modal);
@@ -32,7 +31,6 @@ import { url } from "../../../script.mjs";
       loaderHandler(false);
     })
     .catch((e) => {
-      // old ecame script
       createAlert(`error: ${e?.response?.data?.message}`, "danger");
       loaderHandler(false);
     });

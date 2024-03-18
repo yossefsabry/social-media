@@ -19,11 +19,13 @@ import templateComment from "./templates/commentTemplate.mjs";
 import postTemplate from "./templates/postTemplate.mjs";
 import handleClickCard from "./Logic/handleClickCard.mjs";
 import scrollTop from "./UI/scrollTop.mjs";
+import getRequest from "./Logic/getRequestPost.mjs";
+import handleClickEditButton from "./Logic/handleEdit.mjs";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
     setupUi, createAlert, createUserLoginInfoNavBar, templateCard,
     handleLogout ,handleClickDeleteButton, handlePagination, handleLogin,
     handleRegister, handleCreatePost, handleAddingComment, userInfoPostTemplate, userProfilePage, showUserInfo,
-    templateComment, postTemplate, handleClickCard, scrollTop
+    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton
 };

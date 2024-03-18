@@ -1,5 +1,5 @@
-import { loaderHandler, createAlert } from "../index.mjs";
-import { url, getRequest } from "../../../script.mjs";
+import { loaderHandler, createAlert , getRequest} from "../index.mjs";
+import { url  } from "../../../script.mjs";
 /**
  * create post for user that authorization
  */

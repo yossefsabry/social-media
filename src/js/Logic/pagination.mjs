@@ -1,10 +1,10 @@
-import { isFetching,getRequest, postInfo, currentPage, lastPage } from "../../../script.mjs";
-import { createAlert } from "../index.mjs";
+import { isFetching,  postInfo, currentPage, lastPage } from "../../../script.mjs";
+import { createAlert, getRequest } from "../index.mjs";
 function handlePagination() {
 if (
     !isFetching.value &&
     window.pageYOffset + 3000 >= document.body.offsetHeight &&
-    currentPage.value < lastPage &&
+    currentPage.value < lastPage.value &&
     postInfo.value.length == 0
   ) {
     isFetching.value = true; // Set flag to true when a request is initiated

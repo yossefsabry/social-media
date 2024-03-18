@@ -1,63 +1,26 @@
 // imports
 import {
-  loaderHandler,  setupUi,
-   templateCard, handleLogout, 
+  setupUi,
+  handleLogout,
   handlePagination, handleLogin, handleRegister, handleCreatePost,
-    showUserInfo, 
+  showUserInfo, getRequest
 } from "./src/js/index.mjs";
+
+
+
 
 // variable globel
 export const url = "https://tarmeezacademy.com/api/v1"; // the main url
-export let postArray = []; // for the posts in getReqeust
+export let postArray = { value: [] }; // for the posts in getReqeust
 export let currentPage = { value: 1 }; // for the pagination
-export let lastPage; // for the pagination
+export let lastPage = { value: null }; // for the pagination
 export let postInfo = { value: [] }; // for pagination when its have data stop the pagination
-export let user = {}; // for the user info
+export let user = { value: {} }; // for the user info
 let updatePost = false;
 export let idPost = { value: null }; // for the post id handle for the delete and update
-export let currentPostClick = null; // for the post click
+export let currentPostClick = { value: null }; // for the post click
 export let isFetching = { value: false }; // for the pagination
 
-
-/**
- * request for the api for data posts
- */
-export async function getRequest(updatePost, current) {
-  loaderHandler(true);
-  const response = await axios.get(`${url}/posts?limit=5&page=${current}`)
-    .then((response) => {
-      postArray = response.data.data;
-      // console.log(response);
-      lastPage = response.data.meta.last_page;
-      user = JSON.parse(localStorage.getItem("user"));
-    })
-    .then(() => {
-      let posts = document.querySelector(".posts");
-      // for when update and delete post its delete the posts conatiner and adding the new posts
-      if (updatePost == true) {
-        posts.innerHTML = "";
-      }
-      postArray.map((item) => {
-        currentPostClick = item;
-        // loop for the tags for every post
-        const tags = item.tags.map((tg) => {
-          return `<div> ${tg}</div>`;
-        });
-        let title = item.title == null ? "" : item.title;
-        let id = item.id;
-        idPost.value = id; // for the post id handle for the delete and update
-        const authorIdPost = item.author?.id;
-        let idUser = user !== null ? user.id : " "
-        let conditionEdit = idUser != null && authorIdPost == idUser;
-        posts.innerHTML += templateCard(item, conditionEdit, idPost.value, id, title, tags);
-      });
-    })
-    .catch((error) => {
-      console.log("error happend", error);
-    })
-  loaderHandler(false);
-  return response;
-}
 
 /**
  * adding pagination for the website
@@ -94,17 +57,3 @@ document.getElementById("profile-user").addEventListener("click", () => showUser
 // request for the first time
 getRequest(false, currentPage.value);
 
-/**
- * handle click on edit button for my post
- */
-export const handleClickEditButton = (e) => {
-  const element = JSON.parse(decodeURIComponent(e));
-  console.log("element: ", element);
-
-  document.getElementById("create-post-button").innerHTML = "Update";
-  document.getElementById("title-create-post").value = `${element.title}`;
-  document.getElementById("body-create-post").value = `${element.body}`;
-  const modal = document.querySelector("#create-post-modal");
-  const modalInstance = new bootstrap.Modal(modal, {});
-  modalInstance.toggle();
-};

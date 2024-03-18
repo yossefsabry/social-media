@@ -1,5 +1,5 @@
-import { createAlert, setupUi } from "../index.mjs";
-import { getRequest, currentPage } from "../../../script.mjs";
+import { createAlert, setupUi, scrollTop, getRequest } from "../index.mjs";
+import {  currentPage } from "../../../script.mjs";
 
 /**
  * handle the logout
