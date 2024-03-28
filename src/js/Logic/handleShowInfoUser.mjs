@@ -5,7 +5,7 @@ import { idPost } from "../../../script.mjs";
 /**
  * for show the user info
  */
-const showUserInfo = async (element, foundUserId) => {
+const showUserInfo = async (element) => {
   // to stop fetching data for pagination
   isFetching.value = true;
   let content = document.querySelector(".container__posts");
@@ -16,12 +16,9 @@ const showUserInfo = async (element, foundUserId) => {
     user = JSON.parse(localStorage.getItem("user"));
     userProfile = true;
   } else {
-    // if(foundUserId == null) {
     user = JSON.parse(decodeURIComponent(element));
-    // console.log(user)
     let user_id = user.author.id;
     userProfile = false;
-    // console.log(user)
     const request = await axios
       .get(`${url}/users/${user_id}`)
       .then((response) => {
@@ -44,13 +41,11 @@ const showUserInfo = async (element, foundUserId) => {
       });
     loaderHandler(false);
     const allPostUser = postUser.map((item) => {
-      // loop for the tags for every post
       const tags = item.tags.map((tg) => {
         return `<div> ${tg}</div>`;
       });
       let title = item.title == null ? "" : item.title;
       let id = item.id;
-      // for update method
       idPost.value = id;
       let userTemplate = userInfoPostTemplate(item, idPost, id, title, tags, userProfile);
       return userTemplate;

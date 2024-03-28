@@ -19,7 +19,6 @@ async function getRequest(updatePost, current) {
       }
       postArray.value.map((item) => {
         currentPostClick.value = item;
-        // loop for the tags for every post
         const tags = item.tags.map((tg) => {
           return `<div> ${tg}</div>`;
         });
