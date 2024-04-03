@@ -1,5 +1,6 @@
 /**
  * handle click on edit button for my post
+ *@param {string} e - is string but object to card 
  */
 const handleClickEditButton = (e) => {
   const element = JSON.parse(decodeURIComponent(e));

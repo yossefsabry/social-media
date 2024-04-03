@@ -4,6 +4,9 @@ import { idPost } from "../../../script.mjs";
 
 /**
  * for show the user info
+ * @param {object} element - the object for the user info
+ * @returns {HTMLDivElement} - return the user template for profile and html tree
+ * @throws {error} - when making request for the user info
  */
 const showUserInfo = async (element) => {
   // to stop fetching data for pagination

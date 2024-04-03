@@ -1,6 +1,7 @@
 
-/*
+/**
  * for  setup the loader for the app
+ * @param {boolean} status - for the status for the loader is off or on
  */
 const loaderHandler = (status) => {
   if (status) {

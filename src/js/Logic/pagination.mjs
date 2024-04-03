@@ -1,5 +1,9 @@
 import { isFetching,  postInfo, currentPage, lastPage } from "../../../script.mjs";
 import { createAlert, getRequest } from "../index.mjs";
+/**
+ * for making another request when scroll to the bottom
+ * @throws {error} - error hanppend when making another request
+ */
 function handlePagination() {
 if (
     !isFetching.value &&

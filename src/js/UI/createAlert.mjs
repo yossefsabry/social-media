@@ -1,5 +1,8 @@
 
-// todo: alert fix hidden
+/**
+ * @param {string} message - the message that show for the user
+ * @param {string} type - the type for the massage (danger - info - success)
+ */
 const createAlert = (message, type) => {
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   const appendAlert = (message, type) => {
