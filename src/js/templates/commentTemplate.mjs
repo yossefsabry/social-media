@@ -1,4 +1,9 @@
 
+/**
+ * 
+ * @param {object} item - the object for the item comment
+ * @returns {HTMLDivElement} - the commment for html tree
+ */
 function templateComment(item) {
   const comm = `
       <div class="comment pb-1" onclick={showUserInfo('${encodeURIComponent( JSON.stringify(item))}')} >

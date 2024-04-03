@@ -1,6 +1,17 @@
 import { handleClickDeleteButton, handleAddingComment, showUserInfo, handleClickCard , handleClickEditButton} from "../index.mjs";
 
+/**
+ * 
+ * @param {object} item - the current card item full object
+ * @param {boolean} condition - the condition for show the delete and edit buttons
+ * @param {number} idUpdate - the id for the card
+ * @param {number} id - the id for the card
+ * @param {string} title - the title for the card
+ * @param {HTMLElementEventMap} tags - for html with all tags
+ * @returns {object} - returns the card for the html tree
+ */
 function templateCard(item, condition, idUpdate, id, title, tags) {
+  // global defeind the method to can read by html
   window.showUserInfo = showUserInfo;
   window.handleClickCard = handleClickCard;
   window.handleAddingComment = handleAddingComment;

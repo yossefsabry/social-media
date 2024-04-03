@@ -1,8 +1,13 @@
 import { url, postArray, lastPage, user, currentPostClick , idPost} from "../../../script.mjs";
 import { loaderHandler , templateCard} from "../index.mjs";
+
 /**
  * request for the api for data posts
- */
+ * @param {boolean} updatePost -  remove the content 
+ * @param {number} current - for the current page 
+ * @throws {error} - catch the error if the request fail
+ * @returns {Promise} - return the response from the api
+ * */
 async function getRequest(updatePost, current) {
   loaderHandler(true);
   const response = await axios.get(`${url}/posts?limit=5&page=${current}`)

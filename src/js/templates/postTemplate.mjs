@@ -1,3 +1,12 @@
+/**
+ * 
+ * @param {object} postInfo - the object for the click card item
+ * @param {object} idPost - the id for the clickDeleteButton function
+ * @param {boolean} conditionEdit - the condition for show the delete and edit buttton
+ * @param {HTMLDivElement} allComments - the html comments
+ * @param {number} e - the id for post addingCommentFunction
+ * @returns {HTMLDivElement} - return the post for the html tree
+ */
 function postTemplate(postInfo, idPost, conditionEdit, allComments, e) {
       const post = `
       <h2 style="padding: 40px 0px 0px; color: white !important;">${postInfo.author.username} post</h2>

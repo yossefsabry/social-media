@@ -1,3 +1,13 @@
+/**
+ * 
+ * @param {object} item - the post template
+ * @param {number} idPost - the id for the post
+ * @param {number} id - the second id for the post   
+ * @param {string} title - the title for the post
+ * @param {HTMLDivElement} tags - the html tags for tags
+ * @param {object} userProfile - the user info
+ * @returns {HTMLDivElement} - return the templateUser
+ */
 function userInfoPostTemplate(item, idPost, id, title, tags, userProfile) {
     let templateUser = ` <div class="card" >
                 <div class="card-header">

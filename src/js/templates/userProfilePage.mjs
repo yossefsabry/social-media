@@ -1,3 +1,9 @@
+/**
+ * for show the user profile and all his post 
+ * @param {object} user - for the user info
+ * @param {HTMLDivElement} allPostUser - for the html posts for the user
+ * @returns {HTMLDivElement} - return the userProfilePage for user
+ */
 function userProfilePage(user, allPostUser) {
   let userProfile = `
   <section class="h-100 profile__user mt-2" style = "background-color: #f4f5f7; color: black;" >

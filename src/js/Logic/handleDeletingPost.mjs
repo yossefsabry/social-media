@@ -3,6 +3,9 @@ import { currentPostClick,  url } from "../../../script.mjs";
 
 /**
  * for handle the deleting button for the post that user made
+ * @param {number} e - the id for the post that gone delete
+ * @param {boolean} refresh - for refresh the page userInfo (profile)
+ * @throws {error} - error when making reqeust for deleting the post
  */
 const handleClickDeleteButton = (e, refresh) => {
   loaderHandler(true);

@@ -3,6 +3,8 @@ import { url, postInfo, idPost } from "../../../script.mjs";
 
 /**
  * handle navgation an post page
+ * @param {number} e - the id for the current clicked card
+ * @throws {throws} - throw an error for request for the clicked card
  */
 const handleClickCard = (e) => {
   // console.log(e);

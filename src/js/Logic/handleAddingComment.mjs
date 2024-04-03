@@ -3,6 +3,8 @@ import { url } from "../../../script.mjs";
 import { handleClickCard } from "../index.mjs";
 /**
  * handle create comment for  the user
+ * @param {number} e - for the current id for the post 
+ * @throws {error} - handle the error when adding comment
  */
 const handleAddingComment = (e) => {
   console.log("adding comment");
