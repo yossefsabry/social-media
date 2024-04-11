@@ -15,19 +15,18 @@ const handleClickDeleteButton = (e, refresh) => {
   };
   axios
     .delete(`${url}/posts/${e}`, { headers: headers })
-    .then((response) => {
-      // console.log(response);
-      getRequest(true);
+    .then((response) => { // console.log(response);
       createAlert("deleting the post successfuly ", "success");
       // FIX handle the fix click
       if (refresh) {
-        showUserInfo(currentPostClick.value);
+        showUserInfo();
       }
+      getRequest(true);
       loaderHandler(false);
     })
     .catch((e) => {
     //   console.log(e);
-      createAlert("error happend in deleting", "danger");
+      createAlert("error happend in deleting: " + e, "danger");
       loaderHandler(false);
     });
 };

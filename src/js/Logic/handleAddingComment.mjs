@@ -7,7 +7,7 @@ import { handleClickCard } from "../index.mjs";
  * @throws {error} - handle the error when adding comment
  */
 const handleAddingComment = (e) => {
-  console.log("adding comment");
+  // console.log("adding comment");
   let commentValue = document.querySelector("#comment__input").value;
   let token = localStorage.getItem("token");
   const data = {
@@ -17,15 +17,14 @@ const handleAddingComment = (e) => {
     authorization: `Bearer ${token}`,
   };
   if (commentValue == "") {
-    createAlert("please enter the comment", "danger");
+    createAlert("not valid comment !!", "danger");
     return;
   }
   loaderHandler(true);
   axios
     .post(`${url}/posts/${e}/comments`, data, { headers: headers })
-    .then((response) => {
-      // console.log(response);
-      createAlert("success adding commit to the post", "success");
+    .then(() => {
+      createAlert("success adding comment to the post", "success");
       handleClickCard(e);
       loaderHandler(false);
     })

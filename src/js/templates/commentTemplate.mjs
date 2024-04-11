@@ -17,6 +17,7 @@ function templateComment(item) {
           </div>
           <h5>${item.body}</h5>
         </div>
+        <hr />
       `;
   return comm;
 }

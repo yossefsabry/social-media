@@ -7,7 +7,7 @@
  * @param {number} e - the id for post addingCommentFunction
  * @returns {HTMLDivElement} - return the post for the html tree
  */
-function postTemplate(postInfo, idPost, conditionEdit, allComments, e) {
+function postTemplate(postInfo, idPostValue, conditionEdit, allComments, e) {
       const post = `
       <h2 style="padding: 40px 0px 0px; color: white !important;">${postInfo.author.username} post</h2>
       <div class="card my-5">
@@ -17,7 +17,7 @@ function postTemplate(postInfo, idPost, conditionEdit, allComments, e) {
         JSON.stringify(postInfo),
       )}')" style="cursor: pointer;"><strong>${postInfo.author.username}</strong></span>
             ${conditionEdit
-          ? `<button class="btn btn-danger mx-2" style="float: right;" onclick={handleClickDeleteButton('${idPost.value}')}>Delete</button>`
+          ? `<button class="btn btn-danger mx-2" style="float: right;" onclick="handleClickDeleteButton('${idPostValue}' )">Delete</button>`
           : ""
         }
             ${conditionEdit

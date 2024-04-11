@@ -6,6 +6,11 @@
  */
 function userProfilePage(user, allPostUser) {
   let userProfile = `
+
+  <!-- icons for create icon -->
+  <i id="icon__adding" class="bi bi-plus-circle-fill" data-bs-toggle="modal" data-bs-target="#create-post-modal"
+    title="adding post"></i>
+
   <section class="h-100 profile__user mt-2" style = "background-color: #f4f5f7; color: black;" >
           <div class="container profile__user py-2 h-100 w-100">
             <div class="row d-flex justify-content-center align-items-center">

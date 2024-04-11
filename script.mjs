@@ -28,7 +28,9 @@ setupUi();
 
 document.getElementById("RegisterBtn").addEventListener("click", () => handleRegister());
 
-document.querySelector("#create-post-button").addEventListener("click", () => handleCreatePost());
+document.querySelector("#create-post-button").addEventListener("click", () => handleCreatePost()); // for user profile
+
+document.querySelector(".create__post__container__home button").addEventListener("click", () => handleCreatePost(false)); // for home 
 
 document.getElementById("profile-user").addEventListener("click", () => showUserInfo(null));
 

@@ -20,12 +20,16 @@ const handleClickCard = (e) => {
       containerPost.innerHTML = "";
       idPost.value = postInfo.value.id;
       const authorIdPost = postInfo.value.author.id;
-      let conditionEdit = idPost.value != null && authorIdPost == idPost.value; // its for check if the post is the user post
       const allComments = postInfo.value.comments.map((item) => {
         const comm = templateComment(item);
         return comm;
       });
-      const post = postTemplate(postInfo.value, idPost, conditionEdit, allComments, e); // is for the adding comment the id
+
+      // set condition for the post author for the edit and delete buttons
+      let user  = JSON.parse(localStorage.getItem("user"));
+      let authorId = user.id;
+      let conditionPostAuthor = authorIdPost == authorId;
+      const post = postTemplate(postInfo.value, idPost.value, conditionPostAuthor, allComments, e); // is for the adding comment the id
       containerPost.innerHTML = post;
       loaderHandler(false);
       scrollTop(); 

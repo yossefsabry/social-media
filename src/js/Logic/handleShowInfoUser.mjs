@@ -50,7 +50,7 @@ const showUserInfo = async (element) => {
       let title = item.title == null ? "" : item.title;
       let id = item.id;
       idPost.value = id;
-      let userTemplate = userInfoPostTemplate(item, idPost, id, title, tags, userProfile);
+      let userTemplate = userInfoPostTemplate(item, idPost.value, id, title, tags, userProfile);
       return userTemplate;
     });
     let userInfo = userProfilePage(user, allPostUser);

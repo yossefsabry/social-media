@@ -21,7 +21,7 @@ function userInfoPostTemplate(item, idPost, id, title, tags, userProfile) {
         )}')} style="cursor: pointer;"><strong>${item.author.username
         }</strong></span>
                     ${userProfile
-            ? `<button class="btn btn-danger mx-2" style="float: right;" onclick={handleClickDeleteButton('${idPost.value}')}>Delete</button>`
+            ? `<button class="btn btn-danger mx-2" style="float: right;" onclick="handleClickDeleteButton('${idPost}', true)">Delete</button>`
             : ""
         }
                     ${userProfile

@@ -18,6 +18,7 @@ function templateCard(item, condition, idUpdate, id, title, tags) {
   window.handleClickDeleteButton = handleClickDeleteButton;
   window.handleClickEditButton = handleClickEditButton;
 
+  console.log(condition);
   const card = `
 <div class="card" >
     <div class="card-header">

@@ -27,5 +27,6 @@ export {
     setupUi, createAlert, createUserLoginInfoNavBar, templateCard,
     handleLogout ,handleClickDeleteButton, handlePagination, handleLogin,
     handleRegister, handleCreatePost, handleAddingComment, userInfoPostTemplate, userProfilePage, showUserInfo,
-    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton
+    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton 
+
 };

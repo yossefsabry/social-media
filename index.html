@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Social Nation</title>
-  <link rel="icon" href="images/earth-png-25617.png" type="image/x-icon">
+  <link rel="icon" href="images/earth-png-25617.png" type="image/x-icon" />
   <!-- boostrap files -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
@@ -13,7 +13,7 @@
   <!-- Axios import -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- main css file -->
-  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="stylesheet" href="src/css/style.css" />
 </head>
 
 <body>
@@ -29,9 +29,6 @@
   <div id="liveAlertPlaceholder" class="fade show"></div>
   <!-- //alerts// -->
 
-  <!-- icons for create icon -->
-  <i id="icon__adding" class="bi bi-plus-circle-fill" data-bs-toggle="modal" data-bs-target="#create-post-modal" title="adding post"></i>
-
   <!-- adding modal -->
 
   <!-- modal create post -->
@@ -46,11 +43,11 @@
           <form>
             <div class="mb-3">
               <label class="col-form-label">title: </label>
-              <input type="text" class="form-control" id="title-create-post" value="yossef88"  autocomplete="username"/>
+              <input type="text" class="form-control" id="title-create-post" value="yossef88" autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">body: </label>
-              <input type="text" class="form-control" id="body-create-post" value="yossef88"  autocomplete="username"/>
+              <input type="text" class="form-control" id="body-create-post" value="yossef88" autocomplete="username" />
             </div>
             <input type="file" class="form-control" id="image-create-post" value="yossef88" />
           </form>
@@ -79,11 +76,13 @@
           <form>
             <div class="mb-3">
               <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="username-input-login" value="yossef88"  autocomplete="username"/>
+              <input type="text" class="form-control" id="username-input-login" value="yossef88"
+                autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-input-login" value="123456" autocomplete="current-password"/>
+              <input type="password" class="form-control" id="password-input-login" value="123456"
+                autocomplete="current-password" />
             </div>
           </form>
         </div>
@@ -112,19 +111,20 @@
           <form>
             <div class="mb-3">
               <label class="col-form-label">user: </label>
-              <input type="text" class="form-control" id="user-register"  autocomplete="username"/>
+              <input type="text" class="form-control" id="user-register" autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="username-register"  autocomplete="username"/>
+              <input type="text" class="form-control" id="username-register" autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">email: </label>
-              <input type="text" class="form-control" id="email-register"  autocomplete="username"/>
+              <input type="text" class="form-control" id="email-register" autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-register" value="" autocomplete="current-password"/>
+              <input type="password" class="form-control" id="password-register" value=""
+                autocomplete="current-password" />
             </div>
             <input type="file" name="file" value="" id="image-register" class="form-control" />
           </form>
@@ -145,7 +145,7 @@
   <!--// adding modal //-->
 
   <!-- nav bar container -->
-  <div class="container nav__container">
+  <div class="container sticky-top nav__container">
     <nav class="navbar navbar__container navbar-expand-lg rounded-bottom shadow">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
@@ -187,6 +187,24 @@
 
   <!-- start post -->
   <div class="container container__posts">
+    <div class="create__post__container__home py-3">
+      <h4 class="text-center">create post</h4>
+      <div class="input-group flex-nowrap mb-2">
+        <span class="input-group-text" id="addon-wrapping">title</span>
+        <input type="text" class="form-control title__input" placeholder="Title" aria-label="title"
+          aria-describedby="addon-wrapping" />
+      </div>
+      <div class="form-floating pb-2">
+        <textarea class="form-control body__input" placeholder="Leave a comment here" id="floatingTextarea2"
+          style="height: 100px"></textarea>
+        <label for="floatingTextarea2">body</label>
+      </div>
+      <input type="file" name="file" value="" id="image-register" class="form-control mb-3 image__input" />
+      <button type="button" class="btn btn-primary" id="RegisterBtn" class="text-center" style="width: 100% !important">
+        create
+      </button>
+    </div>
+
     <div class="posts py-3">
       <div class="card">
         <div class="card-header">
