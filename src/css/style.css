@@ -235,3 +235,7 @@ image {
 .comment:hover {
   transform: scale(1) translateX(20px);
 }
+.create__post__container__home input ,
+.create__post__container__home textarea{
+  background: rgb(24, 26, 27) !important;
+}
