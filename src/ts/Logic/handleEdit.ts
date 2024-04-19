@@ -1,4 +1,5 @@
 // import bootstrap, { Modal } from "bootstrap"
+import { Modal } from "bootstrap";
 /**
  * handle click on edit button for my post
  *@param {string} e - is string but object to card 

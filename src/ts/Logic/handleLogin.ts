@@ -1,4 +1,5 @@
 // import bootstrap, { Modal } from "bootstrap"
+import { Modal } from "bootstrap";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { createAlert, setLocalStorageInfo, setupUi, loaderHandler } from "../index.ts";
 import { url } from "../storeData.ts";
