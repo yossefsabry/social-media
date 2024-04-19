@@ -46,7 +46,7 @@ const handleClickCard = (e: number) => {
         authorId  = user.id;
 
       let conditionPostAuthor: boolean = authorIdPost == authorId;
-      const post = postTemplate(postInfo.value, idPost.value!, conditionPostAuthor, allComments, e); // is for the adding comment the id
+      const post = postTemplate(postInfo.value!, idPost.value!, conditionPostAuthor, allComments, e); // is for the adding comment the id
       containerPost.innerHTML = post;
       loaderHandler(false);
       scrollTop(); 

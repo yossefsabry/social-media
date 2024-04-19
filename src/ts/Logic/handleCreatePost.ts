@@ -1,4 +1,3 @@
-// import bootstrap from "bootstrap"
 import axios, { AxiosError } from "axios";
 import {
   loaderHandler,

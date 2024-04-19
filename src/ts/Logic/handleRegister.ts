@@ -1,4 +1,6 @@
 // import bootstrap, { Modal } from "bootstrap"
+
+import { Modal } from "bootstrap";
 import axios, { AxiosError } from "axios";
 import { loaderHandler, setupUi, createAlert } from "../index.ts";
 import { url } from "../storeData.ts";
@@ -14,7 +16,13 @@ function handleRegister() {
   const username: string = (document.getElementById("username-register") as HTMLInputElement ).value;
   const email: string = (document.getElementById("email-register") as HTMLInputElement ).value;
   const password: string | number = (document.getElementById("password-register") as HTMLInputElement ).value;
-  const image: File  = (document.getElementById("image-register") as HTMLInputElement ).files[0];
+  let imageElement: HTMLInputElement | null = (document.getElementById("image-register")as HTMLInputElement);
+
+  let image: File |  string = ""; // check for the image
+
+  if (imageElement !== null && imageElement.files !== null && imageElement.files.length > 0) 
+    image = imageElement.files[0];
+
 
   const dataForm: FormData = new FormData();
   dataForm.append("name", user);
