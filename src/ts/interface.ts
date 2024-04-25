@@ -1,3 +1,5 @@
+// deno-lint-ignore-file ban-types
+
 // ========== user object ========== 
 export interface User {
   username: string;

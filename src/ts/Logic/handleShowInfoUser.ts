@@ -12,7 +12,7 @@ import { AlertType, User } from "../interface.ts";
 const showUserInfo = async (element?:string | null ): Promise<void> => {
   // to stop fetching data for pagination
   isFetching.value = true;
-  let content = (document.querySelector(".container__posts") as HTMLElement);
+  const content = (document.querySelector(".container__posts") as HTMLElement);
   let user: User| undefined ; 
   let userProfile: boolean;
 
@@ -59,14 +59,14 @@ const showUserInfo = async (element?:string | null ): Promise<void> => {
       const tags = item.tags.map((tg: any) => {
         return `<div> ${tg}</div>`;
       });
-      let title = item.title == null ? "" : item.title;
-      let id = item.id;
+      const title = item.title == null ? "" : item.title;
+      const id = item.id;
       idPost.value = id;
-      let userTemplate = userInfoPostTemplate(item, idPost.value!, id, title, tags, userProfile);
+      const userTemplate = userInfoPostTemplate(item, idPost.value!, id, title, tags, userProfile);
       return userTemplate;
     });
 
-    let userInfo = userProfilePage(user, allPostUser);
+    const userInfo = userProfilePage(user, allPostUser);
     if (content !== null) 
       content.innerHTML = userInfo;
 

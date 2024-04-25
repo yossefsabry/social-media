@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { createAlert, loaderHandler, handleClickCard } from "../index.ts";
 import { url } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
@@ -9,10 +9,10 @@ import { AlertType } from "../interface.ts";
  */
 const handleAddingComment = (e: number) => {
   // console.log("adding comment");
-  let commentValue: string = (
+  const commentValue: string = (
     document.querySelector("#comment__input") as HTMLInputElement
   ).value;
-  let token: string | null = localStorage.getItem("token");
+  const token: string | null = localStorage.getItem("token");
   const data: { body: string } = {
     body: commentValue,
   };
@@ -31,7 +31,7 @@ const handleAddingComment = (e: number) => {
       handleClickCard(e);
       loaderHandler(false);
     })
-    .catch((e) => {
+    .catch((e: AxiosError) => {
       console.log("error happend", e);
       createAlert(
         "error happend in request: " + e.request.response,

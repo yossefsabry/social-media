@@ -4,19 +4,22 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 import { createAlert, setLocalStorageInfo, setupUi, loaderHandler } from "../index.ts";
 import { url } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
+
+// const bootstrap = require("bootstrap"); # problem in bootstrap
+
 /**
- * for loginBtn handler and send the data
+ * description: for loginBtn handler and send the data
  */
 function handleLogin() {
-  let username: string = (document.querySelector("#username-input-login") as HTMLInputElement ).value;
-  let password: string | number = (document.querySelector("#password-input-login") as HTMLInputElement ).value;
+  const username: string = (document.querySelector("#username-input-login") as HTMLInputElement ).value;
+  const password: string | number = (document.querySelector("#password-input-login") as HTMLInputElement ).value;
 
   interface data {
     username: string;
     password: string | number;
   }
 
-  let data = {
+  const data = {
     username: username,
     password: password,
   };
@@ -27,7 +30,7 @@ function handleLogin() {
     .then((response: AxiosResponse) => {
       // hide modal
       const modal: HTMLElement = (document.getElementById("login-modal") as HTMLElement);
-      let modalInstance: Modal | null = bootstrap.Modal.getInstance(modal);
+      const modalInstance: Modal | null = bootstrap.Modal.getInstance(modal);
       if (modalInstance !== null) {
         modalInstance.hide();
       }
