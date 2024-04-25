@@ -16,7 +16,7 @@ function handleRegister() {
   const username: string = (document.getElementById("username-register") as HTMLInputElement ).value;
   const email: string = (document.getElementById("email-register") as HTMLInputElement ).value;
   const password: string | number = (document.getElementById("password-register") as HTMLInputElement ).value;
-  let imageElement: HTMLInputElement | null = (document.getElementById("image-register")as HTMLInputElement);
+  const imageElement: HTMLInputElement | null = (document.getElementById("image-register")as HTMLInputElement);
 
   let image: File |  string = ""; // check for the image
 

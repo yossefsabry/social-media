@@ -26,7 +26,7 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
     };
   })
   .then(() => {
-    let posts = (document.querySelector(".posts") as HTMLElement);
+    const posts = (document.querySelector(".posts") as HTMLElement);
     // for when update and delete post its delete the posts conatiner and adding the new posts
     if (updatePost == true && posts != null) {
       posts.innerHTML = "";
@@ -37,8 +37,8 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
       const tags: Array<string> = item.tags.map((tg: string) => {
         return `<div> ${tg}</div>`;
       });
-      let title: string | null  = item.title == null ? "" : item.title;
-      let id: number = item.id;
+      const title: string | null  = item.title == null ? "" : item.title;
+      const id: number = item.id;
 
       try {
         idPost.value = id; // for the post id handle for the delete and update
@@ -50,8 +50,8 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
       const authorIdPost: number = item.author.id;
 
         // check for the id for post and author
-        let idUser: number | undefined = user.value !== undefined ? user.value.id : undefined;
-        let conditionEdit: boolean = idUser != null && authorIdPost == idUser;
+        const idUser: number | undefined = user.value !== undefined ? user.value.id : undefined;
+        const conditionEdit: boolean = idUser != null && authorIdPost == idUser;
         if (posts != null) // check if there or delete when click post
           posts.innerHTML += templateCard( item, conditionEdit, idPost.value!, id, title, tags,);
       });

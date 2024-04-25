@@ -21,7 +21,7 @@ const handleClickCard = (e: number) => {
       let authorIdPost: number = -1;
       let authorId: number = -1;
 
-      let containerPost = (document.querySelector(".container__posts") as HTMLElement);
+      const containerPost = (document.querySelector(".container__posts") as HTMLElement);
       containerPost.innerHTML = "";
       if (postInfo.value !== undefined ) {
         idPost.value = postInfo.value.id;
@@ -45,7 +45,7 @@ const handleClickCard = (e: number) => {
       if (user !== undefined) 
         authorId  = user.id;
 
-      let conditionPostAuthor: boolean = authorIdPost == authorId;
+      const conditionPostAuthor: boolean = authorIdPost == authorId;
       const post = postTemplate(postInfo.value!, idPost.value!, conditionPostAuthor, allComments, e); // is for the adding comment the id
       containerPost.innerHTML = post;
       loaderHandler(false);
