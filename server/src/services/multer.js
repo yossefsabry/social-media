@@ -12,7 +12,7 @@ export const validationObject = {
 */
 export const fileUpload = ({customValidation = validationObject.image,maxSize = 3}={})=>{
     const storage = multer.diskStorage({}) 
-    const limits = {fileSize: maxSize*1000*1000} // max size for image
+    const limits = {fileSize: maxSize*1000*1000} // max size for image = 3MB
     const fileFilter = (req,file,cb)=>{
         if(customValidation.includes(file.mimetype)) // check for the types for the file extenstions
         {

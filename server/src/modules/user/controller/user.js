@@ -1,6 +1,6 @@
 import moment from 'moment';
 import userModel from '../../../../DB/models/user.model.js';
-import sendMail from '../../../services/sendMail/sendmail.js';
+// import sendMail from '../../../services/sendMail/sendmail.js';
 import cloudinary from '../../../Utlis/cloudinary.js';
 import { asyncHandler } from '../../../Utlis/ErrorHandeling.js';
 import { compare, Hash } from '../../../Utlis/HashCompare.js';
@@ -42,10 +42,10 @@ export const changePasswordUser = asyncHandler(async (req, res, next) => {
   }
   const HashedPassword = Hash(newPassword)
   const user = await userModel.findByIdAndUpdate(req.user._id,{ password:HashedPassword,status:'offline'},{ new: true }).select('name email updatedAt');
-  if(!sendMail({to:user.email,subject:`${user.name}, your password has changed successfully`,name:user.name,userinfo:req.userInfo,userInternetData:req.userInternetData,secretPath:'changePassword'}))
-  {
-    return next(new Error("something went wrong",{cause:440}));
-  }
+  // if(!sendMail({to:user.email,subject:`${user.name}, your password has changed successfully`,name:user.name,userinfo:req.userInfo,userInternetData:req.userInternetData,secretPath:'changePassword'}))
+  // {
+  //   return next(new Error("something went wrong",{cause:440}));
+  // }
   return res.status(200).json({status: "success",message: "Password Updated Successfully",user});
 })
 
@@ -56,10 +56,10 @@ user.permanentlyDeleted = moment().add(1, 'month').calendar()
 await user.save()
 const token = generateToken({payload:{email:user.email.toLowerCase()},signature:process.env.CONFIRM_EMAIL_SIGNAUTRE,expiresIn:60*60*24*30})
 const recoverLink =req.protocol+'://'+ req.headers.host + '/user/recovery/' + token
-if(!sendMail({to:user.email,subject:'Recover Your Account',name:user.name,recoverLink,secretPath:'recoverAccount'}))
-{
-  return next(new Error("something went wrong",{cause:440}));
-}
+// if(!sendMail({to:user.email,subject:'Recover Your Account',name:user.name,recoverLink,secretPath:'recoverAccount'}))
+// {
+//   return next(new Error("something went wrong",{cause:440}));
+// }
 return res.json({status: "success",message: "Account Disabled Successfully , u have 30 Day to recover your account , or it will be deleted permanently , in case This was mistake , we send recovery Email",user});
 
 })
@@ -100,7 +100,7 @@ export const uploadPic = asyncHandler(async (req,res,next)=>{
     url: secure_url,
     public_id
   }},{new:true}).select('-images.profile.public_id -images.cover.public_id')
-  return res.status(200).json({ status: "success",message:"Profile Picture updated successfully",user:updatedUser});
+  return res.status(200).json({ status: "success",message:"Profile Picture updated successfully",user:updateUser});
 } )
 
 //Update User cover picture
@@ -110,19 +110,19 @@ if(!req.file)
  return next (new Error('Please select your Cover picture',{cause:400}))
 }
 const user = await userModel.findById(req.user._id)
-const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
-  folder:`${process.env.APP_NAME}/users/${req.user._id}/cover`
-})
+// const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
+//   folder:`${process.env.APP_NAME}/users/${req.user._id}/cover`
+// })
 // maybe in other projects ,user might register without default image profile
 // also incase if there's any failer happened while using cloudnairy
 if(user.images.cover?.public_id)
 {
   await cloudinary.uploader.destroy(user.images.cover.public_id)
 }
-const updatedUser = await userModel.findByIdAndUpdate(req.user._id,{'images.cover':{
-  url: secure_url,
-  public_id
-}},{new:true}).select('-images.profile.public_id -images.cover.public_id')
+// const updatedUser = await userModel.findByIdAndUpdate(req.user._id,{'images.cover':{
+//   url: secure_url,
+//   public_id
+// }},{new:true}).select('-images.profile.public_id -images.cover.public_id')
 return res.status(200).json({ status: "success",message:"Cover Picture updated successfully",user:updatedUser});
 } )
 

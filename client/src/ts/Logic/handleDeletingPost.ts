@@ -11,16 +11,17 @@ import { AlertType } from "../interface.ts";
  */
 const handleClickDeleteButton = (e: number, refresh?: boolean) => {
   loaderHandler(true);
-  const token: string | null = localStorage.getItem("token");
+  const accessToken: string | null = localStorage.getItem("token");
   const headers: { authorization: string } = {
-    authorization: `Bearer ${token}`,
+    authorization: `bearer_${accessToken}`,
   };
-  axios.delete(`${url}/posts/${e}`, { headers: headers })
+  console.log('welcome from deleting function')
+  axios.patch(`${url}/post/${e}/delete`, { headers: headers })
     .then(() => { 
       createAlert("deleting the post successfuly ", AlertType.success);
       // FIX handle the fix click
       if (refresh) {
-        showUserInfo();
+        showUserInfo(null);
       }
       getRequest(true);
       loaderHandler(false);

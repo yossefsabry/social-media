@@ -15,7 +15,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "lib": ["es5", "es6", "dom", "DOC"],
+    "lib": ["es5", "es6", "dom"],
     "sourceMap": true,
     "noImplicitAny": true,
     "target": "es6",

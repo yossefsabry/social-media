@@ -7,7 +7,7 @@
  * @param {object} userProfile - the user info
  * @returns {HTMLDivElement} - return the templateUser
  */
-function userInfoPostTemplate(item: any, idPost: number, id: number, title: string, tags: any, userProfile: any): string {
+function userInfoPostTemplate(item: any, idPost: number, id: number, title: string,  userProfile: any): string {
     let templateUser = ` <div class="card" >
                 <div class="card-header">
                      ${typeof item.author.profile_image === "string" ?
@@ -44,7 +44,7 @@ function userInfoPostTemplate(item: any, idPost: number, id: number, title: stri
                             (${item.comments_count})Commits
                         </a>
                         <span style="display: flex; gap: 5px;" class="category">
-                            ${tags}
+                            <!-- comment or tags here -->
                         </span>
                     </div>
                 </div>

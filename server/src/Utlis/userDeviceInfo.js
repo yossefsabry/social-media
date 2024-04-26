@@ -2,10 +2,14 @@ import axios from 'axios';
 import moment from 'moment';
 import UAParser from 'ua-parser-js';
 
-/** 
- * device: 'mobile' | 'tablet' | 'Pc' | undefined
- * description: get the user device type
- * */
+  /**
+   * Middleware function to extract user device information from request headers.
+   *
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @param {Function} next - The next middleware function.
+   * @returns {Promise<void>} - A promise that resolves when the middleware is complete.
+   */
   const userInfo = async (req, res, next) => {
     let parser = new UAParser(req.headers["user-agent"]).getResult();
     const userInfo = {

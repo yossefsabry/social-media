@@ -1,122 +1,66 @@
 import postModel from "../../../../DB/models/post.model.js";
-import userModel from "../../../../DB/models/user.model.js";
 import cloudinary from "../../../Utlis/cloudinary.js";
 import { asyncHandler } from "../../../Utlis/ErrorHandeling.js";
-import reactionList from "../../../Utlis/reactionList.js";
 
-//Get All Posts with in connection list only 
+/**
+ * Get all posts.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} - The response object with the list of posts.
+ */
 export const getAllPosts = asyncHandler(async (req, res, next) => {
-  const user = await userModel.findById(req.user._id)
-  const Allposts = await postModel.find({$or:[{userId: { $in: user.connections.accepted}},{userId:req.user._id}],isPrivate:false}).populate([
-    {
-      path: "userId",
-      select: "name images.profile.url",
-    },
-    ...reactionList,
-    {
-      path:'comments',
-      select:'text userId like unlike replies',
-      populate:[
-        {
-          path: "userId",
-          select: "name images.profile.url",
-        },
-        ...reactionList,
-        {
-          path: "replies",
-          select:'text userId like unlike',
-          populate:[
-            {
-              path: "userId",
-              select: "name images.profile.url",
-            },
-            ...reactionList,
-          ]
-        }
-      ]
-    }
-  ])
-  const posts = Allposts.filter(post=>post.userId!=null)
-  return res.status(200).json({ status: "success", posts_count: posts.length, results: posts });
+  const posts = res.paginatedResults
+  const lastPage = res.lastPage
+  return res.status(200).json({
+    status: "success", posts_count: posts.length, pageInfo: req.query, lastPage: lastPage,
+    results: posts
+  });
 });
 
-//Get All Posts with in connect ion list only 
+/**
+ * Get all posts owned by the user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The response object with the list of posts.
+ */
 export const getAllPostsOwner = asyncHandler(async (req, res, next) => {
-  const posts = await postModel.find({userId:req.user._id}).populate([
-    {
-      path: "userId",
-      select: "name images.profile.url",
-    },
-    ...reactionList,
-    {
-      path:'comments',
-      select:'text userId like unlike replies',
-      populate:[
-        {
-          path: "userId",
-          select: "name images.profile.url",
-        },
-        ...reactionList,
-        {
-          path: "replies",
-          select:'text userId like unlike',
-          populate:[
-            {
-              path: "userId",
-              select: "name images.profile.url",
-            },
-            ...reactionList,
-          ]
-        }
-      ]
-    }
-  ]);
-  return res
-    .status(200)
-    .json({ status: "success", posts_count: posts.length, results: posts });
-});
-//Get All Posts with in connection list only 
-export const getAllPostsPublicUser = asyncHandler(async (req, res, next) => {
-  const user = await userModel.findOne({_id:req.params.userId,isDeleted:false})
-  if(!user)
-  {
-    return next(new Error('User Id is not Exist',{cause:404}))
-  }
-  const posts = await postModel.find({userId:req.params.userId,isPrivate:false}).populate([
-    {
-      path: "userId",
-      select: "name images.profile.url",
-    },
-    ...reactionList,
-    {
-      path:'comments',
-      select:'text userId like unlike replies',
-      populate:[
-        {
-          path: "userId",
-          select: "name images.profile.url",
-        },
-        ...reactionList,
-        {
-          path: "replies",
-          select:'text userId like unlike',
-          populate:[
-            {
-              path: "userId",
-              select: "name images.profile.url",
-            },
-            ...reactionList,
-          ]
-        }
-      ]
-    }
-  ]);
-  return res
-    .status(200)
-    .json({ status: "success", posts_count: posts.length, results: posts });
+  const posts = res.paginatedResults
+  const lastPage = res.lastPage
+  return res.status(200).json({
+    status: "success", posts_count: posts.length, pageInfo: req.query, lastPage: lastPage,
+    results: posts
+  });
 });
 
-//Add Post
+/**
+ * Retrieves all posts of a public user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The response object with the retrieved posts.
+ */
+export const getAllPostsPublicUser = asyncHandler(async (req, res, next) => {
+  const posts = res.paginatedResults
+  const lastPage = res.lastPage
+  return res.status(200).json({
+    status: "success", posts_count: posts.length, pageInfo: req.query, lastPage: lastPage,
+    results: posts
+  });
+});
+
+/**
+ * Add a new post.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The response object containing the status, message, and created post.
+ */
 export const addPost = asyncHandler(async (req, res, next) => {
   const { title } = req.body;
   let post = await postModel.create({ title, userId: req.user._id });
@@ -138,7 +82,14 @@ export const addPost = asyncHandler(async (req, res, next) => {
     .json({ status: "success", message: "Post created Successfully", post });
 });
 
-//Update Post
+/**
+ * Update a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The updated post.
+ * @throws {Error} If the post ID does not exist.
+ */
 export const updatePost = asyncHandler(async (req, res, next) => {
   const { title } = req.body;
   if (!(await postModel.findById(req.params.post_id))) {
@@ -165,11 +116,18 @@ export const updatePost = asyncHandler(async (req, res, next) => {
   await post.save();
   return res
     .status(200)
-    .json({ status: "success", message: "Post Updated Successfully"});
+    .json({ status: "success", message: "Post Updated Successfully" });
 });
 
-// Delete Post
+/**
+ * Deletes a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The response object with status and message.
+ */
 export const deletePost = asyncHandler(async (req, res, next) => {
+  console.log("welcomef rom the the request ot delete")
   if (!(await postModel.findById(req.params.post_id))) {
     return next(new Error("Post ID not Exist", { cause: 404 }));
   }
@@ -185,15 +143,20 @@ export const deletePost = asyncHandler(async (req, res, next) => {
     .json({ status: "success", message: "Post Deleted Successfully" });
 });
 
-// Like Post
+/**
+ * Like a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The response object with status and post data.
+ */
 export const likePost = asyncHandler(async (req, res, next) => {
   const post = await postModel.findById(req.params.post_id)
   if (!post) {
     return next(new Error("Post ID not exist", { cause: 404 }));
   }
   for (const react of Object.keys(post.reactions)) {
-    if(post.reactions[1].includes(req.user._id))
-    {
+    if (post.reactions[1].includes(req.user._id)) {
       post.reactions[react].pull(req.user._id);
     }
   }
@@ -202,15 +165,20 @@ export const likePost = asyncHandler(async (req, res, next) => {
   return res.status(200).json({ status: "success", post });
 });
 
-// Un Like Post
+/**
+ * Unlike a post by removing the user's reaction.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The response object with status and post data.
+ */
 export const unlikePost = asyncHandler(async (req, res, next) => {
   const post = await postModel.findById(req.params.post_id)
   if (!post) {
     return next(new Error("Post ID not exist", { cause: 404 }));
   }
   for (const react of Object.keys(post.reactions)) {
-    if(post.reactions[react].includes(req.user._id))
-    {
+    if (post.reactions[react].includes(req.user._id)) {
       post.reactions[react].pull(req.user._id);
     }
   }
@@ -218,12 +186,19 @@ export const unlikePost = asyncHandler(async (req, res, next) => {
   return res.status(200).json({ status: "success", post });
 });
 
-// FIX: Private Post not finsh
+/**
+ * Updates the privacy setting of a post to private.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} The updated post object.
+ * @throws {Error} If the user is not the owner of the post.
+ */
 export const privatePost = asyncHandler(async (req, res, next) => {
-  const post = await postModel.findOneAndUpdate({_id:req.params.post_id,userId:req.user._id},{isPrivate:req.query.privacy},{new:true}).select('isPrivate')
-  if(!post)
-  {
-    return next(new Error('you are not the owner of the post',{cause:403}))
+  const post = await postModel.findOneAndUpdate({ _id: req.params.post_id, userId: req.user._id }, { isPrivate: req.query.privacy }, { new: true }).select('isPrivate')
+  if (!post) {
+    return next(new Error('you are not the owner of the post', { cause: 403 }))
   }
   return res.status(200).json({ status: "success", post });
 });

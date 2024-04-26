@@ -26,5 +26,3 @@ document.querySelector("#create-post-button")!.addEventListener("click", () => h
 document.querySelector(".create__post__container__home button")!.addEventListener("click", () => handleCreatePost(false)); // for home 
 
 document.getElementById("profile-user")!.addEventListener("click", () => showUserInfo(null));
-
-

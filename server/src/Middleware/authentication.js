@@ -9,7 +9,6 @@ import { verifyToken } from '../Utlis/TokenGenerator.js';
  * */
 const auth = ({roles=['user']}={})=>{
   return asyncHandler(async (req, res, next) => {
-    // console.log( req );
     const { authorization } = req.headers;
     // check if the token is provided
     if (!authorization?.startsWith(process.env.BARER_KEY)) {

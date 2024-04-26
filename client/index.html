@@ -43,10 +43,6 @@
               <label class="col-form-label">title: </label>
               <input type="text" class="form-control" id="title-create-post" value="yossef88" autocomplete="username" />
             </div>
-            <div class="mb-3">
-              <label class="col-form-label">body: </label>
-              <input type="text" class="form-control" id="body-create-post" value="yossef88" autocomplete="username" />
-            </div>
             <input type="file" class="form-control" id="image-create-post" value="yossef88" />
           </form>
         </div>
@@ -73,13 +69,13 @@
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="username-input-login" value="yossef88"
+              <label class="col-form-label">email: </label>
+              <input type="text" class="form-control" id="email-input-login" value="vuxucug@mailinator.com"
                 autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-input-login" value="123456"
+              <input type="password" class="form-control" id="password-input-login" value="jooo01028079444"
                 autocomplete="current-password" />
             </div>
           </form>
@@ -108,12 +104,8 @@
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label class="col-form-label">user: </label>
-              <input type="text" class="form-control" id="user-register" autocomplete="username" />
-            </div>
-            <div class="mb-3">
               <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="username-register" autocomplete="username" />
+              <input type="text" class="form-control" id="name-register" autocomplete="username" />
             </div>
             <div class="mb-3">
               <label class="col-form-label">email: </label>
@@ -124,7 +116,19 @@
               <input type="password" class="form-control" id="password-register" value=""
                 autocomplete="current-password" />
             </div>
-            <input type="file" name="file" value="" id="image-register" class="form-control" />
+            <div class="mb-3">
+              <label class="col-form-label">confirm Password:</label>
+              <input type="password" class="form-control" id="confirmPassword-register" value=""
+                autocomplete="current-password" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">age: </label>
+              <input type="text" class="form-control" id="age-register" autocomplete="username" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">phone: </label>
+              <input type="text" class="form-control" id="phone-register" autocomplete="username" />
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -189,15 +193,10 @@
       <h4 class="text-center text-white">create post</h4>
       <div class="input-group flex-nowrap mb-2">
         <span class="input-group-text " id="addon-wrapping">title</span>
-        <input type="text" class="form-control title__input" placeholder="Title" aria-label="title"
+        <input type="text" class="form-control title__input text-white" placeholder="Title" aria-label="title"
           aria-describedby="addon-wrapping" />
       </div>
-      <div class="form-floating pb-2">
-        <textarea class="form-control body__input" placeholder="Leave a comment here" id="floatingTextarea2"
-          style="height: 100px"></textarea>
-        <label for="floatingTextarea2">body</label>
-      </div>
-      <input type="file" name="file" value="" id="image-register" class="form-control mb-3 image__input" />
+      <input type="file" name="image" value="" id="image-register" class="form-control mb-3 image__input text-white" />
       <button type="button" class="btn btn-primary" id="RegisterBtn" class="text-center" style="width: 100% !important">
         create
       </button>

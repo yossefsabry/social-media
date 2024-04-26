@@ -7,7 +7,6 @@ const validation = (schema) => {
     return (req,res,next)=>{
         // indestruct the inputs
         const inputs = {...req.body,...req.params,...req.query}
-        console.log(inputs)
         if(req.file || req.files)
         {
             inputs.file = req.file || req.files

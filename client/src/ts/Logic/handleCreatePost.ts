@@ -8,6 +8,7 @@ import {
 } from "../index.ts";
 import { url } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
+import * as bootstrap from "bootstrap";
 
 /**
  * create post for user that authorization
@@ -16,19 +17,16 @@ import { AlertType } from "../interface.ts";
  */
 function handleCreatePost(profileUser?: boolean)  {
   let title: string;
-  let body: string;
   let image: File;
   let imageElement: HTMLInputElement | null;
 
   if (profileUser == false) {
      title = (document.querySelector(".create__post__container__home .title__input") as HTMLInputElement).value;
-     body = (document.querySelector(".create__post__container__home .body__input") as HTMLInputElement).value;
      imageElement = (document.querySelector(".create__post__container__home .image__input") as HTMLInputElement);
   }
   else {
      title = (document.querySelector("#title-create-post" ) as HTMLInputElement).value;
-     body = (document.querySelector("#body-create-post" ) as HTMLInputElement).value;
-    imageElement = (document.querySelector("#image-create-post" ) as HTMLInputElement);
+    imageElement = (document.querySelector("#image-create-post") as HTMLInputElement);
   }
 
   if (imageElement !== null && imageElement.files !== null && imageElement.files.length > 0) {
@@ -38,13 +36,12 @@ function handleCreatePost(profileUser?: boolean)  {
   const token: string | null  = localStorage.getItem("token");
   const formData: FormData = new FormData();
   formData.append("title", title);
-  formData.append("body", body);
-  formData.append("image", image!); // fix used before assigned
+  formData.append("images", image!); // fix used before assigned
   const headers: { authorization: string} = {
-    authorization: `Bearer ${token}`,
+    authorization: `bearer_${token}`,
   };
   loaderHandler(true);
-  axios.post(`${url}/posts`, formData, { headers: headers })
+  axios.post(`${url}/post`, formData, { headers: headers })
     .then(() => {
       createAlert("success create a new post ... ", AlertType.success);
       if (profileUser !== false) {
@@ -58,11 +55,13 @@ function handleCreatePost(profileUser?: boolean)  {
       else {
         showUserInfo(null);
       }
+      title = "";
+      imageElement.value = "";
       loaderHandler(false);
       scrollTop();
     })
-    .catch((e: AxiosError) => {
-      createAlert("error happend: " + e?.request?.responseText, AlertType.danger)
+    .catch((e: AxiosError<{ message: string }>) => {
+      createAlert("error happend: " + e?.response?.data?.message, AlertType.danger)
       console.log(e);
       loaderHandler(false);
     });

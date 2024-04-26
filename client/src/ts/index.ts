@@ -21,11 +21,13 @@ import handleClickCard from "./Logic/handleClickCard.ts";
 import scrollTop from "./UI/scrollTop.ts";
 import getRequest from "./Logic/getRequestPost.ts";
 import handleClickEditButton from "./Logic/handleEdit.ts";
+import getTimeInGoodWay from "./Logic/calcCreatedPosts.ts";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
     setupUi, createAlert, createUserLoginInfoNavBar, templateCard,
     handleLogout ,handleClickDeleteButton, handlePagination, handleLogin,
     handleRegister, handleCreatePost, handleAddingComment, userInfoPostTemplate, userProfilePage, showUserInfo,
-    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton 
+    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton ,
+    getTimeInGoodWay
 };

@@ -4,7 +4,7 @@
 export interface User {
   username: string;
   name: string;
-  id: number;
+  _id: number;
   email: string;
   posts_count: number;
   comments_count: number;

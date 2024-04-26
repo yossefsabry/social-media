@@ -1,7 +1,7 @@
 import commentModel from "../../../../DB/models/comment.model.js";
 import postModel from "../../../../DB/models/post.model.js";
 import replyModel from "../../../../DB/models/reply.model.js";
-import cloudinary from "../../../Utlis/cloudinary.js";
+// import cloudinary from "../../../Utlis/cloudinary.js";
 import { asyncHandler } from "../../../Utlis/ErrorHandeling.js";
 
 // Add Reply
@@ -25,10 +25,10 @@ export const addReply = asyncHandler(async(req,res,next)=>{
     req.body.userId = req.user._id
     if(req.file)
     {
-        const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
-            folder:`${process.env.APP_NAME}/posts/${comment.postId.id}/comments/replies`
-        })
-        req.body.image = {secure_url,public_id}
+        // const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
+        //     folder:`${process.env.APP_NAME}/posts/${comment.postId.id}/comments/replies`
+        // })
+        // req.body.image = {secure_url,public_id}
     }
     const reply = await replyModel.create(req.body)
     return res.status(201).json({ status: "success", message: "Reply created Successfully", reply });
@@ -65,14 +65,14 @@ export const updateReply = asyncHandler(async(req,res,next)=>{
     reply.text = req.body.text
     if(req.file)
     {
-        const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
-            folder:`${process.env.APP_NAME}/posts/${reply.postId.id}/comments/replies`
-        })
+        // const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
+        //     folder:`${process.env.APP_NAME}/posts/${reply.postId.id}/comments/replies`
+        // })
         if(reply.image?.public_id)
         {
-            await cloudinary.uploader.destroy(reply.image.public_id)
+            // await cloudinary.uploader.destroy(reply.image.public_id)
         }
-        reply.image = {secure_url,public_id}
+        // reply.image = {secure_url,public_id}
     }
     await reply.save()
     return res.status(200).json({ status: "success", message: "Reply Updated Successfully", reply });

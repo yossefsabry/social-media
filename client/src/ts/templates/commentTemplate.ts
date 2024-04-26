@@ -7,7 +7,7 @@ import { CommentCard } from "../interface.ts";
  */
 function templateComment(item: CommentCard): string {
   const comm: string = `
-      <div class="comment pb-1" onclick={showUserInfo('${encodeURIComponent( JSON.stringify(item))}')} >
+      <div class="comment pb-1" onclick={showUserInfo('${null}')} >
         <div class="pt-1 flex align-items-center justify-content-center gap-3 pb-1">
           ${typeof item.author.profile_image === "string" ?
       `<img src="${item.author.profile_image}" alt="Avatar1" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
