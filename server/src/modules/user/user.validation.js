@@ -6,7 +6,8 @@ import { generalFields } from '../../Utlis/GeneralFields.js';
 export const updateUserScehma = joi.object({
     name:joi.string().min(2).max(50),
     phone: generalFields.phone,
-    headline:joi.string().min(3).max(100)
+    headline:joi.string().min(3).max(100),
+    gender:joi.string()
 }).required()
 
 export const changePasswordUserScehma = joi.object({

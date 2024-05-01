@@ -110,19 +110,19 @@ if(!req.file)
  return next (new Error('Please select your Cover picture',{cause:400}))
 }
 const user = await userModel.findById(req.user._id)
-// const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
-//   folder:`${process.env.APP_NAME}/users/${req.user._id}/cover`
-// })
+const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
+  folder:`${process.env.APP_NAME}/users/${req.user._id}/cover`
+})
 // maybe in other projects ,user might register without default image profile
 // also incase if there's any failer happened while using cloudnairy
 if(user.images.cover?.public_id)
 {
   await cloudinary.uploader.destroy(user.images.cover.public_id)
 }
-// const updatedUser = await userModel.findByIdAndUpdate(req.user._id,{'images.cover':{
-//   url: secure_url,
-//   public_id
-// }},{new:true}).select('-images.profile.public_id -images.cover.public_id')
+const updatedUser = await userModel.findByIdAndUpdate(req.user._id,{'images.cover':{
+  url: secure_url,
+  public_id
+}},{new:true}).select('-images.profile.public_id -images.cover.public_id')
 return res.status(200).json({ status: "success",message:"Cover Picture updated successfully",user:updatedUser});
 } )
 

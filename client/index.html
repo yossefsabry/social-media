@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="src/css/style.css" />
 </head>
 
-<body>
+<body style="overflow: auto;">
   <!-- loader for the website -->
   <div class="loader__container">
     <div></div>
@@ -43,7 +43,7 @@
               <label class="col-form-label">title: </label>
               <input type="text" class="form-control" id="title-create-post" value="yossef88" autocomplete="username" />
             </div>
-            <input type="file" class="form-control" id="image-create-post" value="yossef88" />
+            <input type="file" class="form-control" id="image-create-post" value="image" />
           </form>
         </div>
         <div class="modal-footer">
@@ -145,23 +145,150 @@
   <!--// register modal //-->
 
   <!--// adding modal //-->
+  <!-- change iamge for profile modals -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@getbootstrap"></button> -->
+
+  <div class="modal fade" id="image_profile_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">change profile image</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">profile image: </label>
+              <input type="file" class="form-control" id="change__image__profile__input" value="image" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="button__change__image__profile">change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="image_cover_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">change cover image</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">profile image: </label>
+              <input type="file" class="form-control" id="change__image__cover__input" value="image" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="button__change__image__cover">change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- change iamge for profile modals -->
+
+  <!-- modal for update userInfo -->
+  <div class="modal fade" id="update-user-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">update password</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="col-form-label">old Password:</label>
+              <input type="password" class="form-control" id="update__old__password" value=""
+                autocomplete="current-password" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">new Password:</label>
+              <input type="password" class="form-control" id="update__new__password" value=""
+                autocomplete="current-password" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">confirm Password:</label>
+              <input type="password" class="form-control" id="update__confirm__password" value=""
+                autocomplete="current-password" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" id="update__password__user">update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="update-user-info-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">update user info </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="col-form-label">username: </label>
+              <input type="text" class="form-control" id="name-update" autocomplete="username" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">headline: </label>
+              <input type="text" class="form-control" id="headline-update" autocomplete="headline" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">phone: </label>
+              <input type="text" class="form-control" id="phone-update" autocomplete="phone" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">gender: </label>
+              <input type="text" class="form-control" id="gender-update" autocomplete="gender" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" id="update__user__profile__info">update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal for update userInfo -->
 
   <!-- nav bar container -->
   <div class="container sticky-top nav__container">
-    <nav class="navbar navbar__container navbar-expand-lg rounded-bottom shadow">
+    <nav class="navbar navbar-expand navbar__container rounded-bottom shadow">
       <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
         <a class="navbar-brand" href="index.html" title="home page">socialNation</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="index.html" title="home page">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="profile-user" href="#" title="profile">Profile</a>
+              <a class="nav-link mt-2" id="profile-user" href="#" title="profile">Profile</a>
             </li>
           </ul>
           <form class="d-flex" role="search" id="login-wrapper">

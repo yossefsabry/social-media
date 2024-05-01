@@ -3,11 +3,13 @@ import {
   setupUi,
   handleLogout,
   handlePagination, handleLogin, handleRegister, handleCreatePost,
-  showUserInfo 
+  showUserInfo,
+  changeUserImageProfile,
+  changeUserImageCover
 } from "./ts/index.ts";
 
 import { currentPage } from "./ts/storeData.ts";
-import { getRequest } from "./ts/index.ts";
+import { getRequest, deleteUser, updatePasswordUser, updateUserInfoProfile } from "./ts/index.ts";
 
 getRequest(false, currentPage.value);
 
@@ -26,3 +28,13 @@ document.querySelector("#create-post-button")!.addEventListener("click", () => h
 document.querySelector(".create__post__container__home button")!.addEventListener("click", () => handleCreatePost(false)); // for home 
 
 document.getElementById("profile-user")!.addEventListener("click", () => showUserInfo(null));
+
+document.getElementById("button__change__image__profile")!.addEventListener("click", () => changeUserImageProfile());
+
+document.getElementById("button__change__image__cover")!.addEventListener("click", () => changeUserImageCover());
+
+document.getElementById("update__user__profile__info")!.addEventListener("click", () => updateUserInfoProfile());
+
+document.getElementById("update__password__user")!.addEventListener("click", () => updatePasswordUser());
+
+// document.getElementById("delete__user__button")!.addEventListener("click", () => deleteUser());

@@ -22,12 +22,24 @@ import scrollTop from "./UI/scrollTop.ts";
 import getRequest from "./Logic/getRequestPost.ts";
 import handleClickEditButton from "./Logic/handleEdit.ts";
 import getTimeInGoodWay from "./Logic/calcCreatedPosts.ts";
+import userCoverProfile from "./templates/userCoverProfile.ts";
+import userAboutProfile from "./templates/userAboutProfile.ts";
+import formatTimestamp from "./Logic/userJoinedData.ts";
+import headerLinks from "./templates/headerLinks.ts";
+import suggestUserProfile from "./templates/suggestUserProfile.ts";
+import { changeUserImageCover, changeUserImageProfile } from "./Logic/changeUserImage.ts";
+import updateUserInfoProfile from "./Logic/updateUserInfoProfile.ts";
+import updatePasswordUser from "./Logic/updatePasswordUser.ts";
+import deleteUser from "./Logic/deleteUser.ts";
+import closeModal from "./UI/closeModal.ts";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
     setupUi, createAlert, createUserLoginInfoNavBar, templateCard,
-    handleLogout ,handleClickDeleteButton, handlePagination, handleLogin,
+    handleLogout, handleClickDeleteButton, handlePagination, handleLogin,
     handleRegister, handleCreatePost, handleAddingComment, userInfoPostTemplate, userProfilePage, showUserInfo,
-    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton ,
-    getTimeInGoodWay
+    templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton,
+    getTimeInGoodWay, userCoverProfile, userAboutProfile, formatTimestamp, headerLinks, suggestUserProfile,
+    changeUserImageCover, changeUserImageProfile, updateUserInfoProfile, updatePasswordUser,
+    deleteUser, closeModal
 };

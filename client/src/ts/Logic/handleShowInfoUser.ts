@@ -50,31 +50,25 @@ const showUserInfo = async (id: number | null): Promise<void> => {
   await axios.get(`${url}/post/socialuser/${userProfile.user._id}`, { headers: headers })
     .then((response: AxiosResponse) => {
       postUser = response.data
-      console.log(postUser)
+      // console.log(postUser)
     })
     .catch((e: AxiosError) => {
       console.log("error happend", e);
     });
   loaderHandler(false);
 
-  const allPostUser: HTMLElement = postUser.results.results.map(async(item: any) => {
-    // const tags = item.tags.map((tg: any) => {
-    //   return `<div> ${tg}</div>`;
-    // });
-    console.log(item)
-    const title = item.title == null ? "" : item.title;
+  const allPostUser: HTMLElement = postUser.results.results.map((item: any) => {
+    // console.log(item)
     const id = item._id;
     idPost.value = id;
 
-
-    // FIX 
-    // const userTemplate = userInfoPostTemplate(item, idPost.value!, id, title,  userProfile);
-    // const userTemplate = templateCard(item, condition, idPost.value!, id, title, userProfile); 
-    // return userTemplate;
+    // FIX condition
+    const userTemplate = userInfoPostTemplate(item, idPost.value!, id,  condition);
+    return userTemplate;
   });
 
   const content = (document.querySelector(".container__posts") as HTMLElement);
-  const userInfo = userProfilePage(userProfile, allPostUser);
+  const userInfo = await userProfilePage(userProfile.user, allPostUser, condition);
   if (content !== null) 
     content.innerHTML = userInfo;
 
