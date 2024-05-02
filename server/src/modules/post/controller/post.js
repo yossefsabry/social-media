@@ -1,4 +1,5 @@
 import postModel from "../../../../DB/models/post.model.js";
+import commentModel from "../../../../DB/models/comment.model.js";
 import cloudinary from "../../../Utlis/cloudinary.js";
 import { asyncHandler } from "../../../Utlis/ErrorHandeling.js";
 
@@ -52,6 +53,26 @@ export const getAllPostsPublicUser = asyncHandler(async (req, res, next) => {
     results: posts
   });
 });
+
+// /** Fix the get user
+//  * Get a post by its ID.
+//  *
+//  * @param {Object} req - The request object.
+//  * @param {Object} res - The response object.
+//  * @param {Function} next - The next middleware function.
+//  * @returns {Object} The response object with the post data.
+//  * @throws {Error} If the post ID does not exist.
+//  */
+// export const getPostById = asyncHandler(async (req, res, next) => {
+//   // console.log(req)
+//   const posts = res.paginatedResults
+//   // const post = await postModel.findById(req.params.post_id)
+//   // const commentPost = await commentModel.find({ postId: req.params.post_id });
+//   if (!posts) {
+//     return next(new Error('Post ID not Exist', { cause: 404 }))
+//   }
+//   return res.status(200).json({ status: "success", post: { posts } });
+// });
 
 /**
  * Add a new post.

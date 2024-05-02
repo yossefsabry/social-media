@@ -40,10 +40,7 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
 
       postArray.value.map(async(item: any) => { // Add 'item' parameter to the arrow function
         currentPostClick.value = item;
-        // const tags: Array<string> = item.tags.map((tg: string) => {
-        //   return `<div> ${tg}</div>`;
-        // });
-        const title: string | null = item.title == null ? "" : item.title;
+        const title: string = item.title || "";
         const id: number = item._id;
 
         try {
@@ -66,7 +63,7 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
         const idUser: number | undefined = user.value !== undefined ? user.value._id : undefined;
         const conditionEdit: boolean = idUser != null && authorIdPost == idUser;
         if (posts != null) // check if there or delete when click post
-          posts.innerHTML += templateCard(item, conditionEdit, idPost.value!, id, title!, userInfo.data);
+          posts.innerHTML += templateCard(item, conditionEdit, idPost.value!, title, userInfo.data);
       });
     }).catch((e: AxiosError) => {
       console.log("error happend", e);

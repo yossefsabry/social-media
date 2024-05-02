@@ -24,7 +24,6 @@ export function paginatedResults(model, modelUser, reactionList, condition) {
                 default:
                     conditionSearch = { userId: req.params.userId, isDeleted: false, isPrivate: false }
                     break;
-
             }
             return conditionSearch;
         }

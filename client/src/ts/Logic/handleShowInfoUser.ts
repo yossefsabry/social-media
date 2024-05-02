@@ -45,7 +45,7 @@ const showUserInfo = async (id: number | null): Promise<void> => {
   }
   // FIX any
   let postUser: any;
-
+  
   //http://localhost:5000/post/socialuser/6426e14325fb796e7b40268c
   await axios.get(`${url}/post/socialuser/${userProfile.user._id}`, { headers: headers })
     .then((response: AxiosResponse) => {

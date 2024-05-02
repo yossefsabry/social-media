@@ -27,7 +27,7 @@ async function userProfilePage(user: any, allPostUser: any, condition: boolean):
           <!-- right wrapper start -->
           <div class="d-xl-block col-xl-6 right-wrapper">
               <div class="row">
-              ${suggestUserProfile()}
+              ${await suggestUserProfile(condition)}
               </div>
           </div>
           <!-- right wrapper end -->

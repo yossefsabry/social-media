@@ -19,6 +19,7 @@ router.use('/:post_id/comment/:comment_id/reply',replyRouter)
 router.get('/',auth(),paginatedResults(postModel, userModel, reactionList, 'all' ),postController.getAllPosts)
 router.get('/owner',auth(),paginatedResults(postModel, userModel, reactionList, 'owner'),postController.getAllPostsOwner)
 router.get('/socialuser/:userId',auth(),paginatedResults(postModel, userModel, reactionList, 'socialuser'),validation(validators.userIdSchema),postController.getAllPostsPublicUser)
+// router.use('/:post_id',paginatedResults(postModel, userModel, reactionList, ''),postController.getPostById) // under fix
 router.post('/',auth(),fileUpload().array('images',10),validation(validators.addPostSchema), postController.addPost);
 router.put("/:post_id/update",auth(),fileUpload().array('images',10),validation(validators.updatePostSchema), postController.updatePost);
 router.patch("/:post_id/delete",auth(),validation(validators.postIdSchema), postController.deletePost);

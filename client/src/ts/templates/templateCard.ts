@@ -12,7 +12,7 @@ import { url } from "../storeData.ts";
  * @param {HTMLElementEventMap} tags - for html with all tags
  * @returns {object} - returns the card for the html tree
  */
-function templateCard(item: any, condition: boolean, idUpdate: number, id: number, title: string, userInfo: any): string {
+function templateCard(item: any, condition: boolean, idUpdate: number,title: string,  userInfo: any): string {
   // global defeind the method to can read by html
   const customWindow = window as CustomWindow;
 
@@ -72,7 +72,7 @@ function templateCard(item: any, condition: boolean, idUpdate: number, id: numbe
             `<img src="images/icons8-user-48.png" alt="Avatar2" class="img-fluid my-1" style="width: 30px; height: 30px; border-radius: 50% !important;" />`
         }                     
                     <div class="mx-2 cursor-pointer" role="button">
-                        <p  onclick=showUserInfo('${userInfo?.user._id}')>${userInfo?.user.name}</p>
+                        <p  onclick=showUserInfo('${userInfo?.user?._id}')>${userInfo?.user?.name}</p>
                         <p class="tx-11 text-muted">${getTimeInGoodWay(item.createdAt)}</p>
                     </div>
                 </div>
@@ -90,8 +90,8 @@ function templateCard(item: any, condition: boolean, idUpdate: number, id: numbe
         </div>
             </div>
         </div>
-        <div class="card-body" onclick=handleClickCard(${id})>
-            <p class="mb-3 tx-14" >${item.title || ""}</p>
+        <div class="card-body" onclick=handleClickCard('${encodeURIComponent(JSON.stringify(item))}')>
+            <p class="mb-3 tx-14" >${title}</p>
             ${item?.images[0]?.url ?
             `<img class="img-fluid cover card__image__post" src="${item?.images[0].url}" alt="">`
             : ""

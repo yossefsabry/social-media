@@ -16,6 +16,7 @@ router.get("/recovery/:token",validation(validators.recoverUserScehma), userCont
 router.patch("/uploadpic",auth(),fileUpload({customValidation:[...validationObject.image]}).single('profile'),validation(validators.uploadPictureSchema),userController.uploadPic);
 router.patch("/uploadcover",auth(),fileUpload({customValidation:[...validationObject.image]}).single('cover'),validation(validators.uploadPictureSchema),userController.uploadCover);
 router.get("/connections",auth(),userController.getUserConnections);
+router.get("/suggestUsers",auth(),userController.getSuggestUser);
 router.patch("/requestconnection/:userId",auth(),validation(validators.idScehma),userController.requestConnection);
 router.patch("/acceptconnection/:userId",auth(),validation(validators.acceptconnectionScehma),userController.acceptConnection);
 router.patch("/removeconnection/:userId",auth(),validation(validators.idScehma),userController.deleteConnection);
