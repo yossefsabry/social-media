@@ -1,11 +1,5 @@
 import axios, { AxiosError } from "axios";
-import {
-  loaderHandler,
-  createAlert,
-  getRequest,
-  scrollTop,
-  showUserInfo,
-} from "../index.ts";
+import { loaderHandler, createAlert, getRequest, scrollTop, showUserInfo} from "../index.ts";
 import { url } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
 import * as bootstrap from "bootstrap";

@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { createAlert, loaderHandler, handleClickCard } from "../index.ts";
 import { url } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
+
 /**
  * handle create comment for  the user
  * @param {number} e - for the current id for the post
@@ -28,7 +29,7 @@ const handleAddingComment = (e: number) => {
     .then(() => {
       createAlert("success adding comment to the post", AlertType.success);
       loaderHandler(false);
-    }).then(() => {
+    }).then(() => { // FIX reload the winddow fo the user
       // axios.get(`${url}/post/${e}`).then((res: AxiosResponse) => { // under fix
       //   console.log("res", res.data);
       //   loaderHandler(false);
@@ -40,10 +41,7 @@ const handleAddingComment = (e: number) => {
     })
     .catch((e: AxiosError) => {
       console.log("error happend", e);
-      createAlert(
-        "error happend in request: " + e.request.response,
-        AlertType.danger,
-      );
+      createAlert("error happend in request: " + e.request.response, AlertType.danger);
       loaderHandler(false);
     });
 };

@@ -68,6 +68,7 @@ body {
   border: 1px solid #373737;
 }
 
+
 .container {
   padding-inline: calc(7vw + 1rem);
 }
@@ -75,6 +76,10 @@ body {
 @media (max-width: 1000px) {
   .container {
     padding-inline: 1rem;
+  }
+  .card {
+    display: block;
+    width: 100%;
   }
 }
 
@@ -512,4 +517,10 @@ img {
 }
 .modal-open {
   overflow: scroll;
+}
+
+
+/* for the like */
+.bg__red {
+  /* background-color: red; */
 }

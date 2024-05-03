@@ -4,16 +4,19 @@ import { loaderHandler, createAlert, scrollTop, closeModal } from "../index"
 import { AlertType } from "../interface";
 
 // FIX MAY FROM THE SERVER
-export default function updatePasswordUser() {
-    const oldPassword = (document.querySelector("#update-user-password-modal #update__old__password") as HTMLInputElement).value;
-    const newPasswrord = (document.querySelector("#update-user-password-modal #update__new__password") as HTMLInputElement).value;
-    const confimPassword = (document.querySelector("#update-user-password-modal #update__confirm__password") as HTMLInputElement).value;
+/**
+ * Updates the password for the user.
+ */
+export default function updatePasswordUser(): void {
+    const oldPassword: string = (document.querySelector("#update-user-password-modal #update__old__password") as HTMLInputElement).value;
+    const newPasswrord: string = (document.querySelector("#update-user-password-modal #update__new__password") as HTMLInputElement).value;
+    const confimPassword: string = (document.querySelector("#update-user-password-modal #update__confirm__password") as HTMLInputElement).value;
 
     const token: string = localStorage.getItem("token") || "";
     const headers: { authorization: string } = {
         authorization: `bearer_${token}`,
     };
-    const data = {
+    const data: { oldPassword: string, newPassword: string, confirmPassword: string } = {
         "oldPassword": oldPassword,
         "newPassword": newPasswrord,
         "confirmPassword": confimPassword
@@ -28,11 +31,9 @@ export default function updatePasswordUser() {
             scrollTop();
         })
         .catch((e: AxiosError<{ message: string; errors?: string[] }>) => {
-            const errorMessage = e.response?.data?.errors?.[0] || e?.response?.data?.message || "";
+            const errorMessage: string = e.response?.data?.errors?.[0] || e?.response?.data?.message || "";
             createAlert("error happened: " + errorMessage, AlertType.danger);
             console.log(e);
             loaderHandler(false);
         });
-
-    console.log("update password user");
 };

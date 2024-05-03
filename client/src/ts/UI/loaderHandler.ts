@@ -3,7 +3,7 @@
  * for  setup the loader for the app
  * @param {boolean} status - for the status for the loader is off or on
  */
-const loaderHandler = (status: boolean) => {
+const loaderHandler = (status: boolean): void => {
   if (status) {
     document.body.style.height = "100vh";
     (document.querySelector(".loader__container") as HTMLElement ).style.cssText = "z-index: 100000000; opacity: 1;";

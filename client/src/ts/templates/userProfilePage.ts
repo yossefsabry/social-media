@@ -35,7 +35,7 @@ async function userProfilePage(user: any, allPostUser: any, condition: boolean):
           <!-- middle wrapper start -->
           <div class="col-md-12 col-xl-12 middle-wrapper">
               <div class="row">
-                  <div class="col-md-12 grid-margin">
+                  <div class="col-md-12 grid-margin mb-5">
                       <hr />
                       <h2 class="text-3xl text-center white">uesr posts</h2>
                       ${allPostUser}

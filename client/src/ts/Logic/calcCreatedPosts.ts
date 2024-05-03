@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 
-
 /**
  * Returns a human-readable representation of the time difference between the input date and the current date.
  * @param date - The input date in string format.

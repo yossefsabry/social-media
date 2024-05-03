@@ -1,18 +1,21 @@
+import { postInfoComments } from "../interface";
 
 /**
  * 
  * @param {object} item - the object for the item comment
  * @returns {HTMLDivElement} - the commment for html tree
  */
-async function templateComment(comments: any, id: number): Promise<string> {
+async function templateComment(comments: Array<postInfoComments>, id: number): Promise<string> {
   // const windowCustomed = window as CustomWindow;
   // windowCustomed.handleAddingComment = handleAddingComment;
 
 
    // Reverse the order of comments
-   const reversedComments = comments.reverse();
-
+   const reversedComments: Array<postInfoComments> = comments.reverse();
+  console.log("-----------------------")
+  console.log(comments)
   const allComments: string = reversedComments.map((item: any) => {
+    console.log(item)
       return `
         <div class="card">
           <div class="card-body">
@@ -23,8 +26,7 @@ async function templateComment(comments: any, id: number): Promise<string> {
                 <p class="small mb-0 ms-2">${item.userId.name}</p>
               </div>
               <div class="d-flex flex-row align-items-center">
-                <p class="small text-muted mb-0 mx-1">like?</p>
-                <p class="small text-muted mb-0 mx-1">unlike?</p>
+                <p class="small text-muted mb-0 mx-1">like${" -" + item.reactions.like.length || ""} </p>
                 <p class="small text-muted mb-0 mx-1">reply?</p>
                 <i class="far fa-thumbs-up ms-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
               </div>

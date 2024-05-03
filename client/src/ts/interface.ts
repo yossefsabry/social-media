@@ -2,39 +2,78 @@
 
 // ========== user object ========== 
 export interface User {
-  username: string;
+  headline?: string;
+  age: number;
   name: string;
   _id: number;
+  connections?: userConnection;
+  confimEmail: boolean;
+  password?: string;
+  createdAt: string;
+  images?: userImages;
+  phone: string;
+  role: string;
+  gender: string;
   email: string;
-  posts_count: number;
-  comments_count: number;
-  profile_image: ProfileImage;
-  author: AuthorUserPost
+  status: string;
 }
 
-interface AuthorUserPost {
+export interface userIdInfo {
   name: string;
-  id: number;
+  _id: number;
+  images: userImages;
 }
 
-interface ProfileImage {
-  image: string | object;
+interface userImages {
+  cover?: {
+    url: string;
+  };
+  profile?: {
+    url: string;
+  }
 }
+
+interface userConnection {
+  accepted: Array<any>;
+  requested: Array<any>;
+}
+
 // ========== end user object ========== 
 
 // ========== postInfo interface ========== 
 export interface PostInfo {
-  id: number;
-  comments: postInfoComments;
-  author: postInfoAuthor;
+  _id: number;
+  comments?: postInfoComments;
+  userId: postInfoAuthor;
+  title: string;
+  reactions: postReactions;
+  isDeleted: boolean;
+  isPrivate: boolean;
+  createdAt: string;
+  images: Array<postImages>;
 }
-interface postInfoComments {
-  [x: string]: any;
-  comments: string[];
+interface postImages {
+  url: string;
+  public_id: string;
+}
+export interface postInfoComments {
+  postId: string;
+  replies: Array<any>;
+  reactions: postReactions;
+  text: string;
+  _id: string;
+  userId?: postInfoAuthor;
 }
 interface postInfoAuthor {
   name: string;
-  id: number;
+  _id: number;
+  images: userImages;
+}
+interface postReactions {
+  like: Array<any>;
+  love?: Array<any>;
+  funny?: Array<any>;
+  support?: Array<any>;
 }
 // ========== end postInfo interface ========== 
 
@@ -46,52 +85,15 @@ export enum AlertType {
   info = "info"
 }
 
-// interface for comment for card
-export interface CommentCard {
-  body: string;
-  id: number;
-  author: authorComment;
-}
-interface authorComment {
-  email: string;
-  created_at: string;
-  username: string;
-  name: string;
-  id: number;
-  profile_image: Object | string;
-}
-
-// ---- interface for comment for card ----
-
-
-// interface for postInfo
-export interface PostInfoCard {
-  author: authorPostInfo;
-  id: number;
-  title: string | null;
-  body: string;
-  comments_count: number;
-  tags: string[];
-  comments: string[];
-  image: Object | string;
-  create_at: string;
-}
-interface authorPostInfo {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  profile_image: Object | string;
-}
-// --- interface for postInfo ---
-
 
 // --- custom window interface ---
 export interface CustomWindow extends Window {
-    showUserInfo?: Function;
-    handleClickCard?: Function;
-    handleAddingComment?: Function;
-    handleClickDeleteButton?: Function;
-    handleClickEditButton?: Function;
+  showUserInfo?: Function;
+  handleClickCard?: Function;
+  handleAddingComment?: Function;
+  handleClickDeleteButton?: Function;
+  handleClickEditButton?: Function;
+  addingLike?: Function;
+  sharePost?: Function;
 }
 

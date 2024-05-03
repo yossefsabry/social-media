@@ -1,4 +1,10 @@
-export default function headerlinks(userFriends: number | "") {
+/**
+ * Generates the HTML markup for the header links.
+ * 
+ * @param userFriends - The number of user friends or an empty string.
+ * @returns The HTML markup for the header links.
+ */
+export default function headerlinks(userFriends: number | ""): string {
     const data = `<div class="header-links">
                       <ul class="links d-flex align-items-center mt-3 mt-md-0">
                           <li class="header-link-item d-flex align-items-center active">

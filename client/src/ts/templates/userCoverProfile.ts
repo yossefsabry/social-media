@@ -1,16 +1,24 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { url } from "../storeData";
 import { headerLinks } from "../index";
+import { User } from "../interface";
 
-export default async function userCoverProfile(user: any, condition: boolean) {
+/**
+ * Renders the user's cover profile.
+ * 
+ * @param user - The user object.
+ * @param condition - The condition to determine if certain elements should be rendered.
+ * @returns The HTML string representing the user's cover profile.
+ */
+export default async function userCoverProfile(user: User, condition: boolean) {
     let userFriends: number | "" = "" ;
     const token: string = localStorage.getItem("token") || "";
-    const headers: any = {
+    const headers: { authorization: string } = {
         authorization: `bearer_${token}`,
     }
     if (condition == true) {
         await axios.get(`${url}/user/connections`, { headers: headers }).
-            then((res) => {
+            then((res: AxiosResponse) => {
                 // console.log(res)
                 userFriends = res.data.connections.accepted.length;
             })

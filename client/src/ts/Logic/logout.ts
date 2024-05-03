@@ -1,5 +1,5 @@
 import { createAlert, setupUi, scrollTop, getRequest } from "../index.ts";
-import {  currentPage, url } from "../storeData.ts";
+import { currentPage, url } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
 import axios, { AxiosError } from "axios";
 
@@ -7,15 +7,15 @@ import axios, { AxiosError } from "axios";
 /**
  * handle the logout
  */
-async function handleLogout() {
-  const token = localStorage.getItem("token");
-  const headers: any = {
+async function handleLogout(): Promise<void> {
+  const token: string = localStorage.getItem("token") || "";
+  const headers: { authorization: string } = {
     authorization: `bearer_${token}`,
   }
   getRequest(true, currentPage.value)
-  await axios.patch(`${url}/auth/signout`, { headers: headers }).then(() =>  {
+  await axios.patch(`${url}/auth/signout`, { headers: headers }).then(() => {
     console.log("logout successful")
-  }).catch((e) => {
+  }).catch((e: AxiosError) => {
     console.log(e)
   });
 

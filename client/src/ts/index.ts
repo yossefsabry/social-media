@@ -3,7 +3,6 @@ import loaderHandler from "./UI/loaderHandler.ts";
 import setLocalStorageInfo from "./Logic/localStorage.ts";
 import setupUi from "./UI/setupUi.ts";
 import createAlert from "./UI/createAlert.ts";
-import createUserLoginInfoNavBar from "./UI/createUserInfoNav.ts";
 import templateCard from "./templates/templateCard.ts";
 import handleLogout from "./Logic/logout.ts";
 import handleClickDeleteButton from "./Logic/handleDeletingPost.ts";
@@ -13,7 +12,6 @@ import handleRegister from "./Logic/handleRegister.ts";
 import handleCreatePost from "./Logic/handleCreatePost.ts";
 import handleAddingComment from "./Logic/handleAddingComment.ts";
 import userProfilePage from "./templates/userProfilePage.ts";
-import userInfoPostTemplate from "./templates/userInfoPostTemplate.ts";
 import showUserInfo from "./Logic/handleShowInfoUser.ts";
 import templateComment from "./templates/commentTemplate.ts";
 import postTemplate from "./templates/postTemplate.ts";
@@ -32,14 +30,17 @@ import updateUserInfoProfile from "./Logic/updateUserInfoProfile.ts";
 import updatePasswordUser from "./Logic/updatePasswordUser.ts";
 import deleteUser from "./Logic/deleteUser.ts";
 import closeModal from "./UI/closeModal.ts";
+import addingLike from "./Logic/addingLike.ts";
+import changeLove from "./UI/changeLove.ts";
+import sharePost from "./Logic/sharePost.ts";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
-    setupUi, createAlert, createUserLoginInfoNavBar, templateCard,
+    setupUi, createAlert,  templateCard,
     handleLogout, handleClickDeleteButton, handlePagination, handleLogin,
-    handleRegister, handleCreatePost, handleAddingComment, userInfoPostTemplate, userProfilePage, showUserInfo,
+    handleRegister, handleCreatePost, handleAddingComment,  userProfilePage, showUserInfo,
     templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton,
     getTimeInGoodWay, userCoverProfile, userAboutProfile, formatTimestamp, headerLinks, suggestUserProfile,
     changeUserImageCover, changeUserImageProfile, updateUserInfoProfile, updatePasswordUser,
-    deleteUser, closeModal
+    deleteUser, closeModal, addingLike, changeLove, sharePost
 };

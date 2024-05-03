@@ -1,14 +1,23 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { url } from "../storeData";
-export default async function suggestUserProfile(condition: boolean) {
+import { User } from "../interface";
+
+
+/**
+ * Retrieves suggested user profiles based on a condition.
+ * 
+ * @param condition - A boolean value indicating whether to include suggested user profiles or not.
+ * @returns A Promise that resolves to a string containing the HTML representation of the suggested user profiles.
+ */
+export default async function suggestUserProfile(condition: boolean): Promise<string> {
         const token: string = localStorage.getItem("token") || "";
-        let content;
+        let content: Array<string>;
         const headers: { authorization: string } = {
             authorization: `bearer_${token}`,
         }
-        await axios.get(`${url}/user/suggestUsers`, { headers: headers }).then((res) => {
-               content = res.data.results.map((item: any) => {
-                console.log(item);
+        await axios.get(`${url}/user/suggestUsers`, { headers: headers }).then((res: AxiosResponse) => {
+               content = res.data.results.map((item: User) => {
+                // console.log(item);
                     return `
                           <div class="card-body">
                               <div class="d-flex justify-content-between">
@@ -35,6 +44,8 @@ export default async function suggestUserProfile(condition: boolean) {
                           </div>
                     `;
                }).join('');
+        }).catch((e: AxiosError) => { 
+            console.log(e);
         });
 
 
@@ -42,7 +53,7 @@ export default async function suggestUserProfile(condition: boolean) {
         ${ condition ? 
                   `<div class="col-md-12 grid-margin">
                       <div class="card rounded">
-                        ${content}
+                        ${content!}
                       </div>
                   </div>`
                 : ""

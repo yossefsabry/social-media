@@ -177,7 +177,10 @@ export const likePost = asyncHandler(async (req, res, next) => {
     return next(new Error("Post ID not exist", { cause: 404 }));
   }
   for (const react of Object.keys(post.reactions)) {
-    if (post.reactions[1].includes(req.user._id)) {
+    console.log(react)
+    //console.log(post.reactions[1].includes(req.user._id));
+    // console.log(post)
+    if (post.reactions[react].includes(req.user._id)) {
       post.reactions[react].pull(req.user._id);
     }
   }

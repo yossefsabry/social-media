@@ -1,21 +1,19 @@
-/**
- * @param {object} postInfo - the object for the click card item
- * @param {object} idPost - the id for the clickDeleteButton function
- * @param {boolean} conditionEdit - the condition for show the delete and edit buttton
- * @param {HTMLDivElement} allComments - the html comments
- * @param {number} e - the id for post addingCommentFunction
- * @returns {HTMLDivElement} - return the post for the html tree
- */
-
 import { templateCard, templateComment } from "../index.ts"
+import { PostInfo, User, postInfoComments } from "../interface.ts";
 
-async function postTemplate(item: any, condition: boolean): Promise<string> {
-
-  const allComments: string = await templateComment(item.comments, item._id);
-
+/**
+ * Generates the HTML template for a post.
+ * @param item - The post information.
+ * @param condition - A boolean condition.
+ * @param user - The user information.
+ * @returns A Promise that resolves to the generated HTML template as a string.
+ */
+async function postTemplate(item: PostInfo, condition: boolean, user: User): Promise<string> {
+  const commentsArray: Array<postInfoComments> = item.comments as unknown as postInfoComments[] || [];
+  const allComments: string = await templateComment(commentsArray, item._id);
   const post: string = `
       <h2 style="padding: 40px 0px 0px; color: white !important;">${item?.userId?.name} post</h2>
-          ${templateCard(item, condition, item._id, item.title, item)}
+          ${templateCard(item, condition, item._id, item.title, user)}
           <!-- Comments Section -->
             <br />
           <div class="comments-section">

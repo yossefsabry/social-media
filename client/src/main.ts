@@ -1,12 +1,6 @@
 // imports
-import {
-  setupUi,
-  handleLogout,
-  handlePagination, handleLogin, handleRegister, handleCreatePost,
-  showUserInfo,
-  changeUserImageProfile,
-  changeUserImageCover
-} from "./ts/index.ts";
+import { setupUi, handleLogout, handlePagination, handleLogin, handleRegister, handleCreatePost,
+  showUserInfo, changeUserImageProfile, changeUserImageCover } from "./ts/index.ts";
 
 import { currentPage } from "./ts/storeData.ts";
 import { getRequest, deleteUser, updatePasswordUser, updateUserInfoProfile } from "./ts/index.ts";

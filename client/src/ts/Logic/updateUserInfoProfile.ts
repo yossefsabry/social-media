@@ -4,17 +4,20 @@ import { loaderHandler, createAlert, scrollTop, closeModal } from "../index"
 import { AlertType } from "../interface";
 
 
-export default function updateUserInfoProfile() {
-    const username = (document.querySelector("#update-user-info-modal #name-update") as HTMLInputElement).value;
-    const headline = (document.querySelector("#update-user-info-modal #headline-update") as HTMLInputElement).value;
-    const phone = (document.querySelector("#update-user-info-modal #phone-update") as HTMLInputElement).value;
-    const gender = (document.querySelector("#update-user-info-modal #gender-update") as HTMLInputElement).value;
+/**
+ * Updates the user's profile information.
+ */
+export default function updateUserInfoProfile(): void {
+    const username: string = (document.querySelector("#update-user-info-modal #name-update") as HTMLInputElement).value;
+    const headline: string = (document.querySelector("#update-user-info-modal #headline-update") as HTMLInputElement).value;
+    const phone: string = (document.querySelector("#update-user-info-modal #phone-update") as HTMLInputElement).value;
+    const gender: string = (document.querySelector("#update-user-info-modal #gender-update") as HTMLInputElement).value;
 
     const token: string | null = localStorage.getItem("token") == null ? null : localStorage.getItem("token");
     const headers: { authorization: string } = {
         authorization: `bearer_${token}`,
     };
-    const data = {
+    const data: { name: string, phone: string, headline: string, gender: string } = {
         "name": username,
         "phone": phone,
         "headline": headline,
@@ -34,6 +37,4 @@ export default function updateUserInfoProfile() {
             console.log(e);
             loaderHandler(false);
         });
-
-    console.log("update user info");
 };

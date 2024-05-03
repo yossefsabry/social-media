@@ -1,12 +1,11 @@
 
+import { AlertType } from "../interface.ts";
+
+
 /**
  * @param {string} message - the message that show for the user
  * @param {string} type - the type for the massage (danger - info - success)
  */
-
-import { AlertType } from "../interface.ts";
-
-
 const createAlert = (message: string, type: AlertType) => {
   const alertPlaceholder = (document.getElementById("liveAlertPlaceholder") as HTMLElement);
   const appendAlert = (message: string, type: AlertType) => {
