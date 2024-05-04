@@ -1,7 +1,7 @@
 import {
     handleClickDeleteButton, handleAddingComment,
     showUserInfo, handleClickCard, handleClickEditButton,
-    getTimeInGoodWay, addingLike, sharePost
+    getTimeInGoodWay, addingLike, sharePost, settingCurrentPost
 } from "../index.ts";
 import { CustomWindow, PostInfo, User, userIdInfo } from "../interface.ts";
 
@@ -28,6 +28,7 @@ function templateCard(item: PostInfo, condition: boolean, idUpdate: number, titl
     customWindow.handleClickEditButton = handleClickEditButton;
     customWindow.addingLike = addingLike;
     customWindow.sharePost = sharePost;
+    customWindow.settingCurrentPost = settingCurrentPost;
 
     // console.log(item)
     // for check if the user adding  like or not for the post
@@ -41,7 +42,7 @@ function templateCard(item: PostInfo, condition: boolean, idUpdate: number, titl
     });
 
     const data = `
-  <div class="col-md-12 block w-100">
+  <div class="col-24 col-md-24 block w-100">
     <div class="card rounded">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
@@ -62,9 +63,9 @@ function templateCard(item: PostInfo, condition: boolean, idUpdate: number, titl
             : ""
         }
                     ${condition
-            ? `<button class="btn btn-outline-light" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
-                JSON.stringify(item),
-            )}' )}>edit</button>`
+            ? `<button class="btn btn-outline-light" style="float: right;" data-bs-toggle="modal" data-bs-target="#update-post-modal" data-bs-whatever="@mdo" 
+                  onclick="settingCurrentPost('${encodeURIComponent(JSON.stringify(item))}')"
+              >edit</button>`
             : ""
         }
         </div>

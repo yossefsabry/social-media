@@ -13,6 +13,13 @@ export const userOwnerProfile = asyncHandler(async (req, res) => {
   return res.status(200).json({ status: "success", user });
 })
 
+// get all online user
+export const getOnlineUsers = asyncHandler(async(req,res,next)=>{
+  const user = await userModel.find({status:'online'}).select('name email')
+  const count = await userModel.count({status:'online',isDeleted:'false'})
+  return res.status(200).json({ status: "success",onlineUsers:count, results: user});
+})
+
 // Get User Public Profile
 export const userPublicProfile = asyncHandler(async (req, res) => {
   const user = await userModel.findById(req.params.userId).populate([
@@ -145,7 +152,7 @@ export const getSuggestUser = asyncHandler(async (req, res) => {
   const userId = req.user._id; // get the current userId
   const users = await userModel
     .find({ isDeleted: false, _id: { $ne: userId }, role: "user" })
-    .limit(5);
+    .limit(6);
   return res.status(200).json({ status: "success", AllUsers: users.length, results: users });
 })
 

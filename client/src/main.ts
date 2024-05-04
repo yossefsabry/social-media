@@ -1,11 +1,21 @@
 // imports
 import { setupUi, handleLogout, handlePagination, handleLogin, handleRegister, handleCreatePost,
-  showUserInfo, changeUserImageProfile, changeUserImageCover } from "./ts/index.ts";
+  showUserInfo, changeUserImageProfile, changeUserImageCover, 
+  handleClickEditButton,
+  suggestUserProfile} from "./ts/index.ts";
 
-import { currentPage } from "./ts/storeData.ts";
+import { currentPage , currentPostClick} from "./ts/storeData.ts";
 import { getRequest, deleteUser, updatePasswordUser, updateUserInfoProfile } from "./ts/index.ts";
 
-getRequest(false, currentPage.value);
+getRequest(false, currentPage.value).then(async() =>  {
+  const data: string = await suggestUserProfile(true);
+  const element: HTMLElement = (document.querySelector(".suggest__user__container .suggest__wrapper") as HTMLElement )
+  element.innerHTML = data;
+}).then(async() =>  {
+  const data: string = await suggestUserProfile(true);
+  const element: HTMLElement = (document.querySelector(".suggest__user__container2 .suggest__wrapper") as HTMLElement )
+  element.innerHTML = data;
+});
 
 window.addEventListener("scroll", () => handlePagination());
 
@@ -19,13 +29,15 @@ document.getElementById("RegisterBtn")!.addEventListener("click", () => handleRe
 
 document.querySelector("#create-post-button")!.addEventListener("click", () => handleCreatePost()); // for user profile
 
+document.querySelector("#update-post-button")!.addEventListener("click", () => handleClickEditButton(currentPostClick.value?._id!)); // for user profile
+
 document.querySelector(".create__post__container__home button")!.addEventListener("click", () => handleCreatePost(false)); // for home 
 
 document.getElementById("user__image__profile__navbar")!.addEventListener("click", () => showUserInfo(null));
 
 document.getElementById("button__change__image__profile")!.addEventListener("click", () => changeUserImageProfile());
 
-document.getElementById("button__change__image__cover")!.addEventListener("click", () => changeUserImageCover());
+document.getElementById("button__change__image__cover")!.addEventListener("click",() => changeUserImageCover());
 
 document.getElementById("update__user__profile__info")!.addEventListener("click", () => updateUserInfoProfile());
 

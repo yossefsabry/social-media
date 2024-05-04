@@ -1,19 +1,47 @@
-// import bootstrap, { Modal } from "bootstrap"
-import { Modal } from "bootstrap";
-import * as bootstrap from "bootstrap";
+import axios, {AxiosError} from "axios";
+import {loaderHandler, createAlert, getRequest, showUserInfo, scrollTop, closeModal} from "../index"
+import { url } from "../storeData";
+import { AlertType } from "../interface";
+
 /**
  * handle click on edit button for my post
- *@param {string} e - is string but object to card 
+ *@param {number} id - for the post id update
  */
-const handleClickEditButton = (e: any) => {
-  const element: any = JSON.parse(decodeURIComponent(e));
-  // console.log("element: ", element);
+const handleClickEditButton = (id: number) => {
+  let title: string;
+  let image: File;
+  let imageElement: HTMLInputElement | null;
 
-  (document.getElementById("create-post-button") as HTMLButtonElement).innerHTML = "Update";
-  (document.getElementById("title-create-post") as HTMLButtonElement ).value = `${element.title}`;
-  (document.getElementById("body-create-post") as HTMLButtonElement).value = `${element.body}`;
-  const modal: HTMLElement = (document.querySelector("#create-post-modal") as HTMLElement);
-  const modalInstance: Modal = new bootstrap.Modal(modal, {});
-  modalInstance.toggle();
+  title = (document.querySelector("#update-post-modal #title-update-post") as HTMLInputElement).value;
+  imageElement = (document.querySelector("#update-post-modal #image-update-post") as HTMLInputElement);
+
+  if (imageElement !== null && imageElement.files !== null && imageElement.files.length > 0) {
+    image = imageElement.files[0];
+  }
+
+  const token: string | null  = localStorage.getItem("token");
+  const formData: FormData = new FormData();
+  formData.append("title", title);
+  formData.append("images", image!); // fix used before assigned
+  const headers: { authorization: string} = {
+    authorization: `bearer_${token}`,
+  };
+
+  loaderHandler(true);
+  axios.put(`${url}/post/${id}/update`, formData, { headers: headers })
+    .then(() => {
+      createAlert("success update the post", AlertType.success);
+      getRequest(true);
+      // showUserInfo(null);
+      closeModal("update-post-modal")
+      loaderHandler(false);
+      scrollTop();
+    })
+    .catch((e: AxiosError<{ message: string }>) => {
+      createAlert("error happend: " + e?.response?.data?.message, AlertType.danger)
+      console.log(e);
+      loaderHandler(false);
+    });
+
 };
 export default handleClickEditButton; 

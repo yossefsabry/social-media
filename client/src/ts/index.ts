@@ -33,6 +33,7 @@ import closeModal from "./UI/closeModal.ts";
 import addingLike from "./Logic/addingLike.ts";
 import changeLove from "./UI/changeLove.ts";
 import sharePost from "./Logic/sharePost.ts";
+import settingCurrentPost from "./Logic/settingPostId.ts";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
@@ -42,5 +43,5 @@ export {
     templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton,
     getTimeInGoodWay, userCoverProfile, userAboutProfile, formatTimestamp, headerLinks, suggestUserProfile,
     changeUserImageCover, changeUserImageProfile, updateUserInfoProfile, updatePasswordUser,
-    deleteUser, closeModal, addingLike, changeLove, sharePost
+    deleteUser, closeModal, addingLike, changeLove, sharePost, settingCurrentPost
 };

@@ -8,9 +8,9 @@ export const getAllUsers = asyncHandler(async (req, res, next) => {
 
 // Get Online Users
 export const getOnlineUsers = asyncHandler(async(req,res,next)=>{
-const user = await userModel.find({status:'online'}).select('name email')
-const count = await userModel.count({status:'online',isDeleted:'false'})
-return res.status(200).json({ status: "success",onlineUsers:count, results: user});
+  const user = await userModel.find({status:'online'}).select('name email')
+  const count = await userModel.count({status:'online',isDeleted:'false'})
+  return res.status(200).json({ status: "success",onlineUsers:count, results: user});
 })
 
 //Block User

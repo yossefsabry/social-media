@@ -1,17 +1,49 @@
 @import url("https://fonts.googleapis.com/css2?family=Srisakdi:wght@400;700&family=Stalemate&display=swap");
+
+:root {
+  --color-light: white;
+  --color-dark: black;
+  --color-gray: #777;
+  --dark-bg: rgb(26, 25, 26);
+  --color-blue: #0250c4;
+  --card-bg: #2d242466;
+}
+
+
+/* .card button { */
+/*   color: black !important; */
+/* } */
+/* .card button:hover { */
+/*   color: white !important; */
+/* } */
+/**/
+/* .create__post__container__home { */
+/*   color: black; */
+/* } */
+/* .create__post__container__home > div * , */
+/* .create__post__container__home > .image__input , */
+/* .create__post__container__home > div input { */
+/*   background: white !important; */
+/*   color: black !important; */
+/* } */
+/**/
+/* .create__post__container__home input[type=file]::file-selector-button { */
+/*   color: black; */
+/*   background: white; */
+/* } */
  
 * {
   outline: none;
 }
 
 html {
-  color-scheme: dark light;
   font-size: 15px;
-  background-color: #171516f2 !important;
+  background-color: var(--dark-bg) !important;
 }
 
+
 body {
-  background-color: #171516f2 !important;
+  background: var(--dark-bg);
   width: 100%;
   position: relative;
   /* height is broke the pagination for the website */
@@ -38,10 +70,9 @@ body {
   background: #555;
   /* Color of the scrollbar thumb on hover */
 }
-
 .navbar__container {
-  padding: 30px 0px 9px 0px;
-  background-color: rgb(26, 25, 26) !important;
+  padding: 0;
+  background-color: var(--dark-bg) !important;
   border-bottom: 1px solid #373737;
 }
 
@@ -51,26 +82,29 @@ body {
   font-style: normal;
 }
 
-.navbar__container a {
-  color: white;
-}
-
-.profile__user {
-  background-color: #171516f2;
-  color: white;
-  border: 1px solid #373737;
+.navbar_container a {
+  color: var(--color-light);
 }
 
 .card {
-  background: #2d242466;
+  background: var(--card-bg) !important;
   margin-top: 30px;
-  color: white;
-  border: 1px solid #373737;
+  color: var(--color-light) !important;
+  border: 1px solid var(--color-gray);
 }
 
 
 .container {
-  padding-inline: calc(7vw + 1rem);
+  padding: 0;
+  display: flex !important;
+  align-items: start !important;
+  justify-content: space-between !important;
+  gap: 50px;
+}
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1291px;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -103,7 +137,7 @@ image {
 
 .category div {
   background-color: #938a8a;
-  color: white;
+  color: var(--color-light);
   padding: 5px 10px;
   border-radius: 30px;
 }
@@ -117,7 +151,7 @@ image {
 }
 
 #icon__adding {
-  color: #3f51b5;
+  color: var(--color-blue);
   position: fixed;
   bottom: 130px;
   right: calc(7vw + 20px);
@@ -155,7 +189,7 @@ image {
 .pagination__bottom div {
   width: 10px;
   height: 10px;
-  background-color: #acacac;
+  background-color: var(--color-gray);
   border-radius: 50%;
   animation: 1s infinite linear animate;
 }
@@ -174,7 +208,7 @@ image {
   right: 50%;
   transform: translate(50%, -50%);
   border-radius: 20px;
-  background: #b3c5cc87;
+  background: var(--color-gray);
   overflow: hidden;
   position: fixed;
   z-index: -1;
@@ -190,7 +224,7 @@ image {
   height: 10px;
   border-radius: 50%;
   margin-left: 10px;
-  background: black;
+  background: var(--color-dark);
   animation: 1s infinite linear animate;
 }
 
@@ -257,11 +291,11 @@ image {
 /* style for the user profile */
 .profile-page .profile-header {
   box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
-  border: 1px solid #2b2b2b;
-  color: white;
+  border: 1px solid var(--color-gray);
+  color: var(--color-light);
 }
 .profile-page * a {
-  color: white;
+  color: var(--color-light);
 }
 
 .profile-page .profile-header .cover {
@@ -361,7 +395,7 @@ image {
 }
 
 .profile-page .profile-header .header-links ul li a {
-  color: white;
+  color: var(--color-light);
   margin-inline: 10px;
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
@@ -433,8 +467,7 @@ img {
 .card-header {
   padding: 0.875rem 1.5rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #2b2b2b;
+  border: 1px solid var(--color-gray / 10) ;
 }
 
 .card-footer:last-child {
@@ -444,7 +477,7 @@ img {
 .card-footer {
   padding: 0.875rem 1.5rem;
   background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #2b2b2b;
+  border: 1px solid var(--color-gray / 10);
 }
 
 .grid-margin {
@@ -471,7 +504,7 @@ img {
   word-wrap: break-word;
   /* background-color: #fff; */
   background-clip: border-box;
-  border: 1px solid #2b2b2b;
+  border: 1px solid var(--color-gray / 20);
   border-radius: 0.25rem;
   display: block !important;
 }
@@ -503,7 +536,7 @@ img {
   position: absolute;
   bottom: 0;
   left: 20px;
-  background-color: #000000a1;
+  background-color: var(--color-blue);
   padding: 5px;
   border-radius: 50%;
   cursor: pointer;
@@ -520,7 +553,18 @@ img {
 }
 
 
-/* for the like */
-.bg__red {
-  /* background-color: red; */
+/* for the image user border */
+#user__image__profile__navbar {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 3px solid var(--color-blue);
+  border-radius: 50%;
 }
+
+
+/* suggest user */
+.suggest__user__container {
+}
+
+/* // selection loader // */

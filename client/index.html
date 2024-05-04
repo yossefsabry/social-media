@@ -1,384 +1,459 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Social Nation</title>
-  <link rel="icon" href="images/earth-png-25617.png" type="image/x-icon" />
-  <!-- boostrap files -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-  <!-- main css file -->
-  <link rel="stylesheet" href="src/css/style.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Nation</title>
+    <link rel="icon" href="images/earth-png-25617.png" type="image/x-icon" />
+    <!-- boostrap files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <!-- main css file -->
+    <link rel="stylesheet" href="src/css/style.css" />
+  </head>
 
-<body style="overflow: auto;">
-  <!-- loader for the website -->
-  <div class="loader__container">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <!-- loader for the website -->
-
-  <!-- alerts  -->
-  <div id="liveAlertPlaceholder" class="fade show"></div>
-  <!-- //alerts// -->
-
-  <!-- adding modal -->
-
-  <!-- modal create post -->
-  <div class="modal fade" id="create-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Post</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="col-form-label">title: </label>
-              <input type="text" class="form-control" id="title-create-post" value="yossef88" autocomplete="username" />
-            </div>
-            <input type="file" class="form-control" id="image-create-post" value="image" />
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" id="create-post-button">
-            Create Post
-          </button>
-        </div>
-      </div>
+  <body style="overflow: auto;">
+    <!-- loader for the website -->
+    <div class="loader__container">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-  </div>
+    <!-- loader for the website -->
 
-  <!-- login modal -->
-  <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="col-form-label">email: </label>
-              <input type="text" class="form-control" id="email-input-login" value="harlan2@gmail.com"
-                autocomplete="username" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-input-login" value="yossefsabry66"
-                autocomplete="current-password" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" id="LoginBtn">
-            Login
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--// login modal //-->
+    <!-- alerts  -->
+    <div id="liveAlertPlaceholder" class="fade show"></div>
+    <!-- //alerts// -->
 
-  <!-- register modal -->
-  <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="name-register" autocomplete="username" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">email: </label>
-              <input type="text" class="form-control" id="email-register" autocomplete="username" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-register" value="yossefsabry66"
-                autocomplete="current-password" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">confirm Password:</label>
-              <input type="password" class="form-control" id="confirmPassword-register" value="yossefsabry66"
-                autocomplete="current-password" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">age: </label>
-              <input type="text" class="form-control" id="age-register" autocomplete="username" value="40"/>
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">phone: </label>
-              <input type="text" class="form-control" id="phone-register" autocomplete="username"  value="01560638826"/>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" id="RegisterBtn">
-            Register
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--// register modal //-->
+    <!-- adding modal -->
 
-  <!--// adding modal //-->
-  <!-- change iamge for profile modals -->
-  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-    data-whatever="@getbootstrap"></button> -->
-
-  <div class="modal fade" id="image_profile_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">change profile image</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">profile image: </label>
-              <input type="file" class="form-control" id="change__image__profile__input" value="image" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="button__change__image__profile">change</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="image_cover_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">change cover image</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">profile image: </label>
-              <input type="file" class="form-control" id="change__image__cover__input" value="image" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="button__change__image__cover">change</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- change iamge for profile modals -->
-
-  <!-- modal for update userInfo -->
-  <div class="modal fade" id="update-user-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">update password</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="col-form-label">old Password:</label>
-              <input type="password" class="form-control" id="update__old__password" value=""
-                autocomplete="current-password" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">new Password:</label>
-              <input type="password" class="form-control" id="update__new__password" value=""
-                autocomplete="current-password" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">confirm Password:</label>
-              <input type="password" class="form-control" id="update__confirm__password" value=""
-                autocomplete="current-password" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" id="update__password__user">update</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="update-user-info-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">update user info </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="col-form-label">username: </label>
-              <input type="text" class="form-control" id="name-update" autocomplete="username" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">headline: </label>
-              <input type="text" class="form-control" id="headline-update" autocomplete="headline" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">phone: </label>
-              <input type="text" class="form-control" id="phone-update" autocomplete="phone" />
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label">gender: </label>
-              <input type="text" class="form-control" id="gender-update" autocomplete="gender" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" id="update__user__profile__info">update</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- modal for update userInfo -->
-
-  <!-- nav bar container -->
-  <div class="container sticky-top nav__container">
-    <nav class="navbar navbar-expand navbar__container rounded-bottom shadow">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" title="home page">socialNation</a>
-        <div class="collapse navbar-collapse text-align-right flex flex-row-reverse" id="navbarTogglerDemo01">
-          <form class="d-flex" role="search" id="login-wrapper">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal"
-              data-bs-whatever="@mdo" title="login">
-              Login
+    <!-- modal update post -->
+    <div class="modal fade" id="update-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">update post</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label">title: </label>
+                <input type="text" class="form-control" id="title-update-post" value="" autocomplete="username" />
+              </div>
+              <input type="file" class="form-control" id="image-update-post" value="image" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
             </button>
-            <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal"
-              data-bs-target="#register-modal" title="register">
-              Register
+            <button type="button" class="btn btn-primary" id="update-post-button">
+              update Post
             </button>
-          </form>
-
-          <form class="d-flex" role="search" id="logout-wrapper">
-            <div class="info-user-nav" title="user"></div>
-            <button class="btn btn-outline-danger mx-2" type="button" id="logout-button" title="logout">
-              logout
-            </button>
-          </form>
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link mt-2" id="user__image__profile__navbar" href="/profile" title="profile">
-                <img src="images/profile.png" class="img-fluid mb-1" width="30" height="30" alt="profile__image" />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <!-- // nav bar container //  -->
-
-  <!-- start post -->
-  <div class="container container__posts">
-    <div class="create__post__container__home py-3">
-      <h4 class="text-center text-white">create post</h4>
-      <div class="input-group flex-nowrap mb-2">
-        <span class="input-group-text " id="addon-wrapping">title</span>
-        <input type="text" class="form-control title__input text-white" placeholder="Title" aria-label="title"
-          aria-describedby="addon-wrapping" />
-      </div>
-      <input type="file" name="image" value="" id="image-register" class="form-control mb-3 image__input text-white" />
-      <button type="button" class="btn btn-primary" id="RegisterBtn" class="text-center" style="width: 100% !important">
-        create
-      </button>
-    </div>
-
-    <div class="posts py-3">
-      <div class="card">
-        <div class="card-header">
-          <img src="./images/profile.png" alt="profile image user" style="width: 40px; border-radius: 50%" />
-          <span><strong>@aya22</strong></span>
-        </div>
-        <div class="card-body">
-          <img src="./images/neom-207NEuFvjlg-unsplash.jpg" alt="image post"
-            style="width: 100%; height: 500px; padding-bottom: 3px" />
-          <h6 style="color: #777">2min age</h6>
-          <h4>The Title For Post</h4>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio,
-            sapiente officia. Neque rerum, id earum corrupti eum nobis ipsa
-            expedita perspiciatis odio vero reprehenderit distinctio deserunt,
-            dolor dicta totam iure?
-          </p>
-          <hr />
-          <div class="d-flex gap-3 justify-content-start align-items-center">
-            <a href="#">
-              <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-pen-fill" viewBox="0 0 16 16">
-                  <path
-                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
-                </svg> </span>(0)Commits
-            </a>
-            <span style="display: flex; gap: 5px" class="category">
-              <div>one</div>
-              <div>two</div>
-              <div>three</div>
-            </span>
           </div>
         </div>
       </div>
     </div>
-    <!--adding loading for the pagination-->
-    <div class="pagination__bottom">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <!--// adding loading for the pagination // -->
-  </div>
-  <!-- // start post //  -->
+    <!-- modal create post -->
 
-  <!-- the main script file -->
-  <script type="module" src="./src/main.ts"></script>
-</body>
+
+    <!-- modal create post -->
+    <div class="modal fade" id="create-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Post</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label">title: </label>
+                <input type="text" class="form-control" id="title-create-post" value="yossef88" autocomplete="username" />
+              </div>
+              <input type="file" class="form-control" id="image-create-post" value="image" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="create-post-button">
+              Create Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal create post -->
+
+    <!-- login modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label">email: </label>
+                <input type="text" class="form-control" id="email-input-login" value="harlan2@gmail.com"
+                  autocomplete="username" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Password:</label>
+                <input type="password" class="form-control" id="password-input-login" value="yossefsabry66"
+                  autocomplete="current-password" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="LoginBtn">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--// login modal //-->
+
+    <!-- register modal -->
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label">username: </label>
+                <input type="text" class="form-control" id="name-register" autocomplete="username" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">email: </label>
+                <input type="text" class="form-control" id="email-register" autocomplete="username" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Password:</label>
+                <input type="password" class="form-control" id="password-register" value="yossefsabry66"
+                  autocomplete="current-password" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">confirm Password:</label>
+                <input type="password" class="form-control" id="confirmPassword-register" value="yossefsabry66"
+                  autocomplete="current-password" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">age: </label>
+                <input type="text" class="form-control" id="age-register" autocomplete="username" value="40"/>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">phone: </label>
+                <input type="text" class="form-control" id="phone-register" autocomplete="username"  value="01560638826"/>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="RegisterBtn">
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--// register modal //-->
+
+    <!--// adding modal //-->
+    <!-- change iamge for profile modals -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+data-whatever="@getbootstrap"></button> -->
+
+    <div class="modal fade" id="image_profile_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">change profile image</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">profile image: </label>
+                <input type="file" class="form-control" id="change__image__profile__input" value="image" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="button__change__image__profile">change</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="image_cover_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">change cover image</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">profile image: </label>
+                <input type="file" class="form-control" id="change__image__cover__input" value="image" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="button__change__image__cover">change</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- change iamge for profile modals -->
+
+    <!-- modal for update userInfo -->
+    <div class="modal fade" id="update-user-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">update password</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label">old Password:</label>
+                <input type="password" class="form-control" id="update__old__password" value=""
+                  autocomplete="current-password" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">new Password:</label>
+                <input type="password" class="form-control" id="update__new__password" value=""
+                  autocomplete="current-password" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">confirm Password:</label>
+                <input type="password" class="form-control" id="update__confirm__password" value=""
+                  autocomplete="current-password" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="update__password__user">update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="update-user-info-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">update user info </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label">username: </label>
+                <input type="text" class="form-control" id="name-update" autocomplete="username" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">headline: </label>
+                <input type="text" class="form-control" id="headline-update" autocomplete="headline" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">phone: </label>
+                <input type="text" class="form-control" id="phone-update" autocomplete="phone" />
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">gender: </label>
+                <input type="text" class="form-control" id="gender-update" autocomplete="gender" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="update__user__profile__info">update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal for update userInfo -->
+
+    <!-- nav bar container -->
+    <div class="sticky-top nav__container">
+      <nav class="navbar navbar-expand navbar__container rounded-bottom shadow px-5">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html" title="home page">socialNation</a>
+          <div class="collapse navbar-collapse text-align-right flex flex-row-reverse" id="navbarTogglerDemo01">
+            <form class="d-flex" role="search" id="login-wrapper">
+              <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal"
+                data-bs-whatever="@mdo" title="login">
+                Login
+              </button>
+              <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal"
+                data-bs-target="#register-modal" title="register">
+                Register
+              </button>
+            </form>
+            <form class="d-flex" role="search" id="logout-wrapper">
+              <div class="info-user-nav" title="user"></div>
+              <button class="btn btn-outline-danger mx-2" type="button" id="logout-button" title="logout">
+                logout
+              </button>
+            </form>
+            <ul class="navbar-nav mb-2 mb-lg-0 flex justify-contnet-center align-items-center gap-2" >
+              <!--- the user icon for friends  -->
+              <li>
+                <div class="input-group" style="width: calc(300px + 4vw);">
+                  <input type="search" class="form-control rounded"  placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+                  <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-center flex align-items-center justify-content-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-people-fill d-block text-white" style="font-size: 30px !important;"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <!--- the user icon for notifactoin -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-center flex align-items-center justify-content-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-bell-fill d-block text-white" style="font-size: 28px !important;"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mx-1" id="user__image__profile__navbar" title="profile" href="/profile" title="profile">
+                  <img src="images/profile.png" class="img-fluid mb-1" alt="profile__image" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- // nav bar container //  -->
+
+    <!-- start post -->
+    <div class="container container__posts">
+
+      <div class="suggest__user__container2 py-5">
+        <h4 class="text-white text-decoration-underline"> suggest user </h4>
+        <div class="suggest__wrapper">
+        </div>
+      </div>
+
+      <div class="container__post">
+        <div class="create__post__container__home py-3">
+          <h4 class="text-center text-white">create post</h4>
+          <div class="input-group flex-nowrap mb-2">
+            <span class="input-group-text " id="addon-wrapping">title</span>
+            <input type="text" class="form-control title__input text-white" placeholder="Title" aria-label="title"
+              aria-describedby="addon-wrapping" />
+          </div>
+          <input type="file" name="image" value="" id="image-register" class="form-control mb-3 image__input" />
+          <button type="button" class="btn btn-primary" id="RegisterBtn" class="text-center" style="width: 100% !important">
+            create
+          </button>
+        </div>
+
+        <div class="posts py-3">
+          <div class="card">
+            <div class="card-header">
+              <img src="./images/profile.png" alt="profile image user" style="width: 40px; border-radius: 50%" />
+              <span><strong>@aya22</strong></span>
+            </div>
+            <div class="card-body">
+              <img src="./images/neom-207NEuFvjlg-unsplash.jpg" alt="image post"
+                style="width: 100%; height: 500px; padding-bottom: 3px" />
+              <h6 style="color: #777">2min age</h6>
+              <h4>The Title For Post</h4>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio,
+                expedita perspiciatis odio vero reprehenderit distinctio deserunt,
+                dolor dicta totam iure?
+              </p>
+              <hr />
+              <div class="d-flex gap-3 justify-content-start align-items-center">
+                <a href="#">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-pen-fill" viewBox="0 0 16 16">
+                      <path
+                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                    </svg> </span>(0)Commits
+                </a>
+                <span style="display: flex; gap: 5px" class="category">
+                  <div>one</div>
+                  <div>two</div>
+                  <div>three</div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--adding loading for the pagination-->
+        <div class="pagination__bottom">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <!--// adding loading for the pagination // -->
+      </div>
+
+      <div class="suggest__user__container py-5">
+        <h4 class="text-white text-decoration-underline"> suggest user </h4>
+        <div class="suggest__wrapper">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- // start post //  -->
+
+    <!-- the main script file -->
+    <script type="module" src="./src/main.ts"></script>
+  </body>
 
 </html>

@@ -95,5 +95,6 @@ export interface CustomWindow extends Window {
   handleClickEditButton?: Function;
   addingLike?: Function;
   sharePost?: Function;
+  settingCurrentPost?: Function;
 }
 
