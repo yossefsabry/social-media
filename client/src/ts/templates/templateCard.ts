@@ -58,11 +58,11 @@ function templateCard(item: PostInfo, condition: boolean, idUpdate: number, titl
                 </div>
         <div>
         ${condition
-            ? `<button class="btn btn-danger mx-2" style="float: right;" onclick="handleClickDeleteButton('${idUpdate}', ${refresh} )">Delete</button>`
+            ? `<button class="btn btn-outline-light mx-2" style="float: right;" onclick="handleClickDeleteButton('${idUpdate}', ${refresh} )">Delete</button>`
             : ""
         }
                     ${condition
-            ? `<button class="btn btn-primary" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
+            ? `<button class="btn btn-outline-light" style="float: right;" onclick={handleClickEditButton('${encodeURIComponent(
                 JSON.stringify(item),
             )}' )}>edit</button>`
             : ""

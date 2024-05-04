@@ -7,7 +7,7 @@ import * as bootstrap from "bootstrap";
  */
 const handleClickEditButton = (e: any) => {
   const element: any = JSON.parse(decodeURIComponent(e));
-  console.log("element: ", element);
+  // console.log("element: ", element);
 
   (document.getElementById("create-post-button") as HTMLButtonElement).innerHTML = "Update";
   (document.getElementById("title-create-post") as HTMLButtonElement ).value = `${element.title}`;

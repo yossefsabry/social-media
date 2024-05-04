@@ -21,9 +21,9 @@ function handlePagination(): void {
       .then(() => {
         isFetching.value = false;
       })
-      .catch((e: AxiosError) => {
+      .catch((e: AxiosError<{ message: string }>) => {
         createAlert("error happend pagination", AlertType.danger)
-        console.log("error happend pagination", e);
+        console.log("error happend pagination", e.response?.data?.message);
       });
   } else {
     let pagination__bottom: HTMLElement = (document.querySelector(".pagination__bottom") as HTMLElement);

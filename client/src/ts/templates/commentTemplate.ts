@@ -12,10 +12,10 @@ async function templateComment(comments: Array<postInfoComments>, id: number): P
 
    // Reverse the order of comments
    const reversedComments: Array<postInfoComments> = comments.reverse();
-  console.log("-----------------------")
-  console.log(comments)
+  // console.log("-----------------------")
+  // console.log(comments)
   const allComments: string = reversedComments.map((item: any) => {
-    console.log(item)
+    // console.log(item)
       return `
         <div class="card">
           <div class="card-body">
@@ -26,7 +26,7 @@ async function templateComment(comments: Array<postInfoComments>, id: number): P
                 <p class="small mb-0 ms-2">${item.userId.name}</p>
               </div>
               <div class="d-flex flex-row align-items-center">
-                <p class="small text-muted mb-0 mx-1">like${" -" + item.reactions.like.length || ""} </p>
+                <p class="small text-muted mb-0 mx-1">like -${item.reactions.like.length == 0 ? "" : item.reactions.like.length } </p>
                 <p class="small text-muted mb-0 mx-1">reply?</p>
                 <i class="far fa-thumbs-up ms-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
               </div>

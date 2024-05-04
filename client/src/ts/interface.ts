@@ -43,7 +43,7 @@ interface userConnection {
 // ========== postInfo interface ========== 
 export interface PostInfo {
   _id: number;
-  comments?: postInfoComments;
+  comments?: postInfoComments[];
   userId: postInfoAuthor;
   title: string;
   reactions: postReactions;
@@ -59,12 +59,12 @@ interface postImages {
 export interface postInfoComments {
   postId: string;
   replies: Array<any>;
-  reactions: postReactions;
+  reactions?: postReactions;
   text: string;
   _id: string;
   userId?: postInfoAuthor;
 }
-interface postInfoAuthor {
+export interface postInfoAuthor {
   name: string;
   _id: number;
   images: userImages;

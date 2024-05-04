@@ -9,11 +9,7 @@ import { verifyToken } from '../Utlis/TokenGenerator.js';
  * */
 const auth = ({roles=['user']}={})=>{
   return asyncHandler(async (req, res, next) => {
-    console.log("--- auth middleware ----")
-    console.log(req.headers)
     const { authorization } = req.headers;
-    // console.log("authorization: ", authorization)
-    // console.log("env barer key: ", process.env.BARER_KEY)
     // check if the token is provided
     if (!authorization?.startsWith(process.env.BARER_KEY)) {
       return next(new Error("You are not Authenticated hahahhaha",{cause:401}));

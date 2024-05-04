@@ -21,7 +21,7 @@ document.querySelector("#create-post-button")!.addEventListener("click", () => h
 
 document.querySelector(".create__post__container__home button")!.addEventListener("click", () => handleCreatePost(false)); // for home 
 
-document.getElementById("profile-user")!.addEventListener("click", () => showUserInfo(null));
+document.getElementById("user__image__profile__navbar")!.addEventListener("click", () => showUserInfo(null));
 
 document.getElementById("button__change__image__profile")!.addEventListener("click", () => changeUserImageProfile());
 

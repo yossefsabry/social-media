@@ -46,10 +46,10 @@ function handleRegister() {
       setupUi();
       loaderHandler(false);
     })
-    .catch((e: AxiosError) => {
+    .catch((e: AxiosError<{ message: Array<string>}>) => {
       console.log(e);
-      createAlert(`error: ${e?.response?.data}`, AlertType.danger);
       loaderHandler(false);
+      createAlert(`error: ${e?.response?.data.message}`, AlertType.danger);
     });
 }
 export default handleRegister;

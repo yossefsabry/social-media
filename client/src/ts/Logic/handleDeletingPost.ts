@@ -26,9 +26,9 @@ const handleClickDeleteButton = (e: number, refresh?: boolean) => {
       getRequest(true);
       loaderHandler(false);
     })
-    .catch((e: AxiosError) => {
+    .catch((e: AxiosError<{ message: string }>) => {
       console.log(e);
-      createAlert("error happend in deleting: " + e, AlertType.danger);
+      createAlert("error happend in deleting: " + e.response?.data?.message, AlertType.danger);
       loaderHandler(false);
     });
 };

@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { PostInfo  } from "../interface.ts";
-import { loaderHandler, templateCard } from "../index.ts";
+import { AlertType, PostInfo  } from "../interface.ts";
+import { loaderHandler, templateCard , createAlert} from "../index.ts";
 import { idPost, lastPage, postArray, url, currentPostClick, user } from "../storeData.ts";
+// import { create } from "domain";
 
 /**
  * request for the api for data posts
@@ -61,8 +62,9 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
         if (posts != null) // check if there or delete when click post
           posts.innerHTML += templateCard(item, conditionEdit, idPost.value!, title, userInfo.data);
       });
-    }).catch((e: AxiosError) => {
+    }).catch((e: AxiosError<{ message: string }>) => {
       console.log("error happend", e);
+      createAlert("error happend: "+ e?.response?.data?.message, AlertType.danger);
     });
   loaderHandler(false);
 }

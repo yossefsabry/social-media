@@ -8,7 +8,7 @@ import { User } from "../interface";
  * @returns The HTML template string for the user's about profile.
  */
 export default function userAboutProfile(user: User, condition: boolean): string {
-    console.log(user)
+    // console.log(user)
     const data = `
                   <div class="card-body">
                       <div class="d-flex align-items-center justify-content-between mb-2">
@@ -44,15 +44,13 @@ export default function userAboutProfile(user: User, condition: boolean): string
                           <p class="text-muted">${user?.status}</p>
                       </div>
                         ${condition == true ?
-            `<button class="btn btn-primary" id="update__user__info__button"
+                          `<button class="btn btn-outline-primary" id="update__user__info__button"
                             type="button" data-bs-toggle="modal" data-bs-target="#update-user-info-modal" data-bs-whatever="@mdo"
                             >update</button>
 
-                            <button class="btn btn-secondary" id="update__password__button"
+                            <button class="btn btn-outline-primary" id="update__password__button"
                             type="button" data-bs-toggle="modal" data-bs-target="#update-user-password-modal" data-bs-whatever="@mdo"
-                            >update password</button>
-                            
-                            <!-- <button class="btn btn-danger" id="delete__user__button" onClick="deleteUser()">delete user</button> -->`
+                            >update password</button>`
             : ""}
                   </div>
     `;

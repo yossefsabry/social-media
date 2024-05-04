@@ -148,7 +148,7 @@ export const updatePost = asyncHandler(async (req, res, next) => {
  * @returns {Object} The response object with status and message.
  */
 export const deletePost = asyncHandler(async (req, res, next) => {
-  console.log("welcomef rom the the request ot delete")
+  // console.log("welcomef rom the the request ot delete")
   if (!(await postModel.findById(req.params.post_id))) {
     return next(new Error("Post ID not Exist", { cause: 404 }));
   }

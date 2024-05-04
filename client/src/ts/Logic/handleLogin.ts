@@ -37,9 +37,9 @@ function handleLogin(): void {
       setupUi();
       loaderHandler(false);
 
-    }).catch((e: AxiosError) => {
+    }).catch((e: AxiosError<{ message: string }>) => {
       console.log(e)
-      createAlert(`error happend: ${e}`, AlertType.danger);
+      createAlert(`error happend: ${e?.response?.data?.message}`, AlertType.danger);
       loaderHandler(false);
     });
 }

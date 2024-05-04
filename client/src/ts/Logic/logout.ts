@@ -15,8 +15,8 @@ async function handleLogout(): Promise<void> {
   getRequest(true, currentPage.value)
   await axios.patch(`${url}/auth/signout`, { headers: headers }).then(() => {
     console.log("logout successful")
-  }).catch((e: AxiosError) => {
-    console.log(e)
+  }).catch((e: AxiosError<{ message: string }>) => {
+    console.log(e.response?.data?.message)
   });
 
   localStorage.removeItem("token");

@@ -28,7 +28,6 @@ export default async function addingLike(id: number, item: string | any): Promis
     if (!condition) {
         // http://localhost:5000/post/64278a91f94efbe790dc4591/react?react=like
         axios.patch(`${url}/post/${id}/react?react=like`, null, { headers: headers }).then(() => {
-            console.log("the condition is ", condition)
             changeLove(true, id)
         }).catch((e: AxiosError) => {
             console.log(e)
@@ -36,7 +35,6 @@ export default async function addingLike(id: number, item: string | any): Promis
     } else {
         //http://localhost:5000/post/64271ab303dd8b398513ae85/unlike
         axios.patch(`${url}/post/${id}/unlike`, null, { headers: headers }).then(() => {
-            console.log("insde delete the like")
             changeLove(false, id)
         }).catch((e: AxiosError) => {
             console.log(e)

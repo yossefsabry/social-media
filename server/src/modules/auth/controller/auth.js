@@ -5,7 +5,7 @@ import { generateToken, verifyToken } from '../../../Utlis/TokenGenerator.js'
 // import sendMail from '../../../services/sendMail/sendmail.js';
 import { otp } from '../../../Utlis/otpGenerator.js';
 import moment from 'moment/moment.js';
-// import cloudinary from '../../../Utlis/cloudinary.js';
+import cloudinary from '../../../Utlis/cloudinary.js';
 import path from 'path'
 import {fileURLToPath} from 'url'
 
@@ -21,7 +21,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
   }
   
   // FOR EMAIL CNOFIRMATION
-  // const token = generateToken({payload:{email:email.toLowerCase()},signature:process.env.CONFIRM_EMAIL_SIGNAUTRE,expiresIn:60*60*24}) // genrate session token for the tabs for 24 hours 
+  const token = generateToken({payload:{email:email.toLowerCase()},signature:process.env.CONFIRM_EMAIL_SIGNAUTRE,expiresIn:60*60*24}) // genrate session token for the tabs for 24 hours 
   // const confirmLink =req.protocol+'://'+ req.headers.host + '/auth/confirmEmail/' + token // for confirm email
 
   // const refreshToken = generateToken({payload:{email:email.toLowerCase()},signature:process.env.CONFIRM_EMAIL_SIGNAUTRE,expiresIn:60*60*24*30*12}) // genrate token for 1 year

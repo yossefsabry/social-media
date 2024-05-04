@@ -17,7 +17,7 @@ async function userProfilePage(user: any, allPostUser: any, condition: boolean):
       </div>
       <div class="row profile-body">
           <!-- left wrapper start -->
-          <div class="d-md-block col-md-12 col-xl-6 left-wrapper">
+          <div class="d-md-block ${condition ? 'col-md-12 col-xl-6':' col-md-24 col-xl-24' } left-wrapper">
               <div class="card rounded">
                 ${userAboutProfile(user, condition)}
               </div>
