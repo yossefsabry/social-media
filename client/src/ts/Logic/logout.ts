@@ -1,5 +1,5 @@
 import { createAlert, setupUi, scrollTop, getRequest } from "../index.ts";
-import { currentPage, url } from "../storeData.ts";
+import { currentPage, url, isFetching } from "../storeData.ts";
 import { AlertType } from "../interface.ts";
 import axios, { AxiosError } from "axios";
 
@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
  * handle the logout
  */
 async function handleLogout(): Promise<void> {
+  isFetching.value = true;
   const token: string = localStorage.getItem("token") || "";
   const headers: { authorization: string } = {
     authorization: `bearer_${token}`,

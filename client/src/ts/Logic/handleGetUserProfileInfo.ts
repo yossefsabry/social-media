@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { setUserLocalStorageInfo } from "./localStorage";
-import { url } from "../storeData";
+import { setUserLocalStorageInfo  } from "./localStorage";
+import { url , user} from "../storeData";
 
 
 
@@ -16,6 +16,7 @@ const handleUserProfile = async (token: string): Promise<void> => {
     }
     await axios.get(`${url}/user/profile`, { headers: headers }).then((res: AxiosResponse) => {
         setUserLocalStorageInfo(res.data.user) // set the user for localstorage
+        user.value = res.data.user;
     }).catch((e: AxiosError) => {
         console.log(e);
     });

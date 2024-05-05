@@ -22,7 +22,7 @@ function handleLogin(): void {
   loaderHandler(true);
 
   axios.post(`${url}/auth/signin`, data)
-    .then((response: AxiosResponse) => {
+    .then(async(response: AxiosResponse) => {
       closeModal("login-modal");
 
       setLocalStorageInfo(
@@ -31,11 +31,12 @@ function handleLogin(): void {
       );
 
       // set the user for localstorage by call the show user profile
-      handleUserProfile(response.data.refreshToken);
+      await handleUserProfile(response.data.refreshToken);
 
       createAlert("Login successful! Welcome back!", AlertType.success);
       setupUi();
       loaderHandler(false);
+      window.location.reload(); // cause problem
 
     }).catch((e: AxiosError<{ message: string }>) => {
       console.log(e)

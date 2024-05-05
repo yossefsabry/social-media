@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios"
+import axios,{ AxiosError } from "axios"
 import { url } from "../storeData"
 import { loaderHandler, createAlert, closeModal } from "../index"
 import { AlertType } from "../interface";

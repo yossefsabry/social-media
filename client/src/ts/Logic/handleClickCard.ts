@@ -1,5 +1,6 @@
-import { loaderHandler, postTemplate,  scrollTop } from "../index.ts";
+import { loaderHandler, postTemplate,  scrollTop , settingCurrentPost} from "../index.ts";
 import {  PostInfo, User } from "../interface.ts";
+import {isFetching} from "../storeData.ts"
 
 /**
  * handle navgation an post page
@@ -7,9 +8,10 @@ import {  PostInfo, User } from "../interface.ts";
  * @throws {AxiosError} e - throw an error from axios 
  */
 const handleClickCard = async(e: string) => {
+  isFetching.value = true;
   loaderHandler(true);
+  settingCurrentPost(e);
   const element: PostInfo = JSON.parse(decodeURIComponent(e));
-  console.log("element: ", element);
   let user: User;
   let authorIdPost: number = element.userId._id;
   let authorId: number = -1;
@@ -23,13 +25,11 @@ const handleClickCard = async(e: string) => {
     user = JSON.parse(userData);
   }
 
-  // check for the author
-
   const conditionPostAuthor: boolean = authorIdPost == authorId;
   const post = String(await postTemplate(element, conditionPostAuthor, user!)); // is for the adding comment the id
   containerPost.innerHTML = post;
-  loaderHandler(false);
   scrollTop();
+  loaderHandler(false);
 };
 
 export default handleClickCard;

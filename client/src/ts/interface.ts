@@ -97,4 +97,9 @@ export interface CustomWindow extends Window {
   sharePost?: Function;
   settingCurrentPost?: Function;
 }
+export interface CustomHeaderWindow extends Window {
+  handleShowUserAbout?: Function;
+  showFriends?: Function;
+  handleShowPostProfile?: Function;
+}
 

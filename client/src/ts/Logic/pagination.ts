@@ -1,5 +1,5 @@
 import { isFetching, currentPage, lastPage, postInfo } from "../storeData.ts";
-import { createAlert, getRequest } from "../index.ts";
+import { createAlert, getRequest, loaderHandler } from "../index.ts";
 import { AlertType } from "../interface.ts";
 import { AxiosError } from "axios";
 
@@ -28,6 +28,7 @@ function handlePagination(): void {
   } else {
     let pagination__bottom: HTMLElement = (document.querySelector(".pagination__bottom") as HTMLElement);
     pagination__bottom?.classList.add("d-none");
+    loaderHandler(false);
   }
 }
 

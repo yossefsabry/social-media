@@ -15,18 +15,19 @@ const handleClickEditButton = (id: number) => {
   title = (document.querySelector("#update-post-modal #title-update-post") as HTMLInputElement).value;
   imageElement = (document.querySelector("#update-post-modal #image-update-post") as HTMLInputElement);
 
+  const formData: FormData = new FormData();
   if (imageElement !== null && imageElement.files !== null && imageElement.files.length > 0) {
     image = imageElement.files[0];
+    formData.append("title", title);
+    formData.append("images", image!); // fix used before assigned
+  }else {
+    formData.append("title", title);
   }
 
   const token: string | null  = localStorage.getItem("token");
-  const formData: FormData = new FormData();
-  formData.append("title", title);
-  formData.append("images", image!); // fix used before assigned
   const headers: { authorization: string} = {
     authorization: `bearer_${token}`,
   };
-
   loaderHandler(true);
   axios.put(`${url}/post/${id}/update`, formData, { headers: headers })
     .then(() => {
@@ -36,8 +37,7 @@ const handleClickEditButton = (id: number) => {
       closeModal("update-post-modal")
       loaderHandler(false);
       scrollTop();
-    })
-    .catch((e: AxiosError<{ message: string }>) => {
+    }).catch((e: AxiosError<{ message: string }>) => {
       createAlert("error happend: " + e?.response?.data?.message, AlertType.danger)
       console.log(e);
       loaderHandler(false);

@@ -20,6 +20,7 @@ function templateCard(item: PostInfo, condition: boolean, idUpdate: number, titl
     // global defeind the method to can read by html
     userInfo = userInfo;
     // console.log(userInfo)
+
     const customWindow = window as CustomWindow;
     customWindow.showUserInfo = showUserInfo;
     customWindow.handleClickCard = handleClickCard;
@@ -42,7 +43,7 @@ function templateCard(item: PostInfo, condition: boolean, idUpdate: number, titl
     });
 
     const data = `
-  <div class="col-24 col-md-24 block w-100">
+  <div class="col-24 col-md-24 block w-100" id="card__post">
     <div class="card rounded">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">

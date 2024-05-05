@@ -11,7 +11,9 @@ const modal: HTMLElement = (document.getElementById(`${name}`) as HTMLElement);
         const modalInstance: Modal | null = bootstrap.Modal.getInstance(modal);
         if (modalInstance !== null)
             modalInstance.hide();
-        document.body.style.cssText = ` overflow: auto !important; `
-        let modalBackdrop: HTMLElement = (document.querySelector('.modal-backdrop.show') as HTMLElement);
-        modalBackdrop!.parentNode!.removeChild(modalBackdrop!);
+        // let modalBackdrop: HTMLElement = (document.querySelector('.modal-backdrop') as HTMLElement);
+        // modalBackdrop!.parentNode!.removeChild(modalBackdrop!);
+        // modalBackdrop.classList.remove('show');
+        // modalBackdrop.classList.remove('.modal-backdrop.show');
+        // modalBackdrop.style.cssText = "display: none !important";
 }

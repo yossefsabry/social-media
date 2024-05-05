@@ -2,20 +2,13 @@
 import { setupUi, handleLogout, handlePagination, handleLogin, handleRegister, handleCreatePost,
   showUserInfo, changeUserImageProfile, changeUserImageCover, 
   handleClickEditButton,
-  suggestUserProfile} from "./ts/index.ts";
+  handleUserProfile,
+  } from "./ts/index.ts";
 
-import { currentPage , currentPostClick} from "./ts/storeData.ts";
-import { getRequest, deleteUser, updatePasswordUser, updateUserInfoProfile } from "./ts/index.ts";
+import { currentPage , currentPostClick } from "./ts/storeData.ts";
+import { getRequest, deleteUser, updatePasswordUser, updateUserInfoProfile , } from "./ts/index.ts";
 
-getRequest(false, currentPage.value).then(async() =>  {
-  const data: string = await suggestUserProfile(true);
-  const element: HTMLElement = (document.querySelector(".suggest__user__container .suggest__wrapper") as HTMLElement )
-  element.innerHTML = data;
-}).then(async() =>  {
-  const data: string = await suggestUserProfile(true);
-  const element: HTMLElement = (document.querySelector(".suggest__user__container2 .suggest__wrapper") as HTMLElement )
-  element.innerHTML = data;
-});
+getRequest(false, currentPage.value);
 
 window.addEventListener("scroll", () => handlePagination());
 
@@ -44,3 +37,12 @@ document.getElementById("update__user__profile__info")!.addEventListener("click"
 document.getElementById("update__password__user")!.addEventListener("click", () => updatePasswordUser());
 
 // document.getElementById("delete__user__button")!.addEventListener("click", () => deleteUser());
+
+
+//  for update the user profile each 3 second
+const token: string = localStorage.getItem("token") || "";
+if (token !== "") {
+  setTimeout(() => {
+    handleUserProfile(token);
+  }, 3000);
+}

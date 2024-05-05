@@ -22,15 +22,15 @@ function handleCreatePost(profileUser?: boolean)  {
      title = (document.querySelector("#title-create-post" ) as HTMLInputElement).value;
     imageElement = (document.querySelector("#image-create-post") as HTMLInputElement);
   }
-
+  const formData: FormData = new FormData();
   if (imageElement !== null && imageElement.files !== null && imageElement.files.length > 0) {
     image = imageElement.files[0];
+    formData.append("title", title);
+    formData.append("images", image!); // fix used before assigned
+  } else {
+    formData.append("title", title);
   }
-
   const token: string | null  = localStorage.getItem("token");
-  const formData: FormData = new FormData();
-  formData.append("title", title);
-  formData.append("images", image!); // fix used before assigned
   const headers: { authorization: string} = {
     authorization: `bearer_${token}`,
   };

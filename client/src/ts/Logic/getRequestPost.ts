@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AlertType, PostInfo  } from "../interface.ts";
-import { loaderHandler, templateCard , createAlert} from "../index.ts";
+import { loaderHandler, templateCard , createAlert, updateNavFriendMenu} from "../index.ts";
 import { idPost, lastPage, postArray, url, currentPostClick, user } from "../storeData.ts";
 // import { create } from "domain";
 
@@ -13,13 +13,13 @@ import { idPost, lastPage, postArray, url, currentPostClick, user } from "../sto
  * */
 
 async function getRequest(updatePost?: boolean, current?: number): Promise<void> {
+  loaderHandler(true);
   const token: string = localStorage.getItem("token") || "";
   const headers: { authorization: string } = {
     authorization: `bearer_${token}`,
   }
 
 
-  loaderHandler(true);
   await axios.get(`${url}/post?limit=4&page=${current}`, { headers: headers })
     .then(async (response: AxiosResponse) => {
       postArray.value = await response.data.results.results;
@@ -38,7 +38,6 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
       }
 
       postArray.value.map(async (item: PostInfo) => { // Add 'item' parameter to the arrow function
-        // console.log(item);
         currentPostClick.value = item;
         const title: string = item.title || "";
         const id: number = item._id;
@@ -53,20 +52,22 @@ async function getRequest(updatePost?: boolean, current?: number): Promise<void>
 
         // get the user info for the post
         const userInfo: AxiosResponse = await axios.get(`${url}/user/${item.userId._id}/profile`, { headers: headers });
-        // console.log(userInfo) console the user info
-
         const authorIdPost: number = item.userId._id;
         // check for the id for post and author
         const idUser: number | undefined = user.value !== undefined ? user.value._id : undefined;
         const conditionEdit: boolean = authorIdPost === idUser;
         if (posts != null) // check if there or delete when click post
           posts.innerHTML += templateCard(item, conditionEdit, idPost.value!, title, userInfo.data);
+
+
+        updateNavFriendMenu(); // for update the menu nav
+        loaderHandler(false);
       });
     }).catch((e: AxiosError<{ message: string }>) => {
       console.log("error happend", e);
       createAlert("error happend: "+ e?.response?.data?.message, AlertType.danger);
+      loaderHandler(false);
     });
-  loaderHandler(false);
 }
 
 export default getRequest;

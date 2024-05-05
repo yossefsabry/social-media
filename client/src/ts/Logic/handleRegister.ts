@@ -9,6 +9,7 @@ import { AlertType } from "../interface.ts";
  * @throws {error} - throw an error for request for the clicked card
  */
 function handleRegister() {
+  console.log("welcome");
   const name: string = (document.getElementById("name-register") as HTMLInputElement).value;
   const age: string = (document.getElementById("age-register") as HTMLInputElement).value;
   const email: string = (document.getElementById("email-register") as HTMLInputElement).value;

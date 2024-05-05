@@ -7,15 +7,14 @@ import { suggestUserProfile, userCoverProfile, userAboutProfile } from "../index
  * @param {HTMLDivElement} allPostUser - for the html posts for the user
  * @returns {HTMLDivElement} - return the userProfilePage for user
  */
-async function userProfilePage(user: any, allPostUser: any, condition: boolean): Promise<string> {
-//   console.log(allPostUser)
+async function userProfilePage(user: User, allPostUser: any, condition: boolean): Promise<string> {
 
   let userProfile = `
   <div class="profile-page tx-13">
       <div class="row">
         ${await userCoverProfile(user, condition)}
       </div>
-      <div class="row profile-body">
+      <div class="row profile-body" id="profile__body__user" >
           <!-- left wrapper start -->
           <div class="d-md-block ${condition ? 'col-md-12 col-xl-6':' col-md-24 col-xl-24' } left-wrapper">
               <div class="card rounded">
@@ -33,7 +32,7 @@ async function userProfilePage(user: any, allPostUser: any, condition: boolean):
           <!-- right wrapper end -->
 
           <!-- middle wrapper start -->
-          <div class="col-md-12 col-xl-12 middle-wrapper">
+          <div class="col-md-12 col-xl-12 middle-wrapper" id="all__posts__profile">
               <div class="row">
                   <div class="col-md-12 grid-margin mb-5">
                       <hr />
@@ -43,7 +42,6 @@ async function userProfilePage(user: any, allPostUser: any, condition: boolean):
               </div>
           </div>
           <!-- middle wrapper end -->
-
       </div>
   </div>
     `

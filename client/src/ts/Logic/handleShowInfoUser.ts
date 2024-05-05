@@ -1,5 +1,5 @@
 import { createAlert, loaderHandler, scrollTop, templateCard, userProfilePage } from "../index.ts";
-import { url, isFetching, idPost } from "../storeData.ts";
+import { url, isFetching, idPost, user } from "../storeData.ts";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AlertType, PostInfo, User } from "../interface.ts";
 
@@ -12,16 +12,15 @@ import { AlertType, PostInfo, User } from "../interface.ts";
 const showUserInfo = async (id: number | null): Promise<void> => {
   // to stop fetching data for pagination
   isFetching.value = true;
-  let user: User | undefined = localStorage.getItem("user") == null ? undefined : JSON.parse(localStorage.getItem("user")!);
   let userProfile: User;
   let condition: boolean = false;
-  // FIX any
-  let postUser: any;
+  let postUser: any; // FIX any
 
   loaderHandler(true);
 
-  if (user == null) {
+  if (user.value == null) {
     createAlert("no user sign in ..", AlertType.danger);
+    loaderHandler(false);
     return
   }
 
@@ -34,12 +33,13 @@ const showUserInfo = async (id: number | null): Promise<void> => {
   const getPost = async () => {
     //http://localhost:5000/post/socialuser/6426e14325fb796e7b40268c
     await axios.get(`${url}/post/socialuser/${userProfile._id}`, { headers: headers })
-      .then((response: AxiosResponse) => {
-        postUser = response.data
-      })
-      .catch((e: AxiosError) => {
-        console.log("error happend", e);
-      });
+    .then((response: AxiosResponse) => {
+      postUser = response.data
+    })
+    .catch((e: AxiosError<{ message: string }>) => {
+      console.log("error happend", e.response?.data?.message);
+      loaderHandler(false);
+    });
   }
 
   // check if the user is the same user
@@ -47,40 +47,45 @@ const showUserInfo = async (id: number | null): Promise<void> => {
     //http://localhost:5000/user/profile
     await axios.get(`${url}/user/profile`, { headers: headers }).then((response: AxiosResponse) => {
       userProfile = response.data.user
-      // console.log(userProfile)
+      user.value = response.data.user
       condition = true;
     }).then(() => getPost())
-      .catch((e: AxiosError) => console.log(e));
+    .catch((e: AxiosError<{ message: string}>) => {
+      createAlert("error happend: " + e.response?.data?.message, AlertType.danger)
+      loaderHandler(false);
+    });
   } else {
     //http://localhost:5000/user/662b14cf730705c353d0b430/profile
     await axios.get(`${url}/user/${id}/profile`, { headers: headers })
-      .then((response: AxiosResponse) => {
-        userProfile = response.data.user
-        // console.log(userProfile)
-      }).then(() => getPost())
-      .catch((e: AxiosError) => console.log(e));
+    .then((response: AxiosResponse) => {
+      userProfile = response.data.user
+      // console.log(userProfile)
+    }).then(() => getPost())
+    .catch((e: AxiosError<{ message: string}>) => {
+      console.log(e);
+      loaderHandler(false); 
+      createAlert("error happend: " + e.response?.data?.message, AlertType.danger)
+    });
+
   }
 
 
   loaderHandler(false);
 
-  // console.log(postUser)
   const allPostUser: HTMLElement = postUser.results.results.map((item: PostInfo) => {
-    // console.log("-------------------")
-    // console.log(item)
-    // console.log("-------------------")
     const id: number = item._id;
     idPost.value = id;
 
     // FIX condition
     const userTemplate: string = templateCard(item, condition, idPost.value!, item.title, userProfile, true);
     return userTemplate;
-  });
+  }).join("");
 
   const content: HTMLElement = (document.querySelector(".container__posts") as HTMLElement);
   const userInfo: string = await userProfilePage(userProfile!, allPostUser, condition);
   if (content !== null)
-    content.innerHTML = userInfo;
+  (document.querySelector(".container")as HTMLElement).style.cssText = ` display: block !important`;
+  content.innerHTML = userInfo;
 
   scrollTop();
   loaderHandler(false);

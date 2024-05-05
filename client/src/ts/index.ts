@@ -34,6 +34,11 @@ import addingLike from "./Logic/addingLike.ts";
 import changeLove from "./UI/changeLove.ts";
 import sharePost from "./Logic/sharePost.ts";
 import settingCurrentPost from "./Logic/settingPostId.ts";
+import handleShowUserAbout from "./Logic/handleProfileShowAboutUser.ts";
+import showFriends from "./Logic/handleShowFriends.ts";
+import handleShowPostProfile from "./Logic/handleShowPostUserProfile.ts";
+import updateNavFriendMenu from "./Logic/updateTheUserFriendsMenuNav.ts";
+import handleUserProfile from "./Logic/handleGetUserProfileInfo.ts";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
@@ -43,5 +48,6 @@ export {
     templateComment, postTemplate, handleClickCard, scrollTop, getRequest, handleClickEditButton,
     getTimeInGoodWay, userCoverProfile, userAboutProfile, formatTimestamp, headerLinks, suggestUserProfile,
     changeUserImageCover, changeUserImageProfile, updateUserInfoProfile, updatePasswordUser,
-    deleteUser, closeModal, addingLike, changeLove, sharePost, settingCurrentPost
+    deleteUser, closeModal, addingLike, changeLove, sharePost, settingCurrentPost, handleShowUserAbout,
+    showFriends, handleShowPostProfile, updateNavFriendMenu, handleUserProfile
 };

@@ -49,6 +49,7 @@ body {
   /* height is broke the pagination for the website */
   /* height: 100vh; */
   overflow-x: hidden;
+  overflow-y: auto !important;
 }
 
 ::-webkit-scrollbar {
@@ -95,21 +96,14 @@ body {
 
 
 .container {
-  padding: 0;
-  display: flex !important;
-  align-items: start !important;
-  justify-content: space-between !important;
-  gap: 50px;
-}
-@media (min-width: 1200px) {
-  .container, .container-lg, .container-md, .container-sm, .container-xl {
-    max-width: 1291px;
-  }
+  padding: 0 10px;
 }
 
 @media (max-width: 1000px) {
   .container {
     padding-inline: 1rem;
+    gap: 0px !important;
+    padding: 10px !important;
   }
   .card {
     display: block;
@@ -562,6 +556,11 @@ display: none;
   padding: 0;
   border: 3px solid var(--color-blue);
   border-radius: 50%;
+}
+#user__image__profile__navbar img {
+  width: 45px;
+  border-radius: 50%;
+  height: 44px;
 }
 
 
