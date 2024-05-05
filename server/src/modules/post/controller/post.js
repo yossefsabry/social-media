@@ -29,8 +29,10 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
  * @returns {Object} The response object with the list of posts.
  */
 export const getAllPostsOwner = asyncHandler(async (req, res, next) => {
+  console.log("get user  posts");
   const posts = res.paginatedResults
   const lastPage = res.lastPage
+  console.log("finsh user  posts");
   return res.status(200).json({
     status: "success", posts_count: posts.length, pageInfo: req.query, lastPage: lastPage,
     results: posts

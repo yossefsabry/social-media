@@ -537,12 +537,14 @@ img {
   bottom: 0;
   left: 20px;
   background-color: var(--color-blue);
-  padding: 5px;
+  padding: 9px;
   border-radius: 50%;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* .modal-backdrop.show {
-  display: none;
+display: none;
 } */
 
 .modal{

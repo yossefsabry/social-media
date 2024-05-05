@@ -15,7 +15,8 @@ const showUserInfo = async (id: number | null): Promise<void> => {
   let user: User | undefined = localStorage.getItem("user") == null ? undefined : JSON.parse(localStorage.getItem("user")!);
   let userProfile: User;
   let condition: boolean = false;
-  let postUser: any; // FIX any
+  // FIX any
+  let postUser: any;
 
   loaderHandler(true);
 
@@ -33,40 +34,45 @@ const showUserInfo = async (id: number | null): Promise<void> => {
   const getPost = async () => {
     //http://localhost:5000/post/socialuser/6426e14325fb796e7b40268c
     await axios.get(`${url}/post/socialuser/${userProfile._id}`, { headers: headers })
-    .then((response: AxiosResponse) => {
-      postUser = response.data
-    })
-    .catch((e: AxiosError) => {
-      console.log("error happend", e);
-    });
+      .then((response: AxiosResponse) => {
+        postUser = response.data
+      })
+      .catch((e: AxiosError) => {
+        console.log("error happend", e);
+      });
   }
 
   // check if the user is the same user
-  if (id == null) {
+  if (id === null) {
     //http://localhost:5000/user/profile
-    await axios.get(`${url}/user/profile`, {headers: headers }).then((response: AxiosResponse) => {
+    await axios.get(`${url}/user/profile`, { headers: headers }).then((response: AxiosResponse) => {
       userProfile = response.data.user
-      // console.log(userProfile);
+      // console.log(userProfile)
       condition = true;
-      console.log("welcome");
     }).then(() => getPost())
       .catch((e: AxiosError) => console.log(e));
   } else {
     //http://localhost:5000/user/662b14cf730705c353d0b430/profile
     await axios.get(`${url}/user/${id}/profile`, { headers: headers })
-    .then((response: AxiosResponse) => {
-      userProfile = response.data.user
-      // console.log(userProfile);
-    }).then(() => getPost())
-    .catch((e: AxiosError) => console.log(e));
+      .then((response: AxiosResponse) => {
+        userProfile = response.data.user
+        // console.log(userProfile)
+      }).then(() => getPost())
+      .catch((e: AxiosError) => console.log(e));
   }
 
 
   loaderHandler(false);
+
+  // console.log(postUser)
   const allPostUser: HTMLElement = postUser.results.results.map((item: PostInfo) => {
+    // console.log("-------------------")
+    // console.log(item)
+    // console.log("-------------------")
     const id: number = item._id;
     idPost.value = id;
 
+    // FIX condition
     const userTemplate: string = templateCard(item, condition, idPost.value!, item.title, userProfile, true);
     return userTemplate;
   });
@@ -75,8 +81,11 @@ const showUserInfo = async (id: number | null): Promise<void> => {
   const userInfo: string = await userProfilePage(userProfile!, allPostUser, condition);
   if (content !== null)
     content.innerHTML = userInfo;
+
   scrollTop();
   loaderHandler(false);
 };
 
 export default showUserInfo;
+
+
