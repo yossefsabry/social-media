@@ -31,7 +31,7 @@
 /*   color: black; */
 /*   background: white; */
 /* } */
- 
+
 * {
   outline: none;
 }
@@ -43,7 +43,7 @@ html {
 
 
 body {
-  background: var(--dark-bg);
+  background: var(--dark-bg) !important;
   width: 100%;
   position: relative;
   /* height is broke the pagination for the website */
@@ -71,6 +71,7 @@ body {
   background: #555;
   /* Color of the scrollbar thumb on hover */
 }
+
 .navbar__container {
   padding: 0;
   background-color: var(--dark-bg) !important;
@@ -105,6 +106,7 @@ body {
     gap: 0px !important;
     padding: 10px !important;
   }
+
   .card {
     display: block;
     width: 100%;
@@ -288,6 +290,7 @@ image {
   border: 1px solid var(--color-gray);
   color: var(--color-light);
 }
+
 .profile-page * a {
   color: var(--color-light);
 }
@@ -461,7 +464,7 @@ img {
 .card-header {
   padding: 0.875rem 1.5rem;
   margin-bottom: 0;
-  border: 1px solid var(--color-gray / 10) ;
+  border: 1px solid var(--color-gray / 10);
 }
 
 .card-footer:last-child {
@@ -502,24 +505,28 @@ img {
   border-radius: 0.25rem;
   display: block !important;
 }
+
 .text-muted {
   color: rgb(191, 191, 191) !important;
 }
+
 .card__image__post {
   width: 100% !important;
   height: 400px !important;
-   object-fit: cover;
+  object-fit: cover;
 }
 
 /* // style for the user profile // */
 /* adding new update for the image cover in profile user*/
 .image__cover {
-  height: 300px !important; 
+  height: 300px !important;
 }
-@media (max-width: 765px){
+
+@media (max-width: 765px) {
   .image__cover {
-    height: 500px !important; 
+    height: 500px !important;
   }
+
   .feather {
     margin-inline: 5px;
   }
@@ -531,19 +538,21 @@ img {
   bottom: 0;
   left: 20px;
   background-color: var(--color-blue);
-  padding: 9px;
+  padding: 10px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 /* .modal-backdrop.show {
 display: none;
 } */
 
-.modal{
+.modal {
   overflow: auto !important;
 }
+
 .modal-open {
   overflow: scroll;
 }
@@ -553,19 +562,59 @@ display: none;
 #user__image__profile__navbar {
   width: 50px;
   height: 50px;
-  padding: 0;
-  border: 3px solid var(--color-blue);
+  padding: 1px 0px;
+  border: 6px solid var(--color-blue);
   border-radius: 50%;
+
 }
+
 #user__image__profile__navbar img {
-  width: 45px;
+  width: 40px;
   border-radius: 50%;
-  height: 44px;
+  position: relative;
+  bottom: 1.5px;
+  height: 40px;
 }
 
 
 /* suggest user */
-.suggest__user__container {
-}
+.suggest__user__container {}
 
 /* // selection loader // */
+.dropdown-menu {
+  padding: 0 !important;
+}
+
+#friends__wrapper {
+  padding: 15px 0;
+  border-bottom: 1px solid #acacac;
+  height: 50%;
+  overflow: auto;
+}
+
+#dropmenu__wrapper__friends {
+  background: #00000020;
+  color: var(--color-light);
+  width: calc(200px + 6vw);
+  left: -180px;
+  text-align: start;
+}
+
+#trash__icon {
+  font-size: 25px;
+  color: red;
+  cursor: pointer;
+}
+
+#trash__icon:hover {
+  color: #ff0000;
+}
+
+#accepted__icon {
+  font-size: 25px;
+  color: var(--color-light);
+  cursor: pointer;
+  /* hover effect*/
+} #accepted__icon:hover {
+  color: whitesmoke;
+}

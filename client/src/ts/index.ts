@@ -39,6 +39,9 @@ import showFriends from "./Logic/handleShowFriends.ts";
 import handleShowPostProfile from "./Logic/handleShowPostUserProfile.ts";
 import updateNavFriendMenu from "./Logic/updateTheUserFriendsMenuNav.ts";
 import handleUserProfile from "./Logic/handleGetUserProfileInfo.ts";
+import requestConnection from "./Logic/requestConnection.ts";
+import removeConnection from "./Logic/removeConnection.ts";
+import addingConnection from "./Logic/addingConnection.ts";
 
 export {
     reloadWindow, loaderHandler, setLocalStorageInfo,
@@ -49,5 +52,6 @@ export {
     getTimeInGoodWay, userCoverProfile, userAboutProfile, formatTimestamp, headerLinks, suggestUserProfile,
     changeUserImageCover, changeUserImageProfile, updateUserInfoProfile, updatePasswordUser,
     deleteUser, closeModal, addingLike, changeLove, sharePost, settingCurrentPost, handleShowUserAbout,
-    showFriends, handleShowPostProfile, updateNavFriendMenu, handleUserProfile
+    showFriends, handleShowPostProfile, updateNavFriendMenu, handleUserProfile, requestConnection,
+    removeConnection, addingConnection
 };

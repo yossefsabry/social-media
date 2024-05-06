@@ -103,3 +103,13 @@ export interface CustomHeaderWindow extends Window {
   handleShowPostProfile?: Function;
 }
 
+export interface CustomWindowFriendsList extends Window {
+  removeConnection: Function;
+  addingConnection: Function;
+}
+
+export interface CustomWindowSuggestProfile extends Window {
+  requestConnection?: Function;
+  showUserInfo?: Function;
+}
+

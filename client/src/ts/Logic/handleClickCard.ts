@@ -23,9 +23,11 @@ const handleClickCard = async(e: string) => {
   const userData = localStorage.getItem("user");
   if (userData !== null) {
     user = JSON.parse(userData);
+    authorId = user._id;
   }
 
   const conditionPostAuthor: boolean = authorIdPost == authorId;
+  console.log(authorId, authorIdPost, conditionPostAuthor);
   const post = String(await postTemplate(element, conditionPostAuthor, user!)); // is for the adding comment the id
   containerPost.innerHTML = post;
   scrollTop();

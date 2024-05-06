@@ -150,9 +150,13 @@ export const getUserConnections = asyncHandler(async (req, res) => {
 // Get User Connections
 export const getSuggestUser = asyncHandler(async (req, res) => {
   const userId = req.user._id; // get the current userId
-  const users = await userModel
+  let users = await userModel
     .find({ isDeleted: false, _id: { $ne: userId }, role: "user" })
     .limit(6);
+
+  users = users.filter(user => {
+    return !user.connections.accepted.includes(userId);
+  });
   return res.status(200).json({ status: "success", AllUsers: users.length, results: users });
 })
 
