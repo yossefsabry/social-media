@@ -41,7 +41,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
     phone,
     gender
   });
-  const __dirname = path.dirname(fileURLToPath(import.meta.url))
+  const __dirname = path.dirname(fileURLToPath(import.meta.url)) // get the current directory
   const fullpath = path.join(__dirname,`../../../../public/userProfile/${user.gender == 'male'?'male.jpg':'female.jpg'}`)
   const {secure_url,public_id} = await cloudinary.uploader.upload(fullpath,{
     folder:`${process.env.APP_NAME}/users/${user._id}/profile`
@@ -123,7 +123,7 @@ export const refreshToken = asyncHandler(async(req,res,next)=>{
       role:user.role,
       isLoggedIn: true,
     },
-    expiresIn:60*60*24*30
+    expiresIn:60*60*24
   });
   return res.status(200).json({status: "success",token:newToken,refreshToken});
 })

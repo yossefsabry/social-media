@@ -1,6 +1,6 @@
 import commentModel from "../../../../DB/models/comment.model.js";
 import postModel from "../../../../DB/models/post.model.js";
-// import cloudinary from "../../../Utlis/cloudinary.js";
+import cloudinary from "../../../Utlis/cloudinary.js";
 import { asyncHandler } from "../../../Utlis/ErrorHandeling.js";
 
 // Add Comment
@@ -14,10 +14,10 @@ export const addComment = asyncHandler(async(req,res,next)=>{
     req.body.userId = req.user._id
     if(req.file)
     {
-        // const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
-        //     folder:`${process.env.APP_NAME}/posts/${post._id}/comments`
-        // })
-        // req.body.image = {secure_url,public_id}
+        const {secure_url,public_id} = await cloudinary.uploader.upload(req.file.path,{
+            folder:`${process.env.APP_NAME}/posts/${post._id}/comments`
+        })
+        req.body.image = {secure_url,public_id}
     }
     const comment = await commentModel.create(req.body)
     return res.status(201).json({ status: "success", message: "Comment created Successfully", comment });

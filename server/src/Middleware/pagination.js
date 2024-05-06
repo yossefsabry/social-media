@@ -9,7 +9,6 @@ export function paginatedResults(model, modelUser, reactionList, condition) {
 
         const results = {}
 
-
         function getCondition(condition) {
             let conditionSearch = condition;
             switch (conditionSearch) {
@@ -72,7 +71,7 @@ export function paginatedResults(model, modelUser, reactionList, condition) {
                         }
                     ]
                 }
-            ]).limit(limit).skip(startIndex).exec()
+            ]).limit(limit).skip(startIndex).exec() // limit the posts skip the posts
             res.paginatedResults = results
             res.lastPage = Math.ceil(await model.countDocuments().exec() / limit)
             next()

@@ -200,7 +200,7 @@ export const acceptConnection = asyncHandler(async (req, res, next) => {
   }
 })
 
-// deleteConnection
+// deleteConnection 
 export const deleteConnection = asyncHandler(async (req, res, next) => {
   const socialUser = await userModel.findById(req.params.userId)
   if (!socialUser) {
@@ -217,7 +217,7 @@ export const deleteConnection = asyncHandler(async (req, res, next) => {
   return res.status(200).json({ status: "success", message: "The connection has been removed successfully" });
 })
 
-// MutalConnection
+// MutalConnection 
 export const mutalConnection = asyncHandler(async (req, res, next) => {
   const socialUser = await userModel.findById(req.params.userId).populate([
     {
