@@ -23,7 +23,7 @@ const initApp = (express, app) => {
   app.use(cors()) // very important for cross origin request for example from react to node ... 
   app.use(express.json({})); // parse the request body to json
   app.get('/',(req,res,next)=>{
-    return res.status(200).json({status:"Success",message:"welcome to social-backend-api",docs:"https://github.com/yossfsabry/"})
+    return res.status(200).json({status:"Success",message:"welcome to social-backend-api",docs:"https://github.com/yossfsabry/social-media"})
 })
   // the routes
   app.use("/user", userRouter);
@@ -32,7 +32,7 @@ const initApp = (express, app) => {
   app.use("/post", postRouter);
   // for handle other routers
   app.all("*", (req, res) => {
-    return res.status(404).json({ message: "404 request error | are you lost Baby Girl " });
+    return res.status(404).json({ message: "are you lost Baby Girl " });
   });
   // handle the errors
   app.use(globalErrorHandling)
